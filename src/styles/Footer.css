@@ -1,0 +1,9 @@
+.footer {
+  background-color: #dcdce1;
+  color: #000000;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
