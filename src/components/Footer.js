@@ -19,6 +19,7 @@ const Footer = () => {
             <span className="text-muted mr-3">
               <a
                 className="anchor-black"
+                rel="noreferrer"
                 href="https://github.com/shan18/"
                 target="_blank"
               >
