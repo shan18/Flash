@@ -28,7 +28,7 @@ class Navbar extends React.Component {
               className="mr-2"
               alt="logo"
             />{' '}
-            Orion AI
+            Lobe
           </Link>
           <button
             className={`navbar-toggler navbar-toggler-right ${

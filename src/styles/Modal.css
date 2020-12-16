@@ -1,0 +1,22 @@
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+}
+
+.modal-body {
+  position: fixed;
+  background: white;
+  width: 50%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  overflow-y: auto;
+  border-radius: 5px;
+  max-height: calc(100vh - 30vh);
+  transform: translate(-50%, -50%);
+}
