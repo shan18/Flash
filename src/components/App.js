@@ -5,6 +5,8 @@ import history from '../history';
 import Home from './cover/Home';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ModelTraining from './train/ModelTraining';
+import ModelInference from './infer/ModelInference';
 
 import '../styles/App.css';
 
@@ -18,6 +20,8 @@ class App extends React.Component {
             <div className="container">
               <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/training" exact component={ModelTraining} />
+                <Route path="/inference" exact component={ModelInference} />
               </Switch>
             </div>
           </Router>

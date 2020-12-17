@@ -12,24 +12,26 @@ class Modal extends React.Component {
     this.modalContent = [
       {
         title: 'Train a model',
+        targetUrl: '/training',
         contentText: 'Train an Image Classifier or a Sentiment Analysis Model.',
         buttonText: 'Train',
       },
       {
         title: 'Test an existing model',
+        targetUrl: '/inference',
         contentText: 'Test your existing model.',
         buttonText: 'Test',
       },
     ];
   }
 
-  renderCardContent({ title, contentText, buttonText }) {
+  renderCardContent({ title, targetUrl, contentText, buttonText }) {
     return (
-      <div className="card p-3">
+      <div className="card p-3" key={targetUrl}>
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{contentText}</p>
-          <Link to="#">
+          <Link to={targetUrl}>
             <button className="btn btn-primary">{buttonText}</button>
           </Link>
         </div>

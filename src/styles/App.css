@@ -27,3 +27,8 @@ body {
   margin-top: 3rem;
   margin-bottom: 3rem;
 }
+
+.btn-hover:hover {
+  background-color: #dcdce1;
+  color: #000;
+}
