@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
@@ -5,29 +6,43 @@ import { Link } from 'react-router-dom';
 import '../../styles/Modal.css';
 
 class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.modalContent = [
+      {
+        title: 'Train a model',
+        contentText: 'Train an Image Classifier or a Sentiment Analysis Model.',
+        buttonText: 'Train',
+      },
+      {
+        title: 'Test an existing model',
+        contentText: 'Test your existing model.',
+        buttonText: 'Test',
+      },
+    ];
+  }
+
+  renderCardContent({ title, contentText, buttonText }) {
+    return (
+      <div className="card p-3">
+        <div className="card-body">
+          <h5 className="card-title">{title}</h5>
+          <p className="card-text">{contentText}</p>
+          <Link to="#">
+            <button className="btn btn-primary">{buttonText}</button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   renderContent() {
     return (
       <div className="card-deck px-5">
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Train a model</h5>
-            <p className="card-text">
-              Train an Image Classifier or a Sentiment Analysis Model.
-            </p>
-            <Link to="#">
-              <button className="btn btn-primary">Train</button>
-            </Link>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Test an existing model</h5>
-            <p className="card-text">Test your existing model</p>
-            <Link to="#">
-              <button className="btn btn-primary">Test</button>
-            </Link>
-          </div>
-        </div>
+        {_.map(this.modalContent, item => {
+          return this.renderCardContent(item);
+        })}
       </div>
     );
   }
