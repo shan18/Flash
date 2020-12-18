@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Modal from './Modal';
+import CoverModal from './CoverModal';
 
 class Home extends React.Component {
   state = {
@@ -14,7 +14,11 @@ class Home extends React.Component {
   renderModal() {
     return (
       <React.Fragment>
-        {this.state.displayModal ? <Modal onDismiss={this.toggleModal} /> : ''}
+        {this.state.displayModal ? (
+          <CoverModal onDismiss={this.toggleModal} />
+        ) : (
+          ''
+        )}
       </React.Fragment>
     );
   }

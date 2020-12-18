@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import '../../styles/Modal.css';
 
-class Modal extends React.Component {
+class CoverModal extends React.Component {
   constructor(props) {
     super(props);
 
@@ -74,4 +74,4 @@ class Modal extends React.Component {
   }
 }
 
-export default Modal;
+export default CoverModal;
