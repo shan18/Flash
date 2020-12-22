@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { renderFormField, renderSubmitButton } from '../../utils';
-import HoverButtons from '../HoverButtons';
-import ImageUploadModal from './ImageUploadModal';
+import { renderFormField, renderSubmitButton } from '../../../utils';
+import HoverButtons from '../../HoverButtons';
+import ClassificationModal from './ClassificationModal';
 
-class ImageClassificationForm extends React.Component {
+class ClassificationForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -43,7 +43,7 @@ class ImageClassificationForm extends React.Component {
     return (
       <React.Fragment>
         {this.state.displayModal ? (
-          <ImageUploadModal
+          <ClassificationModal
             onDismiss={this.toggleModal}
             numImagesLimit={this.props.configOptions.numImagesLimit}
             numClassesLimit={this.props.configOptions.numClassesLimit}
@@ -182,7 +182,5 @@ const validate = (formValues, props) => {
 };
 
 export default connect()(
-  reduxForm({ form: 'imageClassificationForm', validate })(
-    ImageClassificationForm
-  )
+  reduxForm({ form: 'classificationForm', validate })(ClassificationForm)
 );

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 
 export const renderError = ({ error, touched }) => {
@@ -46,24 +47,61 @@ export const renderTextInputGroup = ({
   );
 };
 
+export const renderDropdownInputGroup = ({
+  input,
+  label,
+  options,
+  formGroupClassName,
+  meta,
+}) => {
+  const errorClassName = `${meta.touched && meta.error ? 'is-invalid' : ''}`;
+  return (
+    <div className={`form-group ${formGroupClassName}`}>
+      {label ? <label>{label}</label> : ''}
+      <div className={`input-group ${errorClassName}`}>
+        <select {...input} className="form-control custom-select">
+          <option value="">{options['default']}</option>
+          {_.map(options, (value, key) => {
+            if (key !== 'default') {
+              return (
+                <option key={key} value={key}>
+                  {value}
+                </option>
+              );
+            }
+            return '';
+          })}
+        </select>
+      </div>
+      {renderError(meta)}
+    </div>
+  );
+};
+
 export const renderFormField = ({
   input,
   contentType,
   type,
   placeholder,
   label,
+  options,
   formGroupClassName,
   meta,
 }) => {
-  if (contentType === 'textarea') {
-    type = 'textarea';
-  }
   if (contentType === 'text') {
     return renderTextInputGroup({
       input,
       label,
       type,
       placeholder,
+      formGroupClassName,
+      meta,
+    });
+  } else if (contentType === 'dropdown') {
+    return renderDropdownInputGroup({
+      input,
+      label,
+      options,
       formGroupClassName,
       meta,
     });

@@ -3,10 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
-import ImageUploadModalClassForm from './ImageUploadModalClassForm';
-import '../../styles/Modal.css';
+import ClassificationClassListForm from './ClassificationClassListForm';
+import ClassificationDataset from './ClassificationDataset';
+import '../../../styles/Modal.css';
 
-class ImageUploadModal extends React.Component {
+class ClassificationModal extends React.Component {
   renderClassList() {
     return _.map(_.range(0, this.props.numClassesLimit.max), number => {
       let isOptionalField =
@@ -20,7 +21,7 @@ class ImageUploadModal extends React.Component {
         };
       }
       return (
-        <ImageUploadModalClassForm
+        <ClassificationClassListForm
           form="classForm"
           isOptionalField={isOptionalField}
           key={number}
@@ -31,7 +32,7 @@ class ImageUploadModal extends React.Component {
   }
 
   renderImageUploader() {
-    return <h4>Image uploader</h4>;
+    return <ClassificationDataset />;
   }
 
   renderContent() {
@@ -39,10 +40,18 @@ class ImageUploadModal extends React.Component {
       <div className="row">
         <div className="col col-md-4 text-center">
           <h4>Classes</h4>
-          <small>You can add upto 10 classes</small>
+          <small>
+            Number of classes must be within the range{' '}
+            {this.props.numClassesLimit.min} - {this.props.numClassesLimit.max}
+          </small>
           {this.renderClassList()}
         </div>
         <div className="col col-md-8 text-center">
+          <h4>Images</h4>
+          <small>
+            Number of images for each class must be within the range{' '}
+            {this.props.numImagesLimit.min} - {this.props.numImagesLimit.max}
+          </small>
           {this.renderImageUploader()}
         </div>
       </div>
@@ -90,4 +99,4 @@ const mapStateToProps = ({ imageClassification }) => {
   return { imageClassification };
 };
 
-export default connect(mapStateToProps)(ImageUploadModal);
+export default connect(mapStateToProps)(ClassificationModal);

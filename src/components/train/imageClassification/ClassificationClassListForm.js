@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { FaCheck } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 
-import { imageAddClass, imageDeleteClass } from '../../actions';
+import { imageAddClass, imageDeleteClass } from '../../../actions';
 
-class ImageUploadModalClassForm extends React.Component {
+class ClassificationClassListForm extends React.Component {
   state = {
     classValue: '',
     isSaved: false,
@@ -76,5 +76,5 @@ class ImageUploadModalClassForm extends React.Component {
 }
 
 export default connect(null, { imageAddClass, imageDeleteClass })(
-  ImageUploadModalClassForm
+  ClassificationClassListForm
 );

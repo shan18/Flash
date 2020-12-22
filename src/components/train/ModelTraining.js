@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HoverButtons from '../HoverButtons';
-import ImageClassification from './ImageClassification';
+import Classification from './imageClassification/Classification';
 import SentimentAnalysis from './SentimentAnalysis';
 
 class ModelTraining extends React.Component {
@@ -26,7 +26,7 @@ class ModelTraining extends React.Component {
 
   renderCurrentTask() {
     if (this.state.currentTask === 'classification') {
-      return <ImageClassification />;
+      return <Classification />;
     } else {
       return <SentimentAnalysis />;
     }

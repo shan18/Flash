@@ -2,9 +2,9 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ImageClassificationForm from './ImageClassificationForm';
+import ClassificationForm from './ClassificationForm';
 
-class ImageClassification extends React.Component {
+class Classification extends React.Component {
   constructor(props) {
     super(props);
 
@@ -22,7 +22,7 @@ class ImageClassification extends React.Component {
     return (
       <div className="row mt-5">
         <div className="col-6 mx-auto">
-          <ImageClassificationForm
+          <ClassificationForm
             configOptions={this.configOptions}
             loading={this.props.loadingForm.includes(this.constructor.name)}
           />
@@ -36,4 +36,4 @@ const mapStateToProps = state => {
   return _.pick(state, 'loadingForm');
 };
 
-export default connect(mapStateToProps)(ImageClassification);
+export default connect(mapStateToProps)(Classification);
