@@ -12,11 +12,10 @@ class ClassificationModal extends React.Component {
     return _.map(_.range(0, this.props.numClassesLimit.max), number => {
       let isOptionalField =
         number >= this.props.numClassesLimit.min ? true : false;
-      const imgClassificationKeys = _.keys(this.props.classification);
       let initialData = null;
-      if (number < imgClassificationKeys.length) {
+      if (number < this.props.classList.length) {
         initialData = {
-          classValue: imgClassificationKeys[number],
+          classValue: this.props.classList[number],
           isSaved: true,
         };
       }
@@ -95,8 +94,8 @@ class ClassificationModal extends React.Component {
   }
 }
 
-const mapStateToProps = ({ classification }) => {
-  return { classification };
+const mapStateToProps = ({ classification: { dataset } }) => {
+  return { classList: _.keys(dataset) };
 };
 
 export default connect(mapStateToProps)(ClassificationModal);

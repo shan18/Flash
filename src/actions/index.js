@@ -3,6 +3,7 @@ import {
   CLEAR_LOADING_FORM,
   CLASSIFY_ADD_CLASS,
   CLASSIFY_DELETE_CLASS,
+  CLASSIFY_CURRENT_CLASS,
 } from './types';
 
 export const loadingForm = formName => {
@@ -29,6 +30,13 @@ export const classifyAddClass = classNameValue => {
 export const classifyDeleteClass = classNameValue => {
   return {
     type: CLASSIFY_DELETE_CLASS,
+    payload: classNameValue,
+  };
+};
+
+export const classifyCurrentClass = classNameValue => {
+  return {
+    type: CLASSIFY_CURRENT_CLASS,
     payload: classNameValue,
   };
 };

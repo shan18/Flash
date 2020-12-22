@@ -6,18 +6,14 @@ import { Field, reduxForm } from 'redux-form';
 import { renderDropdownInputGroup } from '../../../utils';
 
 class ClassificationClassChoiceForm extends React.Component {
-  onSubmit(values) {
-    console.log(values);
-  }
-
   render() {
-    const classList = _.keys(this.props.classification);
+    const { classList } = this.props;
     return (
-      <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+      <form>
         <div className="row mt-3">
           <div className="col-6 mx-auto">
             <Field
-              name="classDropdown"
+              name="classChoice"
               component={renderDropdownInputGroup}
               contentType="dropdown"
               options={{
@@ -32,18 +28,15 @@ class ClassificationClassChoiceForm extends React.Component {
   }
 }
 
-const mapStateToProps = ({ classification }) => {
-  return { classification };
+const mapStateToProps = ({ classification: { dataset } }) => {
+  return { classList: _.keys(dataset) };
 };
 
 export default connect(mapStateToProps)(
   reduxForm({
     form: 'classificationClassChoiceForm',
-    onChange: (values, dispatch, props, previousValues) => {
-      console.log(values);
-      console.log(props);
-      console.log(previousValues);
-      // props.submit();
+    onChange: (values, dispatch, props) => {
+      props.submit();
     },
   })(ClassificationClassChoiceForm)
 );
