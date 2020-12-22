@@ -1,8 +1,8 @@
 import {
   LOADING_FORM,
   CLEAR_LOADING_FORM,
-  IMAGE_ADD_CLASS,
-  IMAGE_DELETE_CLASS,
+  CLASSIFY_ADD_CLASS,
+  CLASSIFY_DELETE_CLASS,
 } from './types';
 
 export const loadingForm = formName => {
@@ -19,16 +19,16 @@ export const clearLoadingForm = formName => {
   };
 };
 
-export const imageAddClass = classNameValue => {
+export const classifyAddClass = classNameValue => {
   return {
-    type: IMAGE_ADD_CLASS,
+    type: CLASSIFY_ADD_CLASS,
     payload: classNameValue,
   };
 };
 
-export const imageDeleteClass = classNameValue => {
+export const classifyDeleteClass = classNameValue => {
   return {
-    type: IMAGE_DELETE_CLASS,
+    type: CLASSIFY_DELETE_CLASS,
     payload: classNameValue,
   };
 };

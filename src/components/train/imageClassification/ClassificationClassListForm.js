@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { FaCheck } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 
-import { imageAddClass, imageDeleteClass } from '../../../actions';
+import { classifyAddClass, classifyDeleteClass } from '../../../actions';
 
 class ClassificationClassListForm extends React.Component {
   state = {
@@ -18,9 +18,9 @@ class ClassificationClassListForm extends React.Component {
   onSubmit() {
     const { isSaved, classValue } = this.state;
     if (!isSaved) {
-      this.props.imageAddClass(classValue);
+      this.props.classifyAddClass(classValue);
     } else {
-      this.props.imageDeleteClass(classValue);
+      this.props.classifyDeleteClass(classValue);
       this.setState({ classValue: '' });
     }
     this.toggleSaveMode();
@@ -75,6 +75,6 @@ class ClassificationClassListForm extends React.Component {
   }
 }
 
-export default connect(null, { imageAddClass, imageDeleteClass })(
+export default connect(null, { classifyAddClass, classifyDeleteClass })(
   ClassificationClassListForm
 );
