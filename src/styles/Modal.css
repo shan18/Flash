@@ -11,7 +11,7 @@
 .modal-body {
   position: fixed;
   background: white;
-  width: 40%;
+  width: 50%;
   height: auto;
   top: 50%;
   left: 50%;
@@ -19,6 +19,18 @@
   border-radius: 5px;
   max-height: calc(100vh - 30vh);
   transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 992px) {
+  .modal-body {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .modal-body {
+    width: 90%;
+  }
 }
 
 .card {

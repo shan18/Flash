@@ -1,6 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
 
+const setErrorClass = ({ touched, error }) => {
+  return `${touched && error ? 'is-invalid' : ''}`;
+};
+
 export const renderError = ({ error, touched }) => {
   if (touched && error) {
     return <div className="invalid-feedback">{error}</div>;
@@ -8,11 +12,10 @@ export const renderError = ({ error, touched }) => {
 };
 
 export const renderTextInput = ({ input, label, type, placeholder, meta }) => {
-  const errorClassName = `${meta.touched && meta.error ? 'is-invalid' : ''}`;
   return (
     <React.Fragment>
       {label ? <label>{label}</label> : ''}
-      <div className={`input-group ${errorClassName}`}>
+      <div className={`input-group ${setErrorClass(meta)}`}>
         <input
           {...input}
           type={type}
@@ -54,11 +57,10 @@ export const renderDropdownInputGroup = ({
   formGroupClassName,
   meta,
 }) => {
-  const errorClassName = `${meta.touched && meta.error ? 'is-invalid' : ''}`;
   return (
     <div className={`form-group ${formGroupClassName}`}>
       {label ? <label>{label}</label> : ''}
-      <div className={`input-group ${errorClassName}`}>
+      <div className={`input-group ${setErrorClass(meta)}`}>
         <select {...input} className="form-control custom-select">
           <option value="">{options['default']}</option>
           {_.map(options, (value, key) => {
@@ -78,6 +80,30 @@ export const renderDropdownInputGroup = ({
   );
 };
 
+export const renderFileInputGroup = ({
+  input,
+  label,
+  multiple,
+  formGroupClassName,
+  meta,
+}) => {
+  let isMultiple = multiple ? multiple : false;
+  return (
+    <div className={`form-group ${formGroupClassName}`}>
+      <div className={`custom-file ${setErrorClass(meta)}`}>
+        <label className="custom-file-label text-left">{label}</label>
+        <input
+          {..._.omit(input, 'value')}
+          type="file"
+          className="custom-file-input"
+          multiple={isMultiple}
+        />
+      </div>
+      {renderError(meta)}
+    </div>
+  );
+};
+
 export const renderFormField = ({
   input,
   contentType,
@@ -85,6 +111,7 @@ export const renderFormField = ({
   placeholder,
   label,
   options,
+  multiple,
   formGroupClassName,
   meta,
 }) => {
@@ -102,6 +129,14 @@ export const renderFormField = ({
       input,
       label,
       options,
+      formGroupClassName,
+      meta,
+    });
+  } else if (contentType === 'file') {
+    return renderFileInputGroup({
+      input,
+      label,
+      multiple,
       formGroupClassName,
       meta,
     });

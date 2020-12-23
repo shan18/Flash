@@ -69,7 +69,7 @@ class ClassificationForm extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-6 mr-auto text-center">
+          <div className="col col-md-6 mr-auto text-center">
             <h4 className="mb-3">Model</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.modelTypes}
@@ -78,7 +78,7 @@ class ClassificationForm extends React.Component {
               isSmall
             />
           </div>
-          <div className="col-4 ml-auto text-center">
+          <div className="col col-md-4 ml-auto text-center">
             <h4 className="mb-3">Dataset Split</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.dataSplit}

@@ -16,7 +16,7 @@ class HoverButtons extends React.Component {
 
     return (
       <button
-        className={`btn border border-secondary mx-2 btn-hover ${
+        className={`btn border border-secondary mx-2 my-2 btn-hover ${
           this.props.isSmall ? 'btn-sm' : ''
         } ${
           this.props.currentButtonValue === buttonValue ? 'btn-primary' : ''
