@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { classifyCurrentClass, classifyAddImages } from '../../../actions';
 import ClassificationClassChoiceForm from './ClassificationClassChoiceForm';
 import ClassificationDataUploadForm from './ClassificationDataUploadForm';
+import ClassificationDataPreview from './ClassificationDataPreview';
 
 class ClassificationDataset extends React.Component {
   onClassChoiceSubmit = values => {
@@ -33,6 +34,7 @@ class ClassificationDataset extends React.Component {
         </small>
         <ClassificationClassChoiceForm onSubmit={this.onClassChoiceSubmit} />
         <ClassificationDataUploadForm onSubmit={this.onDataUploadSubmit} />
+        <ClassificationDataPreview />
       </React.Fragment>
     );
   }
