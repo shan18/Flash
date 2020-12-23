@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import { FaCheck } from 'react-icons/fa';
-import { MdDelete } from 'react-icons/md';
+import { MdDelete, MdError } from 'react-icons/md';
 
 import { classifyAddClass, classifyDeleteClass } from '../../../actions';
 
@@ -16,14 +18,24 @@ class ClassificationClassListForm extends React.Component {
   };
 
   onSubmit() {
-    const { isSaved, classValue } = this.state;
-    if (!isSaved) {
-      this.props.classifyAddClass(classValue);
+    const { isSaved } = this.state;
+    if (!isSaved && this.props.classList.includes(this.state.classValue)) {
+      toast.error(
+        <div>
+          <MdError /> A class with name "{this.state.classValue}" already
+          exists!
+        </div>
+      );
     } else {
-      this.props.classifyDeleteClass(classValue);
-      this.setState({ classValue: '' });
+      const { classValue } = this.state;
+      if (!isSaved) {
+        this.props.classifyAddClass(classValue);
+      } else {
+        this.props.classifyDeleteClass(classValue);
+        this.setState({ classValue: '' });
+      }
+      this.toggleSaveMode();
     }
-    this.toggleSaveMode();
   }
 
   componentDidMount() {
@@ -75,6 +87,11 @@ class ClassificationClassListForm extends React.Component {
   }
 }
 
-export default connect(null, { classifyAddClass, classifyDeleteClass })(
-  ClassificationClassListForm
-);
+const mapStateToProps = ({ classification: { dataset } }) => {
+  return { classList: _.keys(dataset) };
+};
+
+export default connect(mapStateToProps, {
+  classifyAddClass,
+  classifyDeleteClass,
+})(ClassificationClassListForm);
