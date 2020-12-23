@@ -4,6 +4,8 @@ import {
   CLASSIFY_ADD_CLASS,
   CLASSIFY_DELETE_CLASS,
   CLASSIFY_CURRENT_CLASS,
+  CLASSIFY_ADD_IMAGES,
+  CLASSIFY_CLEAR,
 } from './types';
 
 export const loadingForm = formName => {
@@ -38,5 +40,18 @@ export const classifyCurrentClass = classNameValue => {
   return {
     type: CLASSIFY_CURRENT_CLASS,
     payload: classNameValue,
+  };
+};
+
+export const classifyAddImages = imagesList => {
+  return {
+    type: CLASSIFY_ADD_IMAGES,
+    payload: imagesList,
+  };
+};
+
+export const classifyClear = () => {
+  return {
+    type: CLASSIFY_CLEAR,
   };
 };

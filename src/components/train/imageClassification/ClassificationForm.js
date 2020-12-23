@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
+import { classifyClear } from '../../../actions';
 import { renderFormField, renderSubmitButton } from '../../../utils';
 import HoverButtons from '../../HoverButtons';
 import ClassificationModal from './ClassificationModal';
@@ -19,6 +20,13 @@ class ClassificationForm extends React.Component {
 
   toggleModal = () => {
     this.setState({ displayModal: !this.state.displayModal });
+  };
+
+  onModalDismiss = clear => {
+    if (clear) {
+      this.props.classifyClear();
+    }
+    this.toggleModal();
   };
 
   changeModelType = modelType => {
@@ -44,7 +52,7 @@ class ClassificationForm extends React.Component {
       <React.Fragment>
         {this.state.displayModal ? (
           <ClassificationModal
-            onDismiss={this.toggleModal}
+            onDismiss={this.onModalDismiss}
             numImagesLimit={this.props.configOptions.numImagesLimit}
             numClassesLimit={this.props.configOptions.numClassesLimit}
           />
@@ -181,6 +189,6 @@ const validate = (formValues, props) => {
   return errors;
 };
 
-export default connect()(
+export default connect(null, { classifyClear })(
   reduxForm({ form: 'classificationForm', validate })(ClassificationForm)
 );

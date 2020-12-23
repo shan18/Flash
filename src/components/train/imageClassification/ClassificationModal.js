@@ -59,7 +59,7 @@ class ClassificationModal extends React.Component {
 
   render() {
     return ReactDOM.createPortal(
-      <div className="modal-container" onClick={this.props.onDismiss}>
+      <div className="modal-container" onClick={() => this.props.onDismiss()}>
         <div
           className="modal-body"
           style={{ width: '60%', maxHeight: 'calc(100vh - 20vh)' }}
@@ -81,7 +81,7 @@ class ClassificationModal extends React.Component {
               </button>
               <button
                 className="btn btn-warning mr-2"
-                onClick={this.props.onDismiss}
+                onClick={() => this.props.onDismiss(true)}
               >
                 Go Back
               </button>
