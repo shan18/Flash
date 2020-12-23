@@ -9,7 +9,9 @@ class ClassificationDataUploadForm extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.currentClass ? (
+        {this.props.currentClass &&
+        !this.props.numImagesExceeded &&
+        !this.props.sizeExceeded ? (
           <form>
             <div className="row mt-3">
               <div className="col-5 mx-auto">
@@ -33,8 +35,26 @@ class ClassificationDataUploadForm extends React.Component {
   }
 }
 
-const mapStateToProps = ({ classification: { currentClass } }) => {
-  return { currentClass };
+const mapStateToProps = ({
+  classification: {
+    currentClass,
+    dataset,
+    classSize,
+    configOptions: {
+      numImagesLimit: { max: numImagesLimitMax },
+      sizeLimit,
+    },
+  },
+}) => {
+  return {
+    currentClass,
+    numImagesExceeded: dataset[currentClass]
+      ? dataset[currentClass].length >= numImagesLimitMax
+      : false,
+    sizeExceeded: classSize[currentClass]
+      ? classSize[currentClass] >= sizeLimit
+      : false,
+  };
 };
 
 export default connect(mapStateToProps)(

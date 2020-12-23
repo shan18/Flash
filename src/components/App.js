@@ -25,6 +25,7 @@ class App extends React.Component {
             rtl={false}
             pauseOnFocusLoss
             draggable
+            style={{ width: '40%' }}
           />
           <Router history={history}>
             <Navbar />

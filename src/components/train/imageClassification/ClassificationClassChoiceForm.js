@@ -35,6 +35,7 @@ const mapStateToProps = ({ classification: { dataset } }) => {
 export default connect(mapStateToProps)(
   reduxForm({
     form: 'classificationClassChoiceForm',
+    enableReinitialize: true,
     onChange: (values, dispatch, props) => {
       props.submit();
     },

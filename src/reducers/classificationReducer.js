@@ -12,15 +12,14 @@ import {
 
 const INITIAL_STATE = {
   configOptions: {},
-  currentClass: null,
+  currentClass: '',
   currentConfig: { modelType: '', dataSplit: '' },
   dataset: {},
-  size: 0,
+  classSize: {},
 };
 
 const classificationReducer = (state = INITIAL_STATE, action) => {
-  let dataset;
-  let currentConfig;
+  let dataset, classSize, currentConfig, currentClass;
   switch (action.type) {
     case CLASSIFY_CONFIG:
       return {
@@ -36,10 +35,16 @@ const classificationReducer = (state = INITIAL_STATE, action) => {
       return { ...state, currentConfig };
     case CLASSIFY_ADD_CLASS:
       dataset = { ...state.dataset, [action.payload]: [] };
-      return { ...state, dataset };
+      classSize = { ...state.classSize, [action.payload]: 0 };
+      return { ...state, dataset, classSize };
     case CLASSIFY_DELETE_CLASS:
       dataset = _.omit(state.dataset, action.payload);
-      return { ...state, dataset };
+      classSize = _.omit(state.classSize, action.payload);
+      currentClass =
+        state.currentClass === action.payload
+          ? INITIAL_STATE.currentClass
+          : state.currentClass;
+      return { ...state, dataset, classSize, currentClass };
     case CLASSIFY_CURRENT_CLASS:
       return { ...state, currentClass: action.payload };
     case CLASSIFY_ADD_IMAGES:
@@ -47,10 +52,15 @@ const classificationReducer = (state = INITIAL_STATE, action) => {
         ...state.dataset,
         [state.currentClass]: [
           ...state.dataset[state.currentClass],
-          ...action.payload,
+          ...action.payload.imagesList,
         ],
       };
-      return { ...state, dataset };
+      classSize = {
+        ...state.classSize,
+        [state.currentClass]:
+          state.classSize[state.currentClass] + action.payload.imagesListSize,
+      };
+      return { ...state, dataset, classSize };
     case CLASSIFY_CLEAR:
       return {
         ...state,

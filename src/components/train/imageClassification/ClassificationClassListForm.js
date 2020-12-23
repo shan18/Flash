@@ -22,8 +22,8 @@ class ClassificationClassListForm extends React.Component {
     if (!isSaved && this.props.classList.includes(this.state.classValue)) {
       toast.error(
         <div>
-          <MdError /> A class with name "{this.state.classValue}" already
-          exists!
+          <MdError size={25} />
+          &nbsp; A class with name "{this.state.classValue}" already exists!
         </div>
       );
     } else {

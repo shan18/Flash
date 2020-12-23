@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
+import { MdError } from 'react-icons/md';
 
 import { classifyCurrentClass, classifyAddImages } from '../../../actions';
 import ClassificationClassChoiceForm from './ClassificationClassChoiceForm';
@@ -13,15 +15,38 @@ class ClassificationDataset extends React.Component {
   };
 
   onDataUploadSubmit = values => {
-    const imagesList = Array.from(_.values(values)[0]);
-    const imagesListUrl = _.map(imagesList, image =>
-      URL.createObjectURL(image)
-    );
-    console.log(imagesList);
-    if (imagesList.length > 0) {
-      console.log(_.sumBy(['size'], _.partial(_.sumBy, imagesList)));
+    // Fetch list of images
+    let imagesList = Array.from(_.values(values)[0]);
+    if (
+      this.props.currentClassImgCount + imagesList.length >
+      this.props.numImagesLimit.max
+    ) {
+      imagesList = imagesList.slice(
+        0,
+        this.props.numImagesLimit.max - this.props.currentClassImgCount
+      );
     }
-    this.props.classifyAddImages(imagesListUrl);
+
+    // Obtain size
+    let imagesListSize = 0;
+    if (imagesList.length > 0) {
+      imagesListSize = _.sumBy(['size'], _.partial(_.sumBy, imagesList));
+    }
+    if (this.props.currentSize + imagesListSize >= this.props.sizeLimit) {
+      toast.info(
+        <div>
+          <MdError size={25} />
+          &nbsp; Cannot upload images. Total size of the images for this class
+          are exceeding {this.props.sizeLimit / 1000000} MB.
+        </div>
+      );
+    } else {
+      // Update redux store
+      const imagesListUrl = _.map(imagesList, image =>
+        URL.createObjectURL(image)
+      );
+      this.props.classifyAddImages(imagesListUrl, imagesListSize);
+    }
   };
 
   render() {
@@ -30,9 +55,22 @@ class ClassificationDataset extends React.Component {
         <h4>Images</h4>
         <small>
           Number of images for each class must be within the range{' '}
-          {this.props.numImagesLimit.min} - {this.props.numImagesLimit.max}
+          {this.props.numImagesLimit.min} - {this.props.numImagesLimit.max}.
         </small>
-        <ClassificationClassChoiceForm onSubmit={this.onClassChoiceSubmit} />
+        <br />
+        <small>
+          If you upload more than {this.props.numImagesLimit.max} images then
+          only the first {this.props.numImagesLimit.max} images will be
+          considered.
+        </small>
+        <br />
+        <small>
+          The total size of the images for each class must be less than 20 MB.
+        </small>
+        <ClassificationClassChoiceForm
+          onSubmit={this.onClassChoiceSubmit}
+          initialValues={{ classChoice: this.props.currentClass }}
+        />
         <ClassificationDataUploadForm onSubmit={this.onDataUploadSubmit} />
         <ClassificationDataPreview />
       </React.Fragment>
@@ -42,10 +80,21 @@ class ClassificationDataset extends React.Component {
 
 const mapStateToProps = ({
   classification: {
-    configOptions: { numImagesLimit },
+    currentClass,
+    dataset,
+    classSize,
+    configOptions: { numImagesLimit, sizeLimit },
   },
 }) => {
-  return { numImagesLimit };
+  return {
+    currentClass,
+    numImagesLimit,
+    sizeLimit,
+    currentSize: classSize[currentClass],
+    currentClassImgCount: dataset[currentClass]
+      ? dataset[currentClass].length
+      : 0,
+  };
 };
 
 export default connect(mapStateToProps, {
