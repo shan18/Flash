@@ -1,6 +1,19 @@
 import _ from 'lodash';
 import React from 'react';
 
+export const renderLoadingPage = loadingText => {
+  return (
+    <div className="row">
+      <div className="col-12 text-center">
+        <h4 className="heading">{loadingText}</h4>
+      </div>
+      <div className="col-12 text-center">
+        <div className="spinner-grow spinner-grow-md" role="status" />
+      </div>
+    </div>
+  );
+};
+
 const setErrorClass = ({ touched, error }) => {
   return `${touched && error ? 'is-invalid' : ''}`;
 };
@@ -83,6 +96,7 @@ export const renderDropdownInputGroup = ({
 export const renderFileInputGroup = ({
   input,
   label,
+  accept,
   multiple,
   formGroupClassName,
   meta,
@@ -97,6 +111,7 @@ export const renderFileInputGroup = ({
           type="file"
           className="custom-file-input"
           multiple={isMultiple}
+          accept={accept}
         />
       </div>
       {renderError(meta)}
@@ -111,6 +126,7 @@ export const renderFormField = ({
   placeholder,
   label,
   options,
+  accept,
   multiple,
   formGroupClassName,
   meta,
@@ -136,6 +152,7 @@ export const renderFormField = ({
     return renderFileInputGroup({
       input,
       label,
+      accept,
       multiple,
       formGroupClassName,
       meta,

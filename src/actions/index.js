@@ -1,6 +1,9 @@
 import {
   LOADING_FORM,
   CLEAR_LOADING_FORM,
+  CLASSIFY_CONFIG,
+  CLASSIFY_MODEL_TYPE,
+  CLASSIFY_DATA_SPLIT,
   CLASSIFY_ADD_CLASS,
   CLASSIFY_DELETE_CLASS,
   CLASSIFY_CURRENT_CLASS,
@@ -19,6 +22,27 @@ export const clearLoadingForm = formName => {
   return {
     type: CLEAR_LOADING_FORM,
     payload: formName,
+  };
+};
+
+export const classifyConfig = config => {
+  return {
+    type: CLASSIFY_CONFIG,
+    payload: config,
+  };
+};
+
+export const classifyModelType = modelType => {
+  return {
+    type: CLASSIFY_MODEL_TYPE,
+    payload: modelType,
+  };
+};
+
+export const classifyDataSplit = dataSplit => {
+  return {
+    type: CLASSIFY_DATA_SPLIT,
+    payload: dataSplit,
   };
 };
 

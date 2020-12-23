@@ -2,70 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { classifyClear } from '../../../actions';
-import { renderFormField, renderSubmitButton } from '../../../utils';
+import { classifyModelType, classifyDataSplit } from '../../../actions';
+import { renderFormField } from '../../../utils';
 import HoverButtons from '../../HoverButtons';
-import ClassificationModal from './ClassificationModal';
 
-class ClassificationForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentModelType: this.props.configOptions.modelTypes[0],
-      currentDataSplit: this.props.configOptions.dataSplit[0],
-      displayModal: false,
-    };
-  }
-
-  toggleModal = () => {
-    this.setState({ displayModal: !this.state.displayModal });
-  };
-
-  onModalDismiss = clear => {
-    if (clear) {
-      this.props.classifyClear();
-    }
-    this.toggleModal();
-  };
-
+class ClassificationConfigForm extends React.Component {
   changeModelType = modelType => {
-    if (!(this.state.currentModelType === modelType)) {
-      this.setState({ currentModelType: modelType });
-    }
+    this.props.classifyModelType(modelType);
   };
 
   changeDataSplit = dataSplit => {
-    if (!(this.state.currentDataSplit === dataSplit)) {
-      this.setState({ currentDataSplit: dataSplit });
-    }
+    this.props.classifyDataSplit(dataSplit);
   };
-
-  onSubmit(values) {
-    values.modelType = this.state.currentModelType;
-    values.dataSplit = this.state.currentDataSplit;
-    console.log(values);
-  }
-
-  renderModal() {
-    return (
-      <React.Fragment>
-        {this.state.displayModal ? (
-          <ClassificationModal
-            onDismiss={this.onModalDismiss}
-            numImagesLimit={this.props.configOptions.numImagesLimit}
-            numClassesLimit={this.props.configOptions.numClassesLimit}
-          />
-        ) : (
-          ''
-        )}
-      </React.Fragment>
-    );
-  }
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+      <form onSubmit={this.props.handleSubmit}>
         <div className="form-group row mb-5">
           <div className="col">
             <Field
@@ -81,7 +33,7 @@ class ClassificationForm extends React.Component {
             <h4 className="mb-3">Model</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.modelTypes}
-              currentButtonValue={this.state.currentModelType}
+              currentButtonValue={this.props.currentConfig.modelType}
               changeCurrentButtonValue={this.changeModelType}
               isSmall
             />
@@ -90,7 +42,7 @@ class ClassificationForm extends React.Component {
             <h4 className="mb-3">Dataset Split</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.dataSplit}
-              currentButtonValue={this.state.currentDataSplit}
+              currentButtonValue={this.props.currentConfig.dataSplit}
               changeCurrentButtonValue={this.changeDataSplit}
               isSmall
             />
@@ -116,36 +68,12 @@ class ClassificationForm extends React.Component {
             />
           </div>
         </div>
-        <div className="row my-5 text-center">
-          <div className="col">
-            <button
-              className="btn btn-dark"
-              onClick={event => {
-                event.preventDefault();
-                this.toggleModal();
-              }}
-            >
-              Upload Dataset
-            </button>
-          </div>
-        </div>
-        <div className="row mt-5 text-center">
-          <div className="col">
-            {renderSubmitButton({
-              loading: this.props.loading,
-              btnColor: 'success',
-              originalText: 'Start Training!',
-              loadingText: 'Uploading config...',
-            })}
-          </div>
-        </div>
-        {this.renderModal()}
       </form>
     );
   }
 }
 
-const validate = (formValues, props) => {
+const validate = (formValues, { configOptions }) => {
   const errors = {};
 
   // Task Name
@@ -159,7 +87,7 @@ const validate = (formValues, props) => {
   // Batch Size
   const {
     batchSizeLimit: { min: batchSizeMin, max: batchSizeMax },
-  } = props.configOptions;
+  } = configOptions;
   if (!formValues.batchSize) {
     errors.batchSize = 'You must enter a batch size';
   } else if (!/^[0-9]+$/i.test(formValues.batchSize)) {
@@ -174,7 +102,7 @@ const validate = (formValues, props) => {
   // Epochs
   const {
     numEpochsLimit: { min: numEpochsMin, max: numEpochsMax },
-  } = props.configOptions;
+  } = configOptions;
   if (!formValues.epochs) {
     errors.epochs = 'You must enter the number of epochs';
   } else if (!/^[0-9]+$/i.test(formValues.epochs)) {
@@ -189,6 +117,13 @@ const validate = (formValues, props) => {
   return errors;
 };
 
-export default connect(null, { classifyClear })(
-  reduxForm({ form: 'classificationForm', validate })(ClassificationForm)
-);
+const mapStateToProps = ({
+  classification: { configOptions, currentConfig },
+}) => {
+  return { configOptions, currentConfig };
+};
+
+export default connect(mapStateToProps, {
+  classifyModelType,
+  classifyDataSplit,
+})(reduxForm({ validate })(ClassificationConfigForm));

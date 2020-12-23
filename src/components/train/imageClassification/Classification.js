@@ -1,8 +1,8 @@
-import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ClassificationForm from './ClassificationForm';
+import { classifyConfig } from '../../../actions';
+import ClassificationCreate from './ClassificationCreate';
 
 class Classification extends React.Component {
   constructor(props) {
@@ -16,14 +16,25 @@ class Classification extends React.Component {
       numClassesLimit: { min: 2, max: 10 },
       numImagesLimit: { min: 1, max: 5 },
     };
+
+    this.currentConfig = {
+      modelType: 'MobileNet v2',
+      dataSplit: '70 : 30',
+    };
+  }
+
+  componentDidMount() {
+    this.props.classifyConfig({
+      ...this.configOptions,
+      currentConfig: this.currentConfig,
+    });
   }
 
   render() {
     return (
       <div className="row mt-5">
         <div className="col-6 mx-auto">
-          <ClassificationForm
-            configOptions={this.configOptions}
+          <ClassificationCreate
             loading={this.props.loadingForm.includes(this.constructor.name)}
           />
         </div>
@@ -32,8 +43,8 @@ class Classification extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return _.pick(state, 'loadingForm');
+const mapStateToProps = ({ loadingForm }) => {
+  return { loadingForm };
 };
 
-export default connect(mapStateToProps)(Classification);
+export default connect(mapStateToProps, { classifyConfig })(Classification);

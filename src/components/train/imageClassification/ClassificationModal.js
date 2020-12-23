@@ -1,57 +1,19 @@
-import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
 
-import ClassificationClassListForm from './ClassificationClassListForm';
+import ClassificationClassList from './ClassificationClassList';
 import ClassificationDataset from './ClassificationDataset';
 import '../../../styles/Modal.css';
 
 class ClassificationModal extends React.Component {
-  renderClassList() {
-    return _.map(_.range(0, this.props.numClassesLimit.max), number => {
-      let isOptionalField =
-        number >= this.props.numClassesLimit.min ? true : false;
-      let initialData = null;
-      if (number < this.props.classList.length) {
-        initialData = {
-          classValue: this.props.classList[number],
-          isSaved: true,
-        };
-      }
-      return (
-        <ClassificationClassListForm
-          form="classForm"
-          isOptionalField={isOptionalField}
-          key={number}
-          initialData={initialData}
-        />
-      );
-    });
-  }
-
-  renderImageUploader() {
-    return <ClassificationDataset />;
-  }
-
   renderContent() {
     return (
       <div className="row">
         <div className="col col-md-4 text-center">
-          <h4>Classes</h4>
-          <small>
-            Number of classes must be within the range{' '}
-            {this.props.numClassesLimit.min} - {this.props.numClassesLimit.max}
-          </small>
-          {this.renderClassList()}
+          <ClassificationClassList />
         </div>
         <div className="col col-md-8 text-center">
-          <h4>Images</h4>
-          <small>
-            Number of images for each class must be within the range{' '}
-            {this.props.numImagesLimit.min} - {this.props.numImagesLimit.max}
-          </small>
-          {this.renderImageUploader()}
+          <ClassificationDataset />
         </div>
       </div>
     );
@@ -94,8 +56,4 @@ class ClassificationModal extends React.Component {
   }
 }
 
-const mapStateToProps = ({ classification: { dataset } }) => {
-  return { classList: _.keys(dataset) };
-};
-
-export default connect(mapStateToProps)(ClassificationModal);
+export default ClassificationModal;
