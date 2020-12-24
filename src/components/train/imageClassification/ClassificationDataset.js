@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { MdError } from 'react-icons/md';
 
 import { classifyCurrentClass, classifyAddImages } from '../../../actions';
+import { convertFileToBase64 } from '../../../utils';
 import ClassificationClassChoiceForm from './ClassificationClassChoiceForm';
 import ClassificationDataUploadForm from './ClassificationDataUploadForm';
 import ClassificationDataPreview from './ClassificationDataPreview';
@@ -14,9 +15,8 @@ class ClassificationDataset extends React.Component {
     this.props.classifyCurrentClass(_.values(values)[0]);
   };
 
-  onDataUploadSubmit = values => {
-    // Fetch list of images
-    let imagesList = Array.from(_.values(values)[0]);
+  fileListToArray = fileList => {
+    let imagesList = Array.from(fileList);
     if (
       this.props.currentClassImgCount + imagesList.length >
       this.props.numImagesLimit.max
@@ -26,12 +26,38 @@ class ClassificationDataset extends React.Component {
         this.props.numImagesLimit.max - this.props.currentClassImgCount
       );
     }
+    return imagesList;
+  };
 
-    // Obtain size
+  getImageListSize = imagesList => {
     let imagesListSize = 0;
     if (imagesList.length > 0) {
       imagesListSize = _.sumBy(['size'], _.partial(_.sumBy, imagesList));
     }
+    return imagesListSize;
+  };
+
+  imageListToBase64 = async imagesList => {
+    let imagesListPreview = [];
+    for (let i = 0; i < imagesList.length; i++) {
+      imagesListPreview.push(await convertFileToBase64(imagesList[i]));
+    }
+    return imagesListPreview;
+  };
+
+  removeImageBase64Header = imagesList => {
+    return _.map(imagesList, image => {
+      return image.replace('data:', '').replace(/^.+,/, '');
+    });
+  };
+
+  onDataUploadSubmit = async values => {
+    // Fetch list of images
+    let imagesList = this.fileListToArray(_.values(values)[0]);
+
+    // Obtain size
+    const imagesListSize = this.getImageListSize(imagesList);
+
     if (this.props.currentSize + imagesListSize >= this.props.sizeLimit) {
       toast.info(
         <div>
@@ -40,11 +66,12 @@ class ClassificationDataset extends React.Component {
           are exceeding {this.props.sizeLimit / 1000000} MB.
         </div>
       );
-    } else {
-      // Create URL of each image for preview
-      const imagesListPreview = _.map(imagesList, image =>
-        URL.createObjectURL(image)
-      );
+    } else if (imagesList.length > 0) {
+      // Get base64 string of each image
+      const imagesListPreview = await this.imageListToBase64(imagesList);
+
+      // Remove base64 header from image for backend support
+      imagesList = this.removeImageBase64Header(imagesListPreview);
 
       // Update redux store
       this.props.classifyAddImages({

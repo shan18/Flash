@@ -68,7 +68,7 @@ class ClassificationCreate extends React.Component {
                 this.toggleModal();
               }}
             >
-              Upload Dataset
+              Create Dataset
             </button>
           </div>
         </div>
