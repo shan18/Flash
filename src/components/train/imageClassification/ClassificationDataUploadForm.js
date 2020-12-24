@@ -39,7 +39,7 @@ const mapStateToProps = ({
   classification: {
     currentClass,
     dataset,
-    classSize,
+    datasetSize,
     configOptions: {
       numImagesLimit: { max: numImagesLimitMax },
       sizeLimit,
@@ -51,8 +51,8 @@ const mapStateToProps = ({
     numImagesExceeded: dataset[currentClass]
       ? dataset[currentClass].length >= numImagesLimitMax
       : false,
-    sizeExceeded: classSize[currentClass]
-      ? classSize[currentClass] >= sizeLimit
+    sizeExceeded: datasetSize[currentClass]
+      ? datasetSize[currentClass] >= sizeLimit
       : false,
   };
 };

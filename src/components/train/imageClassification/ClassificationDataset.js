@@ -41,11 +41,17 @@ class ClassificationDataset extends React.Component {
         </div>
       );
     } else {
-      // Update redux store
-      const imagesListUrl = _.map(imagesList, image =>
+      // Create URL of each image for preview
+      const imagesListPreview = _.map(imagesList, image =>
         URL.createObjectURL(image)
       );
-      this.props.classifyAddImages(imagesListUrl, imagesListSize);
+
+      // Update redux store
+      this.props.classifyAddImages({
+        imagesList,
+        imagesListPreview,
+        imagesListSize,
+      });
     }
   };
 
@@ -82,7 +88,7 @@ const mapStateToProps = ({
   classification: {
     currentClass,
     dataset,
-    classSize,
+    datasetSize,
     configOptions: { numImagesLimit, sizeLimit },
   },
 }) => {
@@ -90,7 +96,7 @@ const mapStateToProps = ({
     currentClass,
     numImagesLimit,
     sizeLimit,
-    currentSize: classSize[currentClass],
+    currentSize: datasetSize[currentClass],
     currentClassImgCount: dataset[currentClass]
       ? dataset[currentClass].length
       : 0,

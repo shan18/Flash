@@ -15,11 +15,12 @@ const INITIAL_STATE = {
   currentClass: '',
   currentConfig: { modelType: '', dataSplit: '' },
   dataset: {},
-  classSize: {},
+  datasetSize: {},
+  datasetPreview: {},
 };
 
 const classificationReducer = (state = INITIAL_STATE, action) => {
-  let dataset, classSize, currentConfig, currentClass;
+  let dataset, datasetSize, datasetPreview, currentConfig, currentClass;
   switch (action.type) {
     case CLASSIFY_CONFIG:
       return {
@@ -35,16 +36,18 @@ const classificationReducer = (state = INITIAL_STATE, action) => {
       return { ...state, currentConfig };
     case CLASSIFY_ADD_CLASS:
       dataset = { ...state.dataset, [action.payload]: [] };
-      classSize = { ...state.classSize, [action.payload]: 0 };
-      return { ...state, dataset, classSize };
+      datasetSize = { ...state.datasetSize, [action.payload]: 0 };
+      datasetPreview = { ...state.datasetPreview, [action.payload]: [] };
+      return { ...state, dataset, datasetSize, datasetPreview };
     case CLASSIFY_DELETE_CLASS:
       dataset = _.omit(state.dataset, action.payload);
-      classSize = _.omit(state.classSize, action.payload);
+      datasetSize = _.omit(state.datasetSize, action.payload);
+      datasetPreview = _.omit(state.datasetPreview, action.payload);
       currentClass =
         state.currentClass === action.payload
           ? INITIAL_STATE.currentClass
           : state.currentClass;
-      return { ...state, dataset, classSize, currentClass };
+      return { ...state, dataset, datasetSize, datasetPreview, currentClass };
     case CLASSIFY_CURRENT_CLASS:
       return { ...state, currentClass: action.payload };
     case CLASSIFY_ADD_IMAGES:
@@ -55,12 +58,19 @@ const classificationReducer = (state = INITIAL_STATE, action) => {
           ...action.payload.imagesList,
         ],
       };
-      classSize = {
-        ...state.classSize,
+      datasetSize = {
+        ...state.datasetSize,
         [state.currentClass]:
-          state.classSize[state.currentClass] + action.payload.imagesListSize,
+          state.datasetSize[state.currentClass] + action.payload.imagesListSize,
       };
-      return { ...state, dataset, classSize };
+      datasetPreview = {
+        ...state.datasetPreview,
+        [state.currentClass]: [
+          ...state.datasetPreview[state.currentClass],
+          ...action.payload.imagesListPreview,
+        ],
+      };
+      return { ...state, dataset, datasetSize, datasetPreview };
     case CLASSIFY_CLEAR:
       return {
         ...state,

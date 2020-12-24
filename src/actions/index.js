@@ -67,10 +67,14 @@ export const classifyCurrentClass = classNameValue => {
   };
 };
 
-export const classifyAddImages = (imagesList, imagesListSize) => {
+export const classifyAddImages = ({
+  imagesList,
+  imagesListSize,
+  imagesListPreview,
+}) => {
   return {
     type: CLASSIFY_ADD_IMAGES,
-    payload: { imagesList, imagesListSize },
+    payload: { imagesList, imagesListSize, imagesListPreview },
   };
 };
 

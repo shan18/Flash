@@ -27,9 +27,14 @@ class ClassificationCreate extends React.Component {
     this.toggleModal();
   };
 
-  onConfigSubmit(values) {
-    console.log(values);
-  }
+  onConfigSubmit = values => {
+    const { modelType, dataSplit } = this.props;
+    console.log({
+      ...values,
+      modelType,
+      dataSplit,
+    });
+  };
 
   renderModal() {
     return (

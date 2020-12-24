@@ -30,8 +30,10 @@ class ClassificationDataPreview extends React.Component {
   }
 }
 
-const mapStateToProps = ({ classification: { currentClass, dataset } }) => {
-  return { imgList: dataset[currentClass] };
+const mapStateToProps = ({
+  classification: { currentClass, datasetPreview },
+}) => {
+  return { imgList: datasetPreview[currentClass] };
 };
 
 export default connect(mapStateToProps)(ClassificationDataPreview);
