@@ -3,6 +3,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
+import { toast } from 'react-toastify';
+import { MdError } from 'react-icons/md';
 
 import { classifyClear } from '../../../actions';
 import { renderLoadingPage, renderSubmitButton } from '../../../utils';
@@ -27,13 +29,62 @@ class ClassificationCreate extends React.Component {
     this.toggleModal();
   };
 
+  checkNumClasses = () => {
+    const {
+      configOptions: {
+        numClassesLimit: { min: numClassesLimitMin },
+      },
+      dataset,
+    } = this.props;
+    if (_.keys(dataset).length < numClassesLimitMin) {
+      toast.dark(
+        <div>
+          <MdError size={25} color="yellow" />
+          &nbsp; You need to create a minimum of {numClassesLimitMin} classes.
+        </div>
+      );
+      return false;
+    }
+    return true;
+  };
+
+  checkNumImages = () => {
+    const {
+      configOptions: {
+        numImagesLimit: { min: numImagesLimitMin },
+      },
+      dataset,
+    } = this.props;
+
+    const datasetValues = _.values(dataset);
+    const datasetFailedClasses = _.sum(
+      _.map(datasetValues, items => (items.length < numImagesLimitMin ? 0 : 1))
+    );
+
+    if (datasetValues.length !== datasetFailedClasses) {
+      toast.dark(
+        <div>
+          <MdError size={25} color="yellow" />
+          &nbsp; You need to upload atleast {numImagesLimitMin} images per
+          class.
+        </div>
+      );
+      return false;
+    }
+    return true;
+  };
+
   onConfigSubmit = values => {
-    const { modelType, dataSplit } = this.props;
-    console.log({
-      ...values,
-      modelType,
-      dataSplit,
-    });
+    if (this.checkNumClasses() && this.checkNumImages()) {
+      const { modelType, dataSplit, dataset } = this.props;
+      console.log(dataset);
+      console.log({
+        ...values,
+        modelType,
+        dataSplit,
+        dataset,
+      });
+    }
   };
 
   renderModal() {
@@ -94,9 +145,10 @@ const mapStateToProps = ({
   classification: {
     configOptions,
     currentConfig: { modelType, dataSplit },
+    dataset,
   },
 }) => {
-  return { configOptions, modelType, dataSplit };
+  return { configOptions, modelType, dataSplit, dataset };
 };
 
 const mapDispatchToProps = dispatch => {
