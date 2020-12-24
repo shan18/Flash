@@ -9,11 +9,11 @@ const Footer = () => {
         <div className="row">
           <div className="col-6 text-left">
             <img
-              src={`${process.env.PUBLIC_URL}/lobe.png`}
+              src={`${process.env.PUBLIC_URL}/loovus.svg`}
               style={{ height: '2rem' }}
               alt="logo"
             />
-            <span className="text-muted ml-3">Lobe Clone</span>
+            <span className="text-muted ml-3">Loovus</span>
           </div>
           <div className="col-6 text-right">
             <span className="text-muted mr-3">

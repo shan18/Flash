@@ -23,12 +23,12 @@ class Navbar extends React.Component {
         <div className="container">
           <Link to="/" className="navbar-brand">
             <img
-              src={`${process.env.PUBLIC_URL}/lobe.png`}
+              src={`${process.env.PUBLIC_URL}/loovus.svg`}
               style={{ height: '2rem' }}
               className="mr-2"
               alt="logo"
             />{' '}
-            Lobe
+            Loovus
           </Link>
           <button
             className={`navbar-toggler navbar-toggler-right ${
