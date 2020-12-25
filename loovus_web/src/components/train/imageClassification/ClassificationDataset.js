@@ -98,7 +98,8 @@ class ClassificationDataset extends React.Component {
         </small>
         <br />
         <small>
-          The total size of the images for each class must be less than 20 MB.
+          The total size of the images for each class must be less than{' '}
+          {this.props.sizeLimit / 1000000} MB.
         </small>
         <ClassificationClassChoiceForm
           onSubmit={this.onClassChoiceSubmit}

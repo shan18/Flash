@@ -14,9 +14,8 @@ class Classification extends React.Component {
       batchSizeLimit: { min: 16, max: 128 },
       numEpochsLimit: { min: 1, max: 10 },
       numClassesLimit: { min: 2, max: 10 },
-      numImagesLimit: { min: 1, max: 5 },
-      // sizeLimit: 20000000, // In bytes (20 MB)
-      sizeLimit: 2000000,
+      numImagesLimit: { min: 10, max: 100 },
+      sizeLimit: 20000000, // In bytes (20 MB)
     };
 
     this.currentConfig = {
