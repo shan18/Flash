@@ -1,0 +1,68 @@
+service: loovus
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: us-east-1
+  timeout: 30
+  environment:
+    S3_BUCKET: loovus
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - s3:*
+      Resource: arn:aws:s3:::loovus/*
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    zip: true
+    slim: true
+    strip: false
+    noDeploy:
+      - docutils
+      - jmespath
+      - pip
+      - python-dateutil
+      - setuptools
+      - six
+      - tensorboard
+    useStaticCache: true
+    useDownloadCache: true
+    cacheLocation: './cache'
+
+package:
+  individually: false
+  exclude:
+    - package.json
+    - package-lock.json
+    - node_modules/**
+    - cache/**
+    - test/**
+    - .vscode/**
+    - __pycache__/**
+    - .pytest_cache/**
+
+functions:
+  train:
+    handler: handler.train
+    memorySize: 3008 # MB
+    timeout: 30 # seconds
+    events:
+      - http:
+          path: train
+          method: post
+          cors: true
+  status:
+    handler: handler.status
+    memorySize: 3008 # MB
+    timeout: 30 # seconds
+    events:
+      - http:
+          path: status
+          method: get
+          cors: true
+
+plugins:
+  - serverless-python-requirements
