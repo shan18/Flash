@@ -10,6 +10,7 @@ import {
   CLASSIFY_ADD_IMAGES,
   CLASSIFY_CLEAR,
 } from './types';
+import { networkTransaction } from './utils';
 
 export const loadingForm = formName => {
   return {
@@ -82,4 +83,39 @@ export const classifyClear = () => {
   return {
     type: CLASSIFY_CLEAR,
   };
+};
+
+export const classifyTrain = ({
+  url,
+  formName,
+  formData,
+  requestType,
+}) => async dispatch => {
+  if (formName) {
+    dispatch(loadingForm(formName));
+  }
+
+  // Default request type is post
+  if (!requestType) {
+    requestType = 'post';
+  }
+
+  // Processing the last url in list to display in webpage
+  let response = await networkTransaction({
+    url,
+    formData,
+    requestType,
+  });
+
+  // If response is null then this will avoid throwing error
+  let responseData = response;
+  if (response) {
+    responseData = response.data;
+  }
+
+  console.log(responseData);
+
+  if (formName) {
+    dispatch(clearLoadingForm(formName));
+  }
 };

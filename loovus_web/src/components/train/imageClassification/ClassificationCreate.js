@@ -11,8 +11,6 @@ import { renderLoadingPage, renderSubmitButton } from '../../../utils';
 import ClassificationConfigForm from './ClassificationConfigForm';
 import ClassificationModal from './ClassificationModal';
 
-const classificationConfigFormName = 'classificationConfigForm';
-
 class ClassificationCreate extends React.Component {
   state = {
     displayModal: false,
@@ -77,8 +75,8 @@ class ClassificationCreate extends React.Component {
   onConfigSubmit = values => {
     if (this.checkNumClasses() && this.checkNumImages()) {
       const { modelType, dataSplit, dataset } = this.props;
-      console.log(dataset);
-      console.log({
+      this.props.onSubmit({
+        mode: 'training',
         ...values,
         modelType,
         dataSplit,
@@ -107,7 +105,7 @@ class ClassificationCreate extends React.Component {
     return (
       <React.Fragment>
         <ClassificationConfigForm
-          form={classificationConfigFormName}
+          form={this.props.formName}
           onSubmit={this.onConfigSubmit}
         />
         <div className="row my-5 text-center">
@@ -126,12 +124,11 @@ class ClassificationCreate extends React.Component {
         <div className="row mt-5 text-center">
           <div className="col">
             {renderSubmitButton({
-              loading: this.props.loading,
+              loading: this.props.loadingForm.includes(this.props.formName),
               btnColor: 'success',
               originalText: 'Start Training!',
               loadingText: 'Uploading config...',
-              onClick: () =>
-                this.props.dispatch(submit(classificationConfigFormName)),
+              onClick: () => this.props.dispatch(submit(this.props.formName)),
             })}
           </div>
         </div>
@@ -142,17 +139,21 @@ class ClassificationCreate extends React.Component {
 }
 
 const mapStateToProps = ({
+  loadingForm,
   classification: {
     configOptions,
     currentConfig: { modelType, dataSplit },
     dataset,
   },
 }) => {
-  return { configOptions, modelType, dataSplit, dataset };
+  return { loadingForm, configOptions, modelType, dataSplit, dataset };
 };
 
 const mapDispatchToProps = dispatch => {
-  return { dispatch, ...bindActionCreators({ classifyClear }, dispatch) };
+  return {
+    dispatch,
+    ...bindActionCreators({ classifyClear }, dispatch),
+  };
 };
 
 export default connect(
