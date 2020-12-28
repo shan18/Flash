@@ -77,6 +77,7 @@ class ClassificationCreate extends React.Component {
       const { modelType, dataSplit, dataset } = this.props;
       this.props.onSubmit({
         mode: 'training',
+        taskType: 'classification',
         ...values,
         modelType,
         dataSplit,
@@ -116,6 +117,7 @@ class ClassificationCreate extends React.Component {
                 event.preventDefault();
                 this.toggleModal();
               }}
+              disabled={this.props.loadingForm.includes(this.props.formName)}
             >
               Create Dataset
             </button>

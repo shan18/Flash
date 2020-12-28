@@ -1,8 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { classifyConfig, classifyTrain } from '../../../actions';
+import {
+  clearTrainToken,
+  classifyConfig,
+  classifyTrain,
+  classifyClear,
+} from '../../../actions';
+import history from '../../../history';
 import ClassificationCreate from './ClassificationCreate';
+import ClassificationSubmitModal from './ClassificationSubmitModal';
 
 class Classification extends React.Component {
   constructor(props) {
@@ -15,10 +22,8 @@ class Classification extends React.Component {
       dataSplit: ['70 : 30', '80 : 20'],
       batchSizeLimit: { min: 16, max: 128 },
       numEpochsLimit: { min: 1, max: 10 },
-      // numClassesLimit: { min: 2, max: 10 },
-      numClassesLimit: { min: 1, max: 10 },
-      // numImagesLimit: { min: 10, max: 100 },
-      numImagesLimit: { min: 1, max: 100 },
+      numClassesLimit: { min: 2, max: 10 },
+      numImagesLimit: { min: 10, max: 100 },
       sizeLimit: 20000000, // In bytes (20 MB)
     };
 
@@ -35,10 +40,15 @@ class Classification extends React.Component {
 
     // Send values to server
     this.props.classifyTrain({
-      url: '/train',
       formName: this.formName,
       formData,
     });
+  };
+
+  onModalDismiss = () => {
+    this.props.classifyClear();
+    this.props.clearTrainToken();
+    history.push('/inference');
   };
 
   componentDidMount() {
@@ -48,18 +58,42 @@ class Classification extends React.Component {
     });
   }
 
+  renderModal() {
+    return (
+      <React.Fragment>
+        {this.props.token ? (
+          <ClassificationSubmitModal onDismiss={this.onModalDismiss} />
+        ) : (
+          ''
+        )}
+      </React.Fragment>
+    );
+  }
+
   render() {
     return (
-      <div className="row mt-5">
-        <div className="col-6 mx-auto">
-          <ClassificationCreate
-            formName={this.formName}
-            onSubmit={this.onSubmit}
-          />
+      <React.Fragment>
+        <div className="row mt-5">
+          <div className="col-6 mx-auto">
+            <ClassificationCreate
+              formName={this.formName}
+              onSubmit={this.onSubmit}
+            />
+          </div>
         </div>
-      </div>
+        {this.renderModal()}
+      </React.Fragment>
     );
   }
 }
 
-export default connect(null, { classifyConfig, classifyTrain })(Classification);
+const mapStateToProps = ({ serverConfig: { token } }) => {
+  return { token };
+};
+
+export default connect(mapStateToProps, {
+  clearTrainToken,
+  classifyConfig,
+  classifyTrain,
+  classifyClear,
+})(Classification);

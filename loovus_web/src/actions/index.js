@@ -1,6 +1,10 @@
+import { reset } from 'redux-form';
+
 import {
   LOADING_FORM,
   CLEAR_LOADING_FORM,
+  TRAIN_TOKEN_SET,
+  TRAIN_TOKEN_CLEAR,
   CLASSIFY_CONFIG,
   CLASSIFY_MODEL_TYPE,
   CLASSIFY_DATA_SPLIT,
@@ -10,7 +14,7 @@ import {
   CLASSIFY_ADD_IMAGES,
   CLASSIFY_CLEAR,
 } from './types';
-import { networkTransaction } from './utils';
+import { networkTransaction, statusCheck, toastError } from './utils';
 
 export const loadingForm = formName => {
   return {
@@ -23,6 +27,19 @@ export const clearLoadingForm = formName => {
   return {
     type: CLEAR_LOADING_FORM,
     payload: formName,
+  };
+};
+
+export const setTrainToken = token => {
+  return {
+    type: TRAIN_TOKEN_SET,
+    payload: token,
+  };
+};
+
+export const clearTrainToken = () => {
+  return {
+    type: TRAIN_TOKEN_CLEAR,
   };
 };
 
@@ -85,35 +102,41 @@ export const classifyClear = () => {
   };
 };
 
-export const classifyTrain = ({
-  url,
-  formName,
-  formData,
-  requestType,
-}) => async dispatch => {
+export const classifyTrain = ({ formName, formData }) => async dispatch => {
   if (formName) {
     dispatch(loadingForm(formName));
   }
 
-  // Default request type is post
-  if (!requestType) {
-    requestType = 'post';
+  // Check server status
+  const serverIsAvailable = await statusCheck();
+
+  if (serverIsAvailable) {
+    // Processing the last url in list to display in webpage
+    let response = await networkTransaction({
+      url: '/train',
+      formData,
+      requestType: 'post',
+    });
+
+    // If response is null then this will avoid throwing error
+    let responseData = response;
+    if (response) {
+      responseData = response.data;
+    }
+
+    if (responseData.result === 'success') {
+      dispatch(setTrainToken(responseData.token));
+      dispatch(reset(formName));
+    } else if (responseData.result === 'error') {
+      toastError(responseData.message);
+    } else {
+      toastError('500: Internal Server Error!');
+    }
+  } else {
+    toastError(
+      'Server is currently training another model! Please try again after a few minutes.'
+    );
   }
-
-  // Processing the last url in list to display in webpage
-  let response = await networkTransaction({
-    url,
-    formData,
-    requestType,
-  });
-
-  // If response is null then this will avoid throwing error
-  let responseData = response;
-  if (response) {
-    responseData = response.data;
-  }
-
-  console.log(responseData);
 
   if (formName) {
     dispatch(clearLoadingForm(formName));

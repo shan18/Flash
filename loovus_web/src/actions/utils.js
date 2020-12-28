@@ -1,3 +1,6 @@
+import { toast } from 'react-toastify';
+import { MdError } from 'react-icons/md';
+
 import api from '../apis';
 
 export const networkTransaction = async ({
@@ -29,6 +32,14 @@ export const networkTransaction = async ({
   return response;
 };
 
+export const statusCheck = async () => {
+  const response = await networkTransaction({
+    url: '/status',
+    requestType: 'get',
+  });
+  return response.data.status !== 'active';
+};
+
 export const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(',');
   const mime = arr[0].match(/:(.*?);/)[1];
@@ -40,4 +51,13 @@ export const dataURLtoFile = (dataurl, filename) => {
     n -= 1; // to make eslint happy
   }
   return new File([u8arr], filename, { type: mime });
+};
+
+export const toastError = message => {
+  toast.dark(
+    <div>
+      <MdError size={25} color="yellow" />
+      &nbsp; {message}
+    </div>
+  );
 };
