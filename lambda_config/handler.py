@@ -3,81 +3,66 @@ try:
 except ImportError:
     pass
 
-import os
 import json
-import base64
-import boto3
-from requests_toolbelt.multipart import decoder
+import string
+import random
 
-
-# Define environment variables
-S3_BUCKET = os.environ['S3_BUCKET'] if 'S3_BUCKET' in os.environ else 'loovus'
-
-
-def fetch_post_data(event):
-    print('Fetching Content-Type')
-    if 'Content-Type' in event['headers']:
-        content_type_header = event['headers']['Content-Type']
-    else:
-        content_type_header = event['headers']['content-type']
-    print(content_type_header)
-    print(type(event['body']))
-    print('Loading body...')
-    body = base64.b64decode(event['body'])
-    print('Body loaded')
-
-    print('Decoding Content')
-    decoded = decoder.MultipartDecoder(body, content_type_header).parts[0].text
-
-    return json.loads(decoded)
+from s3 import (
+    fetch_status,
+    fetch_inference_json,
+    create_training_json,
+    change_server_status,
+)
+from utils import fetch_post_data, create_user_token, create_response
 
 
 def status(event, context):
     try:
-        return {
-            'statusCode': 200,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': True
-            },
-            'body': json.dumps({'data': 'status correct'})
-        }
+        return create_response({
+            'result': 'success',
+            'status': fetch_status()['status'],
+        })
     except Exception as e:
         print(repr(e))
-        return {
-            'statusCode': 500,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': True
-            },
-            'body': json.dumps({'error': repr(e)})
-        }
+        return create_response({
+            'result': 'internal_error',
+            'message': repr(e),
+        }, status_code=500)
 
 
 def train(event, context):
     try:
+        if fetch_status()['status'] == 'active':
+            return create_response({
+                'result': 'error',
+                'message': 'Server is busy.',
+            })
+        
+        # Fetch data
         data = fetch_post_data(event)
-        print(data.keys())
+        infer_config = fetch_inference_json(
+            f'{data["taskType"]}/{data["taskType"]}.json'
+        )
 
-        return {
-            'statusCode': 200,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': True
-            },
-            'body': json.dumps({'data': 'hello'})
-        }
+        # Create token
+        token = create_user_token(
+            infer_config, data['taskType'], data['taskName']
+        )
+        print('Token:', token)
+
+        # Initialize training process
+        create_training_json(token, data)
+
+        # Change server status to active
+        change_server_status('active', token=token)
+
+        return create_response({
+            'result': 'success',
+            'token': token
+        })
     except Exception as e:
         print(repr(e))
-        return {
-            'statusCode': 500,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': True
-            },
-            'body': json.dumps({'error': repr(e)})
-        }
+        return create_response({
+            'result': 'internal_error',
+            'message': repr(e),
+        }, status_code=500)
