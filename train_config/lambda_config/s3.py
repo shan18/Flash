@@ -31,9 +31,9 @@ def change_server_status(new_status, token=None):
     )
 
 
-def fetch_inference_json(path):
+def fetch_inference_json():
     print('Fetching inference json')
-    obj = S3_CLIENT.get_object(Bucket=BUCKET_NAME, Key=path)
+    obj = S3_CLIENT.get_object(Bucket=BUCKET_NAME, Key='inference.json')
     return eval(obj['Body'].read())
 
 

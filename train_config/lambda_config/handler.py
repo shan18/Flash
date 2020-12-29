@@ -40,9 +40,7 @@ def train(event, context):
         
         # Fetch data
         data = fetch_post_data(event)
-        infer_config = fetch_inference_json(
-            f'{data["taskType"]}/{data["taskType"]}.json'
-        )
+        infer_config = fetch_inference_json()
 
         # Create token
         token = create_user_token(
