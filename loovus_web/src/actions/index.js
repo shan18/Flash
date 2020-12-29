@@ -116,6 +116,7 @@ export const classifyTrain = ({ formName, formData }) => async dispatch => {
       url: '/train',
       formData,
       requestType: 'post',
+      apiType: 'train',
     });
 
     // If response is null then this will avoid throwing error

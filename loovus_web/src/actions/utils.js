@@ -1,16 +1,23 @@
 import { toast } from 'react-toastify';
 import { MdError } from 'react-icons/md';
 
-import api from '../apis';
+import trainApi from '../apis/train';
+import inferApi from '../apis/infer';
 
 export const networkTransaction = async ({
   url,
   formData,
   requestType,
   maxNumTries,
+  apiType,
 }) => {
   let response = null;
   let numTries = 0;
+
+  let api = inferApi;
+  if (apiType === 'train') {
+    api = trainApi;
+  }
 
   if (!maxNumTries) {
     maxNumTries = 1;
