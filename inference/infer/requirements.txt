@@ -1,0 +1,4 @@
+https://download.pytorch.org/whl/cpu/torch-1.5.1%2Bcpu-cp38-cp38-linux_x86_64.whl
+torchvision==0.6.0
+Pillow==8.0.1
+requests_toolbelt
