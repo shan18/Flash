@@ -13,6 +13,8 @@ import {
   CLASSIFY_CURRENT_CLASS,
   CLASSIFY_ADD_IMAGES,
   CLASSIFY_CLEAR,
+  INFERENCE_TOKEN_SET,
+  INFERENCE_TOKEN_CLEAR,
 } from './types';
 import { networkTransaction, statusCheck, toastError } from './utils';
 
@@ -142,4 +144,18 @@ export const classifyTrain = ({ formName, formData }) => async dispatch => {
   if (formName) {
     dispatch(clearLoadingForm(formName));
   }
+};
+
+export const setInferenceToken = token => {
+  return {
+    type: INFERENCE_TOKEN_SET,
+    payload: token,
+  };
+};
+
+export const clearInferenceToken = token => {
+  return {
+    type: INFERENCE_TOKEN_CLEAR,
+    payload: token,
+  };
 };
