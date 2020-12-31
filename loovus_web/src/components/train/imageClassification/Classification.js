@@ -37,7 +37,7 @@ class Classification extends React.Component {
     // Send values to server
     this.props.classifyTrain({
       formName: this.formName,
-      values,
+      trainConfig: values,
     });
   };
 
