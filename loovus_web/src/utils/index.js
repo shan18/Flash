@@ -35,7 +35,16 @@ export const renderError = ({ error, touched }) => {
   }
 };
 
-export const renderTextInput = ({ input, label, type, placeholder, meta }) => {
+export const renderTextInput = ({
+  input,
+  label,
+  type,
+  placeholder,
+  textAppend,
+  enableAppendSumbit,
+  readOnly,
+  meta,
+}) => {
   return (
     <React.Fragment>
       {label ? <label>{label}</label> : ''}
@@ -46,7 +55,24 @@ export const renderTextInput = ({ input, label, type, placeholder, meta }) => {
           className="form-control"
           placeholder={placeholder}
           autoComplete="off"
+          readOnly={readOnly}
         />
+        {textAppend ? (
+          <div className="input-group-append">
+            {enableAppendSumbit ? (
+              <button className="btn btn-danger">{textAppend}</button>
+            ) : (
+              <button
+                className="btn btn-danger"
+                onClick={event => event.preventDefault}
+              >
+                {textAppend}
+              </button>
+            )}
+          </div>
+        ) : (
+          ''
+        )}
       </div>
       {renderError(meta)}
     </React.Fragment>
@@ -58,6 +84,9 @@ export const renderTextInputGroup = ({
   label,
   type,
   placeholder,
+  textAppend,
+  enableAppendSumbit,
+  readOnly,
   formGroupClassName,
   meta,
 }) => {
@@ -68,6 +97,9 @@ export const renderTextInputGroup = ({
         label,
         type,
         placeholder,
+        textAppend,
+        enableAppendSumbit,
+        readOnly,
         meta,
       })}
     </div>
@@ -107,7 +139,7 @@ export const renderDropdownInputGroup = ({
 export const renderFileInputGroup = ({
   input,
   label,
-  accept,
+  acceptFileFormat,
   multiple,
   formGroupClassName,
   meta,
@@ -122,7 +154,7 @@ export const renderFileInputGroup = ({
           type="file"
           className="custom-file-input"
           multiple={isMultiple}
-          accept={accept}
+          accept={acceptFileFormat}
         />
       </div>
       {renderError(meta)}
@@ -137,8 +169,11 @@ export const renderFormField = ({
   placeholder,
   label,
   options,
-  accept,
+  acceptFileFormat,
   multiple,
+  textAppend,
+  enableAppendSumbit,
+  isFixed: readOnly,
   formGroupClassName,
   meta,
 }) => {
@@ -148,6 +183,9 @@ export const renderFormField = ({
       label,
       type,
       placeholder,
+      textAppend,
+      enableAppendSumbit,
+      readOnly,
       formGroupClassName,
       meta,
     });
@@ -163,7 +201,7 @@ export const renderFormField = ({
     return renderFileInputGroup({
       input,
       label,
-      accept,
+      acceptFileFormat,
       multiple,
       formGroupClassName,
       meta,

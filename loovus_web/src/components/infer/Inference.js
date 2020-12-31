@@ -1,15 +1,15 @@
 import React from 'react';
 
-class ModelInference extends React.Component {
+class Inference extends React.Component {
   render() {
     return (
       <div className="row">
         <div className="col">
-          <h1 className="heading">Model Inference</h1>
+          <h1 className="heading">Test Your Model</h1>
         </div>
       </div>
     );
   }
 }
 
-export default ModelInference;
+export default Inference;

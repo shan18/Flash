@@ -21,7 +21,7 @@ class ClassificationDataUploadForm extends React.Component {
                   component={renderFormField}
                   contentType="file"
                   label="Choose File"
-                  accept="image/jpeg,image/png"
+                  acceptFileFormat="image/jpeg,image/png"
                   multiple
                 />
               </div>
