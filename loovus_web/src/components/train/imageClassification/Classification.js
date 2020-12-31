@@ -22,8 +22,8 @@ class Classification extends React.Component {
       dataSplit: ['70 : 30', '80 : 20'],
       batchSizeLimit: { min: 16, max: 128 },
       numEpochsLimit: { min: 1, max: 10 },
-      numClassesLimit: { min: 2, max: 10 },
-      numImagesLimit: { min: 10, max: 100 },
+      numClassesLimit: { min: 1, max: 10 },
+      numImagesLimit: { min: 1, max: 100 },
       sizeLimit: 20000000, // In bytes (20 MB)
     };
 
@@ -34,14 +34,10 @@ class Classification extends React.Component {
   }
 
   onSubmit = values => {
-    // Encode form values
-    const formData = new FormData();
-    formData.append('training_data', JSON.stringify(values));
-
     // Send values to server
     this.props.classifyTrain({
       formName: this.formName,
-      formData,
+      values,
     });
   };
 

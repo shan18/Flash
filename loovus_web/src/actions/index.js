@@ -13,8 +13,8 @@ import {
   CLASSIFY_CURRENT_CLASS,
   CLASSIFY_ADD_IMAGES,
   CLASSIFY_CLEAR,
-  INFERENCE_TOKEN_SET,
-  INFERENCE_TOKEN_CLEAR,
+  INFERENCE_CONFIG_SET,
+  INFERENCE_CONFIG_CLEAR,
 } from './types';
 import { networkTransaction, statusCheck, toastError } from './utils';
 
@@ -104,7 +104,7 @@ export const classifyClear = () => {
   };
 };
 
-export const classifyTrain = ({ formName, formData }) => async dispatch => {
+export const classifyTrain = ({ formName, trainConfig }) => async dispatch => {
   if (formName) {
     dispatch(loadingForm(formName));
   }
@@ -113,25 +113,27 @@ export const classifyTrain = ({ formName, formData }) => async dispatch => {
   const serverIsAvailable = await statusCheck();
 
   if (serverIsAvailable) {
+    // Encode data
+    const formData = new FormData();
+    formData.append('training_data', JSON.stringify(trainConfig));
+
     // Processing the last url in list to display in webpage
-    let response = await networkTransaction({
+    const response = await networkTransaction({
       url: '/train',
       formData,
       requestType: 'post',
       apiType: 'train',
     });
 
-    // If response is null then this will avoid throwing error
-    let responseData = response;
-    if (response) {
-      responseData = response.data;
-    }
-
-    if (responseData.result === 'success') {
-      dispatch(setTrainToken(responseData.token));
-      dispatch(reset(formName));
-    } else if (responseData.result === 'error') {
-      toastError(responseData.message);
+    if (response && response.data) {
+      if (response.data.result === 'success') {
+        dispatch(setTrainToken(response.data.token));
+        dispatch(reset(formName));
+      } else if (response.data.result === 'error') {
+        toastError(response.data.message);
+      } else {
+        toastError('500: Internal Server Error!');
+      }
     } else {
       toastError('500: Internal Server Error!');
     }
@@ -146,16 +148,48 @@ export const classifyTrain = ({ formName, formData }) => async dispatch => {
   }
 };
 
-export const setInferenceToken = token => {
+export const setInferenceConfig = config => {
   return {
-    type: INFERENCE_TOKEN_SET,
-    payload: token,
+    type: INFERENCE_CONFIG_SET,
+    payload: config,
   };
 };
 
-export const clearInferenceToken = token => {
+export const clearInferenceConfig = () => {
   return {
-    type: INFERENCE_TOKEN_CLEAR,
-    payload: token,
+    type: INFERENCE_CONFIG_CLEAR,
   };
+};
+
+export const submitInferenceToken = ({ formName, token }) => async dispatch => {
+  if (formName) {
+    dispatch(loadingForm(formName));
+  }
+
+  // Encode data
+  const formData = new FormData();
+  formData.append('token', JSON.stringify({ token }));
+
+  const response = await networkTransaction({
+    url: '/check',
+    formData,
+    requestType: 'post',
+    apiType: 'inference',
+  });
+
+  if (response && response.data) {
+    if (response.data.result === 'success') {
+      dispatch(setInferenceConfig({ token, taskType: response.data.taskType }));
+    } else if (response.data.result === 'error') {
+      toastError(response.data.message);
+    } else {
+      toastError('500: Internal Server Error!');
+    }
+  } else {
+    toastError('500: Internal Server Error!');
+  }
+
+  if (formName) {
+    dispatch(clearLoadingForm(formName));
+  }
 };

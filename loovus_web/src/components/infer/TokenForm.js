@@ -3,16 +3,19 @@ import { connect } from 'react-redux';
 import { Field, reset, reduxForm } from 'redux-form';
 import { MdDelete } from 'react-icons/md';
 
-import { setInferenceToken, clearInferenceToken } from '../../actions';
+import { submitInferenceToken, clearInferenceConfig } from '../../actions';
 import { renderFormField, renderSubmitButton } from '../../utils';
 
 class TokenForm extends React.Component {
   onSubmit = values => {
     if (this.props.token) {
-      this.props.clearInferenceToken();
+      this.props.clearInferenceConfig();
       this.props.dispatch(reset(this.props.form));
     } else {
-      this.props.setInferenceToken(values.token);
+      this.props.submitInferenceToken({
+        formName: this.props.form,
+        token: values.token,
+      });
     }
   };
 
@@ -64,6 +67,6 @@ const mapStateToProps = ({ loadingForm, inference: { token } }) => {
 };
 
 export default connect(mapStateToProps, {
-  setInferenceToken,
-  clearInferenceToken,
+  submitInferenceToken,
+  clearInferenceConfig,
 })(reduxForm({ form: 'tokenForm' })(TokenForm));

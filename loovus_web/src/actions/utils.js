@@ -36,6 +36,7 @@ export const networkTransaction = async ({
       numTries++;
     }
   }
+  console.log(response);
   return response;
 };
 
@@ -43,6 +44,7 @@ export const statusCheck = async () => {
   const response = await networkTransaction({
     url: '/status',
     requestType: 'get',
+    apiType: 'train',
   });
   return response.data.status !== 'active';
 };
