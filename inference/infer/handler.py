@@ -20,7 +20,7 @@ def inference(event, context):
             return create_response({
                 'result': 'error',
                 'message': 'No such token found.'
-            }, status_code=500)
+            })
 
         # Make predictions
         model_data = fetch_model_data(infer_config[data['token']]['model_filename'])

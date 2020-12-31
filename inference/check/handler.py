@@ -21,14 +21,14 @@ def check(event, context):
             return create_response({
                 'result': 'error',
                 'message': 'The model is currently training. Please try again after a few minutes.'
-            }, status_code=500)
+            })
         
         # Check if token exists
         if not data['token'] in infer_config:
             return create_response({
                 'result': 'error',
                 'message': 'No such token found.'
-            }, status_code=500)
+            })
 
         return create_response({
             'result': 'success',
