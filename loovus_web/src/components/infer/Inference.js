@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import TokenForm from './TokenForm';
-import InferenceForm from './InferenceForm';
+import TaskDisplay from './TaskDisplay';
 
 class Inference extends React.Component {
   render() {
@@ -10,11 +11,15 @@ class Inference extends React.Component {
         <div className="col">
           <h1 className="heading">Test Your Model</h1>
           <TokenForm />
-          <InferenceForm />
+          {this.props.token ? <TaskDisplay /> : ''}
         </div>
       </div>
     );
   }
 }
 
-export default Inference;
+const mapStateToProps = ({ inference: { token } }) => {
+  return { token };
+};
+
+export default connect(mapStateToProps)(Inference);

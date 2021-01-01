@@ -17,7 +17,12 @@ import {
   INFERENCE_CONFIG_CLEAR,
   INFERENCE_SUBMIT,
 } from './types';
-import { networkTransaction, statusCheck, toastError } from './utils';
+import {
+  networkTransaction,
+  statusCheck,
+  toastError,
+  checkResponse,
+} from './utils';
 
 export const loadingForm = formName => {
   return {
@@ -119,17 +124,9 @@ export const classifyTrain = ({ formName, trainConfig }) => async dispatch => {
       apiType: 'train',
     });
 
-    if (response && response.data) {
-      if (response.data.result === 'success') {
-        dispatch({ type: TRAIN_TOKEN_SET, payload: response.data.token });
-        dispatch(reset(formName));
-      } else if (response.data.result === 'error') {
-        toastError(response.data.message);
-      } else {
-        toastError('500: Internal Server Error!');
-      }
-    } else {
-      toastError('500: Internal Server Error!');
+    if (checkResponse(response)) {
+      dispatch({ type: TRAIN_TOKEN_SET, payload: response.data.token });
+      dispatch(reset(formName));
     }
   } else {
     toastError(
@@ -164,19 +161,42 @@ export const submitInferenceToken = ({ formName, token }) => async dispatch => {
     apiType: 'inference',
   });
 
-  if (response && response.data) {
-    if (response.data.result === 'success') {
-      dispatch({
-        type: INFERENCE_CONFIG_SET,
-        payload: { token, taskType: response.data.taskType },
-      });
-    } else if (response.data.result === 'error') {
-      toastError(response.data.message);
-    } else {
-      toastError('500: Internal Server Error!');
-    }
-  } else {
-    toastError('500: Internal Server Error!');
+  if (checkResponse(response)) {
+    dispatch({
+      type: INFERENCE_CONFIG_SET,
+      payload: { token, taskType: response.data.taskType },
+    });
+  }
+
+  if (formName) {
+    dispatch(clearLoadingForm(formName));
+  }
+};
+
+export const submitInferenceData = ({
+  formName,
+  inferenceInput,
+}) => async dispatch => {
+  if (formName) {
+    dispatch(loadingForm(formName));
+  }
+
+  // Encode data
+  const formData = new FormData();
+  formData.append('inferenceInput', inferenceInput);
+
+  const response = await networkTransaction({
+    url: '/inference',
+    formData,
+    requestType: 'post',
+    apiType: 'inference',
+  });
+
+  if (checkResponse(response)) {
+    dispatch({
+      type: INFERENCE_SUBMIT,
+      payload: response.data.prediction,
+    });
   }
 
   if (formName) {
