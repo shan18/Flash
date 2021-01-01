@@ -36,7 +36,6 @@ export const networkTransaction = async ({
       numTries++;
     }
   }
-  console.log(response);
   return response;
 };
 

@@ -15,6 +15,7 @@ import {
   CLASSIFY_CLEAR,
   INFERENCE_CONFIG_SET,
   INFERENCE_CONFIG_CLEAR,
+  INFERENCE_SUBMIT,
 } from './types';
 import { networkTransaction, statusCheck, toastError } from './utils';
 
@@ -29,13 +30,6 @@ export const clearLoadingForm = formName => {
   return {
     type: CLEAR_LOADING_FORM,
     payload: formName,
-  };
-};
-
-export const setTrainToken = token => {
-  return {
-    type: TRAIN_TOKEN_SET,
-    payload: token,
   };
 };
 
@@ -127,7 +121,7 @@ export const classifyTrain = ({ formName, trainConfig }) => async dispatch => {
 
     if (response && response.data) {
       if (response.data.result === 'success') {
-        dispatch(setTrainToken(response.data.token));
+        dispatch({ type: TRAIN_TOKEN_SET, payload: response.data.token });
         dispatch(reset(formName));
       } else if (response.data.result === 'error') {
         toastError(response.data.message);
@@ -146,13 +140,6 @@ export const classifyTrain = ({ formName, trainConfig }) => async dispatch => {
   if (formName) {
     dispatch(clearLoadingForm(formName));
   }
-};
-
-export const setInferenceConfig = config => {
-  return {
-    type: INFERENCE_CONFIG_SET,
-    payload: config,
-  };
 };
 
 export const clearInferenceConfig = () => {
@@ -179,7 +166,10 @@ export const submitInferenceToken = ({ formName, token }) => async dispatch => {
 
   if (response && response.data) {
     if (response.data.result === 'success') {
-      dispatch(setInferenceConfig({ token, taskType: response.data.taskType }));
+      dispatch({
+        type: INFERENCE_CONFIG_SET,
+        payload: { token, taskType: response.data.taskType },
+      });
     } else if (response.data.result === 'error') {
       toastError(response.data.message);
     } else {
