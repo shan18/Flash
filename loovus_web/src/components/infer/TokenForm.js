@@ -62,6 +62,18 @@ class TokenForm extends React.Component {
   }
 }
 
+const validate = formValues => {
+  const errors = {};
+
+  if (!formValues.token) {
+    errors.token = 'You must enter a token';
+  } else if (!/^[a-zA-Z0-9- ]+$/i.test(formValues.token)) {
+    errors.token = 'Invalid token';
+  }
+
+  return errors;
+};
+
 const mapStateToProps = ({ loadingForm, inference: { token } }) => {
   return { loadingForm, token };
 };
@@ -69,4 +81,4 @@ const mapStateToProps = ({ loadingForm, inference: { token } }) => {
 export default connect(mapStateToProps, {
   submitInferenceToken,
   clearInferenceConfig,
-})(reduxForm({ form: 'tokenForm' })(TokenForm));
+})(reduxForm({ form: 'tokenForm', validate })(TokenForm));
