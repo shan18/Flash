@@ -6,7 +6,7 @@ import { submit } from 'redux-form';
 import { toast } from 'react-toastify';
 import { MdError } from 'react-icons/md';
 
-import { classifyClear } from '../../../actions';
+import { classifyDataClear } from '../../../actions';
 import { renderLoadingPage, renderSubmitButton } from '../../../utils';
 import ClassificationConfigForm from './ClassificationConfigForm';
 import ClassificationModal from './ClassificationModal';
@@ -22,7 +22,7 @@ class ClassificationCreate extends React.Component {
 
   onModalDismiss = clear => {
     if (clear) {
-      this.props.classifyClear();
+      this.props.classifyDataClear();
     }
     this.toggleModal();
   };
@@ -154,7 +154,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => {
   return {
     dispatch,
-    ...bindActionCreators({ classifyClear }, dispatch),
+    ...bindActionCreators({ classifyDataClear }, dispatch),
   };
 };
 

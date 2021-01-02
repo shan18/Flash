@@ -5,6 +5,7 @@ import {
   clearTrainToken,
   classifyConfig,
   classifyTrain,
+  classifyDataClear,
   classifyClear,
 } from '../../../actions';
 import history from '../../../history';
@@ -42,7 +43,7 @@ class Classification extends React.Component {
   };
 
   onModalDismiss = () => {
-    this.props.classifyClear();
+    this.props.classifyDataClear();
     this.props.clearTrainToken();
     history.push('/inference');
   };
@@ -52,6 +53,10 @@ class Classification extends React.Component {
       ...this.configOptions,
       currentConfig: this.currentConfig,
     });
+  }
+
+  componentWillUnmount() {
+    this.props.classifyClear();
   }
 
   renderModal() {
@@ -91,5 +96,6 @@ export default connect(mapStateToProps, {
   clearTrainToken,
   classifyConfig,
   classifyTrain,
+  classifyDataClear,
   classifyClear,
 })(Classification);

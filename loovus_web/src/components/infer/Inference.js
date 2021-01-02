@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { clearInference } from '../../actions';
 import TokenForm from './TokenForm';
 import TaskDisplay from './TaskDisplay';
 
 class Inference extends React.Component {
+  componentWillUnmount() {
+    this.props.clearInference();
+  }
+
   render() {
     return (
       <div className="row">
@@ -22,4 +27,4 @@ const mapStateToProps = ({ inference: { token } }) => {
   return { token };
 };
 
-export default connect(mapStateToProps)(Inference);
+export default connect(mapStateToProps, { clearInference })(Inference);

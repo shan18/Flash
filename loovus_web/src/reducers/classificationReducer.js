@@ -7,6 +7,7 @@ import {
   CLASSIFY_DELETE_CLASS,
   CLASSIFY_CURRENT_CLASS,
   CLASSIFY_ADD_IMAGES,
+  CLASSIFY_DATA_CLEAR,
   CLASSIFY_CLEAR,
 } from '../actions/types';
 
@@ -71,10 +72,15 @@ const classificationReducer = (state = INITIAL_STATE, action) => {
         ],
       };
       return { ...state, dataset, datasetSize, datasetPreview };
-    case CLASSIFY_CLEAR:
+    case CLASSIFY_DATA_CLEAR:
       return {
         ...state,
         ..._.omit(INITIAL_STATE, 'configOptions', 'currentConfig'),
+      };
+    case CLASSIFY_CLEAR:
+      return {
+        ...state,
+        ...INITIAL_STATE,
       };
     default:
       return state;

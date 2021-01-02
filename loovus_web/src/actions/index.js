@@ -12,11 +12,13 @@ import {
   CLASSIFY_DELETE_CLASS,
   CLASSIFY_CURRENT_CLASS,
   CLASSIFY_ADD_IMAGES,
+  CLASSIFY_DATA_CLEAR,
   CLASSIFY_CLEAR,
   INFERENCE_CONFIG_SET,
   INFERENCE_CONFIG_CLEAR,
   INFERENCE_SUBMIT,
   INFERENCE_PREDICTION_CLEAR,
+  INFERENCE_CLEAR,
 } from './types';
 import {
   networkTransaction,
@@ -98,6 +100,12 @@ export const classifyAddImages = ({
   };
 };
 
+export const classifyDataClear = () => {
+  return {
+    type: CLASSIFY_DATA_CLEAR,
+  };
+};
+
 export const classifyClear = () => {
   return {
     type: CLASSIFY_CLEAR,
@@ -148,6 +156,10 @@ export const clearInferenceConfig = () => {
 
 export const clearInferencePrediction = () => {
   return { type: INFERENCE_PREDICTION_CLEAR };
+};
+
+export const clearInference = () => {
+  return { type: INFERENCE_CLEAR };
 };
 
 export const submitInferenceToken = ({ formName, token }) => async dispatch => {
