@@ -16,6 +16,7 @@ import {
   INFERENCE_CONFIG_SET,
   INFERENCE_CONFIG_CLEAR,
   INFERENCE_SUBMIT,
+  INFERENCE_PREDICTION_CLEAR,
 } from './types';
 import {
   networkTransaction,
@@ -145,6 +146,10 @@ export const clearInferenceConfig = () => {
   };
 };
 
+export const clearInferencePrediction = () => {
+  return { type: INFERENCE_PREDICTION_CLEAR };
+};
+
 export const submitInferenceToken = ({ formName, token }) => async dispatch => {
   if (formName) {
     dispatch(loadingForm(formName));
@@ -175,7 +180,7 @@ export const submitInferenceToken = ({ formName, token }) => async dispatch => {
 
 export const submitInferenceData = ({
   formName,
-  inferenceInput,
+  formInput,
 }) => async dispatch => {
   if (formName) {
     dispatch(loadingForm(formName));
@@ -183,13 +188,14 @@ export const submitInferenceData = ({
 
   // Encode data
   const formData = new FormData();
-  formData.append('inferenceInput', inferenceInput);
+  formData.append('inferenceInput', JSON.stringify(formInput));
 
   const response = await networkTransaction({
     url: '/inference',
     formData,
     requestType: 'post',
     apiType: 'inference',
+    maxNumTries: 3,
   });
 
   if (checkResponse(response)) {

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { MdError } from 'react-icons/md';
 
 import { classifyCurrentClass, classifyAddImages } from '../../../actions';
-import { convertFileToBase64 } from '../../../utils';
+import { convertFileToBase64, removeImageBase64Header } from '../../../utils';
 import ClassificationClassChoiceForm from './ClassificationClassChoiceForm';
 import ClassificationDataUploadForm from './ClassificationDataUploadForm';
 import ClassificationDataPreview from './ClassificationDataPreview';
@@ -45,9 +45,9 @@ class ClassificationDataset extends React.Component {
     return imagesListPreview;
   };
 
-  removeImageBase64Header = imagesList => {
+  removeBase64HeaderFromImageList = imagesList => {
     return _.map(imagesList, image => {
-      return image.replace('data:', '').replace(/^.+,/, '');
+      return removeImageBase64Header(image);
     });
   };
 
@@ -71,7 +71,7 @@ class ClassificationDataset extends React.Component {
       const imagesListPreview = await this.imageListToBase64(imagesList);
 
       // Remove base64 header from image for backend support
-      imagesList = this.removeImageBase64Header(imagesListPreview);
+      imagesList = this.removeBase64HeaderFromImageList(imagesListPreview);
 
       // Update redux store
       this.props.classifyAddImages({

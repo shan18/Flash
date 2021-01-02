@@ -2,18 +2,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { submitInferenceData } from '../../actions';
-import { renderFormField, renderSubmitButton } from '../../utils';
+import { submitInferenceData, clearInferencePrediction } from '../../actions';
+import {
+  renderFormField,
+  renderSubmitButton,
+  convertFileToBase64,
+  removeImageBase64Header,
+} from '../../utils';
 
 class InferenceForm extends React.Component {
-  onSubmit = ({ inferenceInput }) => {
+  onSubmit = async ({ inferenceInput }) => {
+    this.props.clearInferencePrediction();
+
+    // Get input type
+    let inputType = 'text';
     if (typeof inferenceInput === 'object') {
-      inferenceInput = inferenceInput[0];
+      inputType = 'image';
+      inferenceInput = await convertFileToBase64(inferenceInput[0]);
     }
+
+    // If input is non-text, convert it to base64 string
     this.props.submitInferenceData({
       formName: this.props.form,
-      inferenceInput,
+      formInput: {
+        token: this.props.token,
+        input:
+          inputType === 'image'
+            ? removeImageBase64Header(inferenceInput)
+            : inferenceInput,
+      },
     });
+
+    // Send input to props for display
     this.props.onSubmit(inferenceInput);
   };
 
@@ -29,6 +49,7 @@ class InferenceForm extends React.Component {
           label={label}
           options={options}
           acceptFileFormat={acceptFileFormat}
+          onChange={() => console.log('jfdlsk')}
         />
         <div className="row mt-3">
           <div className="col mx-auto">
@@ -60,10 +81,11 @@ const validate = formValues => {
   return errors;
 };
 
-const mapStateToProps = ({ loadingForm }) => {
-  return { loadingForm };
+const mapStateToProps = ({ loadingForm, inference: { token } }) => {
+  return { loadingForm, token };
 };
 
-export default connect(mapStateToProps, { submitInferenceData })(
-  reduxForm({ form: 'inferenceForm', validate })(InferenceForm)
-);
+export default connect(mapStateToProps, {
+  submitInferenceData,
+  clearInferencePrediction,
+})(reduxForm({ form: 'inferenceForm', validate })(InferenceForm));

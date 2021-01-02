@@ -30,7 +30,7 @@ class TaskDisplay extends React.Component {
 
   onSubmit = inferenceInput => {
     if (this.props.taskType === 'classification') {
-      this.setState({ inferenceInput: URL.createObjectURL(inferenceInput) });
+      this.setState({ inferenceInput: inferenceInput });
     } else {
       this.setState({ inferenceInput });
     }

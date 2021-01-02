@@ -23,6 +23,10 @@ export const convertFileToBase64 = file => {
   });
 };
 
+export const removeImageBase64Header = image => {
+  return image.replace('data:', '').replace(/^.+,/, '');
+};
+
 /* Form utility functions */
 
 const setErrorClass = ({ touched, error }) => {
