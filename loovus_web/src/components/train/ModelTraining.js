@@ -37,12 +37,12 @@ class ModelTraining extends React.Component {
       <React.Fragment>
         <div className="row">
           <div className="col">
-            <h1 className="heading">Model Training</h1>
+            <h1 className="heading">Train a Model</h1>
           </div>
         </div>
         <div className="row">
           <div className="col text-center">
-            <h4 className="heading">Choose Task</h4>
+            <h4 className="text-center mb-4 mt-3">Choose Task</h4>
             <HoverButtons
               hoverButtons={this.hoverButtons}
               currentButtonValue={this.state.currentTask}

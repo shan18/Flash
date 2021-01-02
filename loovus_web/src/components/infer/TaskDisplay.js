@@ -76,6 +76,13 @@ class TaskDisplay extends React.Component {
     return (
       <React.Fragment>
         <div className="row my-4">
+          <div className="col-12 mb-3">
+            <h4 className="text-center">
+              {this.props.taskType === 'classification'
+                ? 'Image Classification'
+                : 'Sentiment Analysis'}
+            </h4>
+          </div>
           <div className="col-11 col-lg-6 mx-auto">
             <InferenceForm onSubmit={this.onSubmit} field={this.fieldValues} />
           </div>

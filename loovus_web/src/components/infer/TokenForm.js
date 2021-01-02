@@ -21,17 +21,15 @@ class TokenForm extends React.Component {
 
   render() {
     return (
-      <div className="row my-5 py-5">
+      <div className="row mb-1 mt-3 py-5">
         <div className="col-10 col-md-6 mx-auto">
           {this.props.token ? (
-            <form
-              onSubmit={this.props.handleSubmit(this.onSubmit)}
-              className="my-2"
-            >
+            <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
               <Field
                 name="token"
                 component={renderFormField}
                 contentType="text"
+                label="Token"
                 textAppend={<MdDelete />}
                 enableAppendSubmit
                 isFixed
