@@ -17,13 +17,15 @@ def fetch_inference_json():
 
 
 def fetch_model_data(paths):
-    print('Fetching model from S3')
+    print('Fetching model data from S3')
     if not isinstance(paths, list):
         paths = [paths]
     
     model_data = []
     for path in paths:
-        obj = S3_CLIENT.get_object(Bucket=BUCKET_NAME, Key=path)
-        model_data.append(io.BytesIO(obj['Body'].read()))
+        target_path = f'/tmp/{os.path.basename(path)}'
+        if not os.path.exists(target_path):
+            S3_CLIENT.download_file(BUCKET_NAME, path, target_path)
+        model_data.append(target_path)
     
     return model_data if len(model_data) > 1 else model_data[0]
