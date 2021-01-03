@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { setTrainConfig, clearTrainConfig } from '../../../actions';
+import SACreate from './SACreate';
 
 class SentimentAnalysis extends React.Component {
   constructor(props) {
@@ -47,7 +48,13 @@ class SentimentAnalysis extends React.Component {
   render() {
     return (
       <div className="row mt-5">
-        <div className="col-6 mx-auto">Sentiment Analysis</div>
+        <div className="col-6 mx-auto">
+          <SACreate
+            taskName={this.taskName}
+            formName={this.formName}
+            onSubmit={this.onSubmit}
+          />
+        </div>
       </div>
     );
   }
