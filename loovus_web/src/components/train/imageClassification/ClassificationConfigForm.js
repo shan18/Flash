@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { classifyModelType, classifyDataSplit } from '../../../actions';
+import { classifyModelType, setTrainDataSplit } from '../../../actions';
 import { renderFormField } from '../../../utils';
 import HoverButtons from '../../HoverButtons';
 
@@ -12,7 +12,7 @@ class ClassificationConfigForm extends React.Component {
   };
 
   changeDataSplit = dataSplit => {
-    this.props.classifyDataSplit(dataSplit);
+    this.props.setTrainDataSplit({ taskName: 'classification', dataSplit });
   };
 
   render() {
@@ -45,6 +45,35 @@ class ClassificationConfigForm extends React.Component {
               currentButtonValue={this.props.currentConfig.dataSplit}
               changeCurrentButtonValue={this.changeDataSplit}
               isSmall
+            />
+          </div>
+        </div>
+        <div className="form-group row my-5">
+          <div className="col text-center">
+            <Field
+              name="criterion"
+              component={renderFormField}
+              contentType="dropdown"
+              label="Loss Function"
+              options={this.props.configOptions.criterions}
+            />
+          </div>
+          <div className="col text-center">
+            <Field
+              name="optimizer"
+              component={renderFormField}
+              contentType="dropdown"
+              label="Optimizer"
+              options={this.props.configOptions.optimizers}
+            />
+          </div>
+          <div className="col text-center">
+            <Field
+              name="learningRate"
+              component={renderFormField}
+              contentType="text"
+              label="Learning Rate"
+              placeholder="Enter LR"
             />
           </div>
         </div>
@@ -82,6 +111,21 @@ const validate = (formValues, { configOptions }) => {
   } else if (!/^[a-zA-Z0-9- ]+$/i.test(formValues.taskName)) {
     errors.taskName =
       'Task name can contain only alphabets, numbers, hyphens and spaces';
+  }
+
+  // Learning Rate
+  const {
+    learningRateLimit: { min: learningRateMin, max: learningRateMax },
+  } = configOptions;
+  if (!formValues.learningRate) {
+    errors.learningRate = 'You must enter a learning rate';
+  } else if (!/^[0-9]+(\.[0-9]+)*$/i.test(formValues.learningRate)) {
+    errors.learningRate = 'Enter a valid value';
+  } else if (
+    formValues.learningRate < learningRateMin ||
+    formValues.learningRate > learningRateMax
+  ) {
+    errors.learningRate = `Must be between ${learningRateMin} and ${learningRateMax}`;
   }
 
   // Batch Size
@@ -125,5 +169,5 @@ const mapStateToProps = ({
 
 export default connect(mapStateToProps, {
   classifyModelType,
-  classifyDataSplit,
+  setTrainDataSplit,
 })(reduxForm({ validate })(ClassificationConfigForm));

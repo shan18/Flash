@@ -14,6 +14,8 @@ import {
   CLASSIFY_ADD_IMAGES,
   CLASSIFY_DATA_CLEAR,
   CLASSIFY_CLEAR,
+  SA_CONFIG,
+  SA_DATA_SPLIT,
   INFERENCE_CONFIG_SET,
   INFERENCE_CONFIG_CLEAR,
   INFERENCE_SUBMIT,
@@ -47,10 +49,21 @@ export const clearTrainToken = () => {
   };
 };
 
-export const classifyConfig = config => {
+export const setTrainConfig = ({ taskName, config }) => {
+  const actionType =
+    taskName === 'classification' ? CLASSIFY_CONFIG : SA_CONFIG;
   return {
-    type: CLASSIFY_CONFIG,
+    type: actionType,
     payload: config,
+  };
+};
+
+export const setTrainDataSplit = ({ taskName, dataSplit }) => {
+  const actionType =
+    taskName === 'classification' ? CLASSIFY_DATA_SPLIT : SA_DATA_SPLIT;
+  return {
+    type: actionType,
+    payload: dataSplit,
   };
 };
 
@@ -58,13 +71,6 @@ export const classifyModelType = modelType => {
   return {
     type: CLASSIFY_MODEL_TYPE,
     payload: modelType,
-  };
-};
-
-export const classifyDataSplit = dataSplit => {
-  return {
-    type: CLASSIFY_DATA_SPLIT,
-    payload: dataSplit,
   };
 };
 

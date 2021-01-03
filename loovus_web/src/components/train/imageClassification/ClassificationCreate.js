@@ -74,7 +74,10 @@ class ClassificationCreate extends React.Component {
 
   onConfigSubmit = values => {
     if (this.checkNumClasses() && this.checkNumImages()) {
-      const { modelType, dataSplit, dataset } = this.props;
+      const {
+        dataset,
+        currentConfig: { modelType, dataSplit },
+      } = this.props;
       this.props.onSubmit({
         mode: 'training',
         taskType: 'classification',
@@ -108,6 +111,7 @@ class ClassificationCreate extends React.Component {
         <ClassificationConfigForm
           form={this.props.formName}
           onSubmit={this.onConfigSubmit}
+          initialValues={this.props.currentConfig}
         />
         <div className="row my-5 text-center">
           <div className="col">
@@ -142,13 +146,9 @@ class ClassificationCreate extends React.Component {
 
 const mapStateToProps = ({
   loadingForm,
-  classification: {
-    configOptions,
-    currentConfig: { modelType, dataSplit },
-    dataset,
-  },
+  classification: { configOptions, currentConfig, dataset },
 }) => {
-  return { loadingForm, configOptions, modelType, dataSplit, dataset };
+  return { loadingForm, configOptions, currentConfig, dataset };
 };
 
 const mapDispatchToProps = dispatch => {

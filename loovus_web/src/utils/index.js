@@ -122,7 +122,7 @@ export const renderDropdownInputGroup = ({
       {label ? <label>{label}</label> : ''}
       <div className={`input-group ${setErrorClass(meta)}`}>
         <select {...input} className="form-control custom-select">
-          <option value="">{options['default']}</option>
+          {options.default ? <option value="">{options.default}</option> : ''}
           {_.map(options, (value, key) => {
             if (key !== 'default') {
               return (
