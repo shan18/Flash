@@ -42,11 +42,14 @@ def create_training_json(token, data):
     train_data = {
         'token': token,
         'task_type': data['taskType'].lower(),
-        'model': data['modelType'].lower(),
+        'criterion': data['criterion'].lower(),
+        'optimizer': data['optimizer'].lower(),
+        'learning_rate': data['learningRate'],
         'batch_size': data['batchSize'],
         'epochs': data['epochs'],
         'data_split': data['dataSplit'],
         'dataset': data['dataset'],
+        'model': data['modelType'].lower(),
     }
 
     # Upload data to S3
