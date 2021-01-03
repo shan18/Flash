@@ -23,7 +23,7 @@ export const convertFileToBase64 = file => {
   });
 };
 
-export const removeImageBase64Header = image => {
+export const removeFileBase64Header = image => {
   return image.replace('data:', '').replace(/^.+,/, '');
 };
 

@@ -17,6 +17,7 @@ import {
   SA_CONFIG,
   SA_RNN_TYPE,
   SA_DATA_SPLIT,
+  SA_DATA_ADD,
   SA_DATA_CLEAR,
   SA_CLEAR,
   INFERENCE_CONFIG_SET,
@@ -89,39 +90,10 @@ export const clearTrainConfig = taskName => {
   return { type: taskName === 'classification' ? CLASSIFY_CLEAR : SA_CLEAR };
 };
 
-export const classifyAddClass = classNameValue => {
-  return {
-    type: CLASSIFY_ADD_CLASS,
-    payload: classNameValue,
-  };
-};
-
-export const classifyDeleteClass = classNameValue => {
-  return {
-    type: CLASSIFY_DELETE_CLASS,
-    payload: classNameValue,
-  };
-};
-
-export const classifyCurrentClass = classNameValue => {
-  return {
-    type: CLASSIFY_CURRENT_CLASS,
-    payload: classNameValue,
-  };
-};
-
-export const classifyAddImages = ({
-  imagesList,
-  imagesListSize,
-  imagesListPreview,
-}) => {
-  return {
-    type: CLASSIFY_ADD_IMAGES,
-    payload: { imagesList, imagesListSize, imagesListPreview },
-  };
-};
-
-export const classifyTrain = ({ formName, trainConfig }) => async dispatch => {
+export const submitTrainRequest = ({
+  formName,
+  trainConfig,
+}) => async dispatch => {
   if (formName) {
     dispatch(loadingForm(formName));
   }
@@ -155,6 +127,45 @@ export const classifyTrain = ({ formName, trainConfig }) => async dispatch => {
   if (formName) {
     dispatch(clearLoadingForm(formName));
   }
+};
+
+export const classifyAddClass = classNameValue => {
+  return {
+    type: CLASSIFY_ADD_CLASS,
+    payload: classNameValue,
+  };
+};
+
+export const classifyDeleteClass = classNameValue => {
+  return {
+    type: CLASSIFY_DELETE_CLASS,
+    payload: classNameValue,
+  };
+};
+
+export const classifyCurrentClass = classNameValue => {
+  return {
+    type: CLASSIFY_CURRENT_CLASS,
+    payload: classNameValue,
+  };
+};
+
+export const classifyAddImages = ({
+  imagesList,
+  imagesListSize,
+  imagesListPreview,
+}) => {
+  return {
+    type: CLASSIFY_ADD_IMAGES,
+    payload: { imagesList, imagesListSize, imagesListPreview },
+  };
+};
+
+export const saAddData = csvData => {
+  return {
+    type: SA_DATA_ADD,
+    payload: csvData,
+  };
 };
 
 export const clearInferenceConfig = () => {

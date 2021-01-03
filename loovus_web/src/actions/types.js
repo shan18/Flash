@@ -14,6 +14,7 @@ export const CLASSIFY_CLEAR = 'CLASSIFY_CLEAR';
 export const SA_CONFIG = 'SA_CONFIG';
 export const SA_RNN_TYPE = 'SA_RNN_TYPE';
 export const SA_DATA_SPLIT = 'SA_DATA_SPLIT';
+export const SA_DATA_ADD = 'SA_DATA_ADD';
 export const SA_DATA_CLEAR = 'SA_DATA_CLEAR';
 export const SA_CLEAR = 'SA_CLEAR';
 export const INFERENCE_CONFIG_SET = 'INFERENCE_CONFIG_SET';

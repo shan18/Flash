@@ -80,7 +80,7 @@ class ClassificationCreate extends React.Component {
       } = this.props;
       this.props.onSubmit({
         mode: 'training',
-        taskType: 'classification',
+        taskType: this.props.taskName,
         ...values,
         modelType,
         dataSplit,
@@ -113,6 +113,7 @@ class ClassificationCreate extends React.Component {
           form={this.props.formName}
           onSubmit={this.onConfigSubmit}
           initialValues={this.props.currentConfig}
+          configOptions={this.props.configOptions}
         />
         <div className="row my-5 text-center">
           <div className="col">

@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import {
   clearTrainToken,
   setTrainConfig,
-  classifyTrain,
+  submitTrainRequest,
   clearTrainData,
   clearTrainConfig,
 } from '../../../actions';
 import history from '../../../history';
 import ClassificationCreate from './ClassificationCreate';
-import ClassificationSubmitModal from './ClassificationSubmitModal';
+import TrainingSubmitModal from '../TrainingSubmitModal';
 
 class Classification extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class Classification extends React.Component {
 
   onSubmit = values => {
     // Send values to server
-    this.props.classifyTrain({
+    this.props.submitTrainRequest({
       formName: this.formName,
       trainConfig: values,
     });
@@ -69,7 +69,7 @@ class Classification extends React.Component {
     return (
       <React.Fragment>
         {this.props.token ? (
-          <ClassificationSubmitModal onDismiss={this.onModalDismiss} />
+          <TrainingSubmitModal onDismiss={this.onModalDismiss} />
         ) : (
           ''
         )}
@@ -102,7 +102,7 @@ const mapStateToProps = ({ serverConfig: { token } }) => {
 export default connect(mapStateToProps, {
   clearTrainToken,
   setTrainConfig,
-  classifyTrain,
+  submitTrainRequest,
   clearTrainData,
   clearTrainConfig,
 })(Classification);

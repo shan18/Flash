@@ -16,6 +16,7 @@ class TrainingConfigForm extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <form onSubmit={this.props.handleSubmit}>
         <div className="form-group row mb-5">
@@ -161,14 +162,7 @@ const validate = (formValues, { configOptions }) => {
   return errors;
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const { configOptions, currentConfig: initialValues } = state[
-    ownProps.taskName
-  ];
-  return { configOptions, initialValues };
-};
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   setTrainModelType,
   setTrainDataSplit,
 })(reduxForm({ validate })(TrainingConfigForm));

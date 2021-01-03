@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
-import '../../../styles/Modal.css';
+import '../../styles/Modal.css';
 
-class ClassificationSubmitModal extends React.Component {
+class TrainingSubmitModal extends React.Component {
   renderContent() {
     return (
       <div className="row my-4">
@@ -72,4 +72,4 @@ const mapStateToProps = ({ serverConfig: { token } }) => {
   return { token };
 };
 
-export default connect(mapStateToProps)(ClassificationSubmitModal);
+export default connect(mapStateToProps)(TrainingSubmitModal);

@@ -7,7 +7,7 @@ import {
   renderFormField,
   renderSubmitButton,
   convertFileToBase64,
-  removeImageBase64Header,
+  removeFileBase64Header,
 } from '../../utils';
 
 class InferenceForm extends React.Component {
@@ -28,7 +28,7 @@ class InferenceForm extends React.Component {
         token: this.props.token,
         input:
           inputType === 'image'
-            ? removeImageBase64Header(inferenceInput)
+            ? removeFileBase64Header(inferenceInput)
             : inferenceInput,
       },
     });

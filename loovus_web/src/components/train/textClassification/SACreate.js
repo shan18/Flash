@@ -1,24 +1,73 @@
 import _ from 'lodash';
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
+import { toast } from 'react-toastify';
+import { MdError } from 'react-icons/md';
 
+import { clearTrainData } from '../../../actions';
 import { renderLoadingPage, renderSubmitButton } from '../../../utils';
 import TrainingConfigForm from '../TrainingConfigForm';
+import SAModal from './SAModal';
 
 class SACreate extends React.Component {
-  onConfigSubmit = values => {
-    const {
-      currentConfig: { modelType, dataSplit },
-    } = this.props;
-    this.props.onSubmit({
-      mode: 'training',
-      taskType: 'classification',
-      ...values,
-      modelType,
-      dataSplit,
-    });
+  state = {
+    displayModal: false,
   };
+
+  toggleModal = () => {
+    this.setState({ displayModal: !this.state.displayModal });
+  };
+
+  onModalDismiss = clear => {
+    if (clear) {
+      this.props.clearTrainData(this.props.taskName);
+    }
+    this.toggleModal();
+  };
+
+  checkDataset = () => {
+    if (!this.props.dataset) {
+      toast.dark(
+        <div>
+          <MdError size={25} color="yellow" />
+          &nbsp; Please upload a dataset.
+        </div>
+      );
+      return false;
+    }
+    return true;
+  };
+
+  onConfigSubmit = values => {
+    if (this.checkDataset()) {
+      const {
+        dataset,
+        currentConfig: { modelType, dataSplit },
+      } = this.props;
+      this.props.onSubmit({
+        mode: 'training',
+        taskType: this.props.taskName,
+        ...values,
+        modelType,
+        dataSplit,
+        dataset,
+      });
+    }
+  };
+
+  renderModal() {
+    return (
+      <React.Fragment>
+        {this.state.displayModal ? (
+          <SAModal onDismiss={this.onModalDismiss} />
+        ) : (
+          ''
+        )}
+      </React.Fragment>
+    );
+  }
 
   render() {
     if (_.isEmpty(this.props.configOptions)) {
@@ -31,6 +80,8 @@ class SACreate extends React.Component {
           taskName={this.props.taskName}
           form={this.props.formName}
           onSubmit={this.onConfigSubmit}
+          initialValues={this.props.currentConfig}
+          configOptions={this.props.configOptions}
         />
         <div className="row my-5 text-center">
           <div className="col">
@@ -38,6 +89,7 @@ class SACreate extends React.Component {
               className="btn btn-dark"
               onClick={event => {
                 event.preventDefault();
+                this.toggleModal();
               }}
               disabled={this.props.loadingForm.includes(this.props.formName)}
             >
@@ -56,6 +108,7 @@ class SACreate extends React.Component {
             })}
           </div>
         </div>
+        {this.renderModal()}
       </React.Fragment>
     );
   }
@@ -63,9 +116,16 @@ class SACreate extends React.Component {
 
 const mapStateToProps = ({
   loadingForm,
-  sentimentAnalysis: { configOptions, currentConfig },
+  sentimentAnalysis: { configOptions, currentConfig, dataset },
 }) => {
-  return { loadingForm, configOptions, currentConfig };
+  return { loadingForm, configOptions, currentConfig, dataset };
 };
 
-export default connect(mapStateToProps)(SACreate);
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch,
+    ...bindActionCreators({ clearTrainData }, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SACreate);

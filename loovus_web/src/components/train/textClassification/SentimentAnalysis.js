@@ -1,8 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setTrainConfig, clearTrainConfig } from '../../../actions';
+import {
+  clearTrainToken,
+  setTrainConfig,
+  clearTrainConfig,
+  submitTrainRequest,
+  clearTrainData,
+} from '../../../actions';
+import history from '../../../history';
 import SACreate from './SACreate';
+import TrainingSubmitModal from '../TrainingSubmitModal';
 
 class SentimentAnalysis extends React.Component {
   constructor(props) {
@@ -27,7 +35,16 @@ class SentimentAnalysis extends React.Component {
   }
 
   onSubmit = values => {
-    console.log(values);
+    this.props.submitTrainRequest({
+      formName: this.formName,
+      trainConfig: values,
+    });
+  };
+
+  onModalDismiss = () => {
+    this.props.clearTrainData(this.taskName);
+    this.props.clearTrainToken();
+    history.push('/inference');
   };
 
   componentDidMount() {
@@ -45,21 +62,44 @@ class SentimentAnalysis extends React.Component {
     this.props.clearTrainConfig(this.taskName);
   }
 
+  renderModal() {
+    return (
+      <React.Fragment>
+        {this.props.token ? (
+          <TrainingSubmitModal onDismiss={this.onModalDismiss} />
+        ) : (
+          ''
+        )}
+      </React.Fragment>
+    );
+  }
+
   render() {
     return (
-      <div className="row mt-5">
-        <div className="col-6 mx-auto">
-          <SACreate
-            taskName={this.taskName}
-            formName={this.formName}
-            onSubmit={this.onSubmit}
-          />
+      <React.Fragment>
+        <div className="row mt-5">
+          <div className="col-6 mx-auto">
+            <SACreate
+              taskName={this.taskName}
+              formName={this.formName}
+              onSubmit={this.onSubmit}
+            />
+          </div>
         </div>
-      </div>
+        {this.renderModal()}
+      </React.Fragment>
     );
   }
 }
 
-export default connect(null, { setTrainConfig, clearTrainConfig })(
-  SentimentAnalysis
-);
+const mapStateToProps = ({ serverConfig: { token } }) => {
+  return { token };
+};
+
+export default connect(mapStateToProps, {
+  clearTrainToken,
+  setTrainConfig,
+  clearTrainConfig,
+  submitTrainRequest,
+  clearTrainData,
+})(SentimentAnalysis);
