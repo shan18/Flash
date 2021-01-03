@@ -17,6 +17,7 @@ import {
   SA_CONFIG,
   SA_RNN_TYPE,
   SA_DATA_SPLIT,
+  SA_DATA_CLEAR,
   SA_CLEAR,
   INFERENCE_CONFIG_SET,
   INFERENCE_CONFIG_CLEAR,
@@ -78,6 +79,12 @@ export const setTrainModelType = ({ taskName, modelType }) => {
   };
 };
 
+export const clearTrainData = taskName => {
+  return {
+    type: taskName === 'classification' ? CLASSIFY_DATA_CLEAR : SA_DATA_CLEAR,
+  };
+};
+
 export const clearTrainConfig = taskName => {
   return { type: taskName === 'classification' ? CLASSIFY_CLEAR : SA_CLEAR };
 };
@@ -111,12 +118,6 @@ export const classifyAddImages = ({
   return {
     type: CLASSIFY_ADD_IMAGES,
     payload: { imagesList, imagesListSize, imagesListPreview },
-  };
-};
-
-export const classifyDataClear = () => {
-  return {
-    type: CLASSIFY_DATA_CLEAR,
   };
 };
 

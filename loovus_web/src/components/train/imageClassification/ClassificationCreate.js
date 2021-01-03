@@ -6,7 +6,7 @@ import { submit } from 'redux-form';
 import { toast } from 'react-toastify';
 import { MdError } from 'react-icons/md';
 
-import { classifyDataClear } from '../../../actions';
+import { clearTrainData } from '../../../actions';
 import { renderLoadingPage, renderSubmitButton } from '../../../utils';
 import TrainingConfigForm from '../TrainingConfigForm';
 import ClassificationModal from './ClassificationModal';
@@ -22,7 +22,7 @@ class ClassificationCreate extends React.Component {
 
   onModalDismiss = clear => {
     if (clear) {
-      this.props.classifyDataClear();
+      this.props.clearTrainData(this.props.taskName);
     }
     this.toggleModal();
   };
@@ -155,7 +155,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => {
   return {
     dispatch,
-    ...bindActionCreators({ classifyDataClear }, dispatch),
+    ...bindActionCreators({ clearTrainData }, dispatch),
   };
 };
 
