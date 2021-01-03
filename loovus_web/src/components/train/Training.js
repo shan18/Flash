@@ -4,7 +4,7 @@ import HoverButtons from '../HoverButtons';
 import Classification from './imageClassification/Classification';
 import SentimentAnalysis from './textClassification/SentimentAnalysis';
 
-class ModelTraining extends React.Component {
+class Training extends React.Component {
   constructor(props) {
     super(props);
 
@@ -68,4 +68,4 @@ class ModelTraining extends React.Component {
   }
 }
 
-export default ModelTraining;
+export default Training;

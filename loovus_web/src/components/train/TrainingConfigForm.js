@@ -2,17 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { classifyModelType, setTrainDataSplit } from '../../../actions';
-import { renderFormField } from '../../../utils';
-import HoverButtons from '../../HoverButtons';
+import { setTrainModelType, setTrainDataSplit } from '../../actions';
+import { renderFormField } from '../../utils';
+import HoverButtons from '../HoverButtons';
 
-class ClassificationConfigForm extends React.Component {
+class TrainingConfigForm extends React.Component {
   changeModelType = modelType => {
-    this.props.classifyModelType(modelType);
+    this.props.setTrainModelType({ taskName: this.props.taskName, modelType });
   };
 
   changeDataSplit = dataSplit => {
-    this.props.setTrainDataSplit({ taskName: 'classification', dataSplit });
+    this.props.setTrainDataSplit({ taskName: this.props.taskName, dataSplit });
   };
 
   render() {
@@ -30,10 +30,10 @@ class ClassificationConfigForm extends React.Component {
         </div>
         <div className="row">
           <div className="col col-md-6 mr-auto text-center">
-            <h4 className="mb-3">Model</h4>
+            <h4 className="mb-3">{this.props.configOptions.modelFieldTitle}</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.modelTypes}
-              currentButtonValue={this.props.currentConfig.modelType}
+              currentButtonValue={this.props.initialValues.modelType}
               changeCurrentButtonValue={this.changeModelType}
               isSmall
             />
@@ -42,7 +42,7 @@ class ClassificationConfigForm extends React.Component {
             <h4 className="mb-3">Dataset Split</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.dataSplit}
-              currentButtonValue={this.props.currentConfig.dataSplit}
+              currentButtonValue={this.props.initialValues.dataSplit}
               changeCurrentButtonValue={this.changeDataSplit}
               isSmall
             />
@@ -161,13 +161,14 @@ const validate = (formValues, { configOptions }) => {
   return errors;
 };
 
-const mapStateToProps = ({
-  classification: { configOptions, currentConfig },
-}) => {
-  return { configOptions, currentConfig };
+const mapStateToProps = (state, ownProps) => {
+  const { configOptions, currentConfig: initialValues } = state[
+    ownProps.taskName
+  ];
+  return { configOptions, initialValues };
 };
 
 export default connect(mapStateToProps, {
-  classifyModelType,
+  setTrainModelType,
   setTrainDataSplit,
-})(reduxForm({ validate })(ClassificationConfigForm));
+})(reduxForm({ validate })(TrainingConfigForm));

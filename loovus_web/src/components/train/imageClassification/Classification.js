@@ -6,7 +6,7 @@ import {
   setTrainConfig,
   classifyTrain,
   classifyDataClear,
-  classifyClear,
+  clearTrainConfig,
 } from '../../../actions';
 import history from '../../../history';
 import ClassificationCreate from './ClassificationCreate';
@@ -16,10 +16,12 @@ class Classification extends React.Component {
   constructor(props) {
     super(props);
 
-    this.formName = 'classificationConfigForm';
+    this.taskName = 'classification';
+    this.formName = `${this.taskName}ConfigForm`;
 
     this.configOptions = {
       modelTypes: ['MobileNet v2', 'ResNet34'],
+      modelFieldTitle: 'Model',
       numClassesLimit: { min: 2, max: 10 },
       numImagesLimit: { min: 10, max: 100 },
       sizeLimit: 20000000, // In bytes (20 MB)
@@ -50,7 +52,7 @@ class Classification extends React.Component {
 
   componentDidMount() {
     this.props.setTrainConfig({
-      taskName: 'classification',
+      taskName: this.taskName,
       config: {
         ...this.configOptions,
         ...this.props.trainConfigOptions,
@@ -60,7 +62,7 @@ class Classification extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.classifyClear();
+    this.props.clearTrainConfig(this.taskName);
   }
 
   renderModal() {
@@ -81,6 +83,7 @@ class Classification extends React.Component {
         <div className="row mt-5">
           <div className="col-6 mx-auto">
             <ClassificationCreate
+              taskName={this.taskName}
               formName={this.formName}
               onSubmit={this.onSubmit}
             />
@@ -101,5 +104,5 @@ export default connect(mapStateToProps, {
   setTrainConfig,
   classifyTrain,
   classifyDataClear,
-  classifyClear,
+  clearTrainConfig,
 })(Classification);

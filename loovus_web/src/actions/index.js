@@ -15,7 +15,9 @@ import {
   CLASSIFY_DATA_CLEAR,
   CLASSIFY_CLEAR,
   SA_CONFIG,
+  SA_RNN_TYPE,
   SA_DATA_SPLIT,
+  SA_CLEAR,
   INFERENCE_CONFIG_SET,
   INFERENCE_CONFIG_CLEAR,
   INFERENCE_SUBMIT,
@@ -67,11 +69,17 @@ export const setTrainDataSplit = ({ taskName, dataSplit }) => {
   };
 };
 
-export const classifyModelType = modelType => {
+export const setTrainModelType = ({ taskName, modelType }) => {
+  const actionType =
+    taskName === 'classification' ? CLASSIFY_MODEL_TYPE : SA_RNN_TYPE;
   return {
-    type: CLASSIFY_MODEL_TYPE,
+    type: actionType,
     payload: modelType,
   };
+};
+
+export const clearTrainConfig = taskName => {
+  return { type: taskName === 'classification' ? CLASSIFY_CLEAR : SA_CLEAR };
 };
 
 export const classifyAddClass = classNameValue => {
@@ -109,12 +117,6 @@ export const classifyAddImages = ({
 export const classifyDataClear = () => {
   return {
     type: CLASSIFY_DATA_CLEAR,
-  };
-};
-
-export const classifyClear = () => {
-  return {
-    type: CLASSIFY_CLEAR,
   };
 };
 

@@ -6,7 +6,7 @@ import history from '../history';
 import Home from './cover/Home';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import ModelTraining from './train/ModelTraining';
+import Training from './train/Training';
 import Inference from './infer/Inference';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,7 +32,7 @@ class App extends React.Component {
             <div className="container">
               <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/training" exact component={ModelTraining} />
+                <Route path="/training" exact component={Training} />
                 <Route path="/inference" exact component={Inference} />
               </Switch>
             </div>

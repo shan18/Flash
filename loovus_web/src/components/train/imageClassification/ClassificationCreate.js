@@ -8,7 +8,7 @@ import { MdError } from 'react-icons/md';
 
 import { classifyDataClear } from '../../../actions';
 import { renderLoadingPage, renderSubmitButton } from '../../../utils';
-import ClassificationConfigForm from './ClassificationConfigForm';
+import TrainingConfigForm from '../TrainingConfigForm';
 import ClassificationModal from './ClassificationModal';
 
 class ClassificationCreate extends React.Component {
@@ -108,7 +108,8 @@ class ClassificationCreate extends React.Component {
 
     return (
       <React.Fragment>
-        <ClassificationConfigForm
+        <TrainingConfigForm
+          taskName={this.props.taskName}
           form={this.props.formName}
           onSubmit={this.onConfigSubmit}
           initialValues={this.props.currentConfig}
