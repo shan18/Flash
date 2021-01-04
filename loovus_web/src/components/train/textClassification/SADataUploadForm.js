@@ -1,8 +1,9 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { ImUpload3 } from 'react-icons/im';
 
 import { renderFormField } from '../../../utils';
+import FormFileField from '../../FormFileField';
 
 class SADataUploadForm extends React.Component {
   render() {
@@ -14,12 +15,15 @@ class SADataUploadForm extends React.Component {
         <div className="col col-md-8 mx-auto">
           <form>
             <ImUpload3 size={30} className="mb-3" />
-            <Field
-              name="saCsvData"
-              component={renderFormField}
-              contentType="file"
-              label="Choose File"
-              acceptFileFormat=".csv, text/csv"
+            <FormFileField
+              taskName={this.props.taskName}
+              fieldConfig={{
+                name: 'saCsvData',
+                component: renderFormField,
+                contentType: 'file',
+                label: 'Choose File',
+                acceptFileFormat: '.csv, text/csv',
+              }}
             />
           </form>
         </div>

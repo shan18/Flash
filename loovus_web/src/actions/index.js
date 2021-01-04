@@ -3,6 +3,8 @@ import { reset } from 'redux-form';
 import {
   LOADING_FORM,
   CLEAR_LOADING_FORM,
+  SET_FORM_FILE_FIELD_LABEL,
+  CLEAR_FORM_FILE_FIELD_LABEL,
   TRAIN_TOKEN_SET,
   TRAIN_TOKEN_CLEAR,
   CLASSIFY_CONFIG,
@@ -47,6 +49,20 @@ export const clearLoadingForm = formName => {
   };
 };
 
+export const setFormFileFieldLabel = ({ taskName, label }) => {
+  return {
+    type: SET_FORM_FILE_FIELD_LABEL,
+    payload: { taskName, label },
+  };
+};
+
+export const clearFormFileFieldLabel = formName => {
+  return {
+    type: CLEAR_FORM_FILE_FIELD_LABEL,
+    payload: formName,
+  };
+};
+
 export const clearTrainToken = () => {
   return {
     type: TRAIN_TOKEN_CLEAR,
@@ -80,14 +96,16 @@ export const setTrainModelType = ({ taskName, modelType }) => {
   };
 };
 
-export const clearTrainData = taskName => {
-  return {
+export const clearTrainData = taskName => dispatch => {
+  dispatch(clearFormFileFieldLabel(taskName));
+  dispatch({
     type: taskName === 'classification' ? CLASSIFY_DATA_CLEAR : SA_DATA_CLEAR,
-  };
+  });
 };
 
-export const clearTrainConfig = taskName => {
-  return { type: taskName === 'classification' ? CLASSIFY_CLEAR : SA_CLEAR };
+export const clearTrainConfig = taskName => dispatch => {
+  dispatch(clearFormFileFieldLabel(taskName));
+  dispatch({ type: taskName === 'classification' ? CLASSIFY_CLEAR : SA_CLEAR });
 };
 
 export const submitTrainRequest = ({
@@ -178,8 +196,9 @@ export const clearInferencePrediction = () => {
   return { type: INFERENCE_PREDICTION_CLEAR };
 };
 
-export const clearInference = () => {
-  return { type: INFERENCE_CLEAR };
+export const clearInference = taskName => dispatch => {
+  dispatch(clearFormFileFieldLabel(taskName));
+  dispatch({ type: INFERENCE_CLEAR });
 };
 
 export const submitInferenceToken = ({ formName, token }) => async dispatch => {

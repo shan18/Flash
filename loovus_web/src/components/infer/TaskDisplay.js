@@ -84,7 +84,11 @@ class TaskDisplay extends React.Component {
             </h4>
           </div>
           <div className="col-11 col-lg-6 mx-auto">
-            <InferenceForm onSubmit={this.onSubmit} field={this.fieldValues} />
+            <InferenceForm
+              onSubmit={this.onSubmit}
+              taskName={this.props.taskName}
+              field={this.fieldValues}
+            />
           </div>
         </div>
         {this.props.prediction ? this.renderOutput() : ''}

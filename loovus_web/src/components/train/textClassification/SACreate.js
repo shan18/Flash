@@ -61,7 +61,10 @@ class SACreate extends React.Component {
     return (
       <React.Fragment>
         {this.state.displayModal ? (
-          <SAModal onDismiss={this.onModalDismiss} />
+          <SAModal
+            onDismiss={this.onModalDismiss}
+            taskName={this.props.taskName}
+          />
         ) : (
           ''
         )}

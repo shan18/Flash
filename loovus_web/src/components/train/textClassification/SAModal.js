@@ -80,7 +80,10 @@ class SAModal extends React.Component {
               </div>
             </div>
             <div className="col col-md-6">
-              <SADataUploadForm onSubmit={this.onDataUploadSubmit} />
+              <SADataUploadForm
+                onSubmit={this.onDataUploadSubmit}
+                taskName={this.props.taskName}
+              />
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ import {
   convertFileToBase64,
   removeFileBase64Header,
 } from '../../utils';
+import FormFileField from '../FormFileField';
 
 class InferenceForm extends React.Component {
   onSubmit = async ({ inferenceInput }) => {
@@ -38,19 +39,28 @@ class InferenceForm extends React.Component {
   };
 
   render() {
-    const { contentType, label, options, acceptFileFormat } = this.props.field;
+    const { contentType, label, acceptFileFormat } = this.props.field;
     return (
       <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <Field
-          name="inferenceInput"
-          key="inferenceInput"
-          component={renderFormField}
-          contentType={contentType}
-          label={label}
-          options={options}
-          acceptFileFormat={acceptFileFormat}
-          onChange={() => console.log('jfdlsk')}
-        />
+        {contentType === 'file' ? (
+          <FormFileField
+            taskName={this.props.taskName}
+            fieldConfig={{
+              name: 'inferenceInput',
+              component: renderFormField,
+              contentType,
+              label,
+              acceptFileFormat,
+            }}
+          />
+        ) : (
+          <Field
+            name="inferenceInput"
+            component={renderFormField}
+            contentType={contentType}
+            label={label}
+          />
+        )}
         <div className="row mt-3">
           <div className="col mx-auto">
             {renderSubmitButton({
