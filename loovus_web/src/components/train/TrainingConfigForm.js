@@ -16,7 +16,6 @@ class TrainingConfigForm extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <form onSubmit={this.props.handleSubmit}>
         <div className="form-group row mb-5">
@@ -34,7 +33,7 @@ class TrainingConfigForm extends React.Component {
             <h4 className="mb-3">{this.props.configOptions.modelFieldTitle}</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.modelTypes}
-              currentButtonValue={this.props.initialValues.modelType}
+              currentButtonValue={this.props.currentConfig.modelType}
               changeCurrentButtonValue={this.changeModelType}
               isSmall
             />
@@ -43,7 +42,7 @@ class TrainingConfigForm extends React.Component {
             <h4 className="mb-3">Dataset Split</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.dataSplit}
-              currentButtonValue={this.props.initialValues.dataSplit}
+              currentButtonValue={this.props.currentConfig.dataSplit}
               changeCurrentButtonValue={this.changeDataSplit}
               isSmall
             />
@@ -162,7 +161,12 @@ const validate = (formValues, { configOptions }) => {
   return errors;
 };
 
-export default connect(null, {
+const mapStateToProps = (state, ownProps) => {
+  const { configOptions, currentConfig } = state[ownProps.taskName];
+  return { configOptions, currentConfig, initialValues: currentConfig };
+};
+
+export default connect(mapStateToProps, {
   setTrainModelType,
   setTrainDataSplit,
 })(reduxForm({ validate })(TrainingConfigForm));

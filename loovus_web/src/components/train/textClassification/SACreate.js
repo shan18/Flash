@@ -80,8 +80,6 @@ class SACreate extends React.Component {
           taskName={this.props.taskName}
           form={this.props.formName}
           onSubmit={this.onConfigSubmit}
-          initialValues={this.props.currentConfig}
-          configOptions={this.props.configOptions}
         />
         <div className="row my-5 text-center">
           <div className="col">
