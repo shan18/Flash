@@ -34,7 +34,7 @@ class CoverModal extends React.Component {
         targetUrl: '/inference',
         contentImage: `${process.env.PUBLIC_URL}/assets/inference.gif`,
         contentText:
-          'Already trained a model on Loovus? Choose this to test your model.',
+          'Already trained a model on Flash? Choose this to test your model.',
         buttonText: 'Test Model',
       },
     ];

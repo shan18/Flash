@@ -1,4 +1,4 @@
-service: loovus-inference
+service: flash-inference
 
 provider:
   name: aws
