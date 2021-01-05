@@ -84,7 +84,7 @@ class ClassificationDataset extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <h4>Images</h4>
         <small>
           Number of images for each class must be within the range{' '}
@@ -107,7 +107,7 @@ class ClassificationDataset extends React.Component {
         />
         <ClassificationDataUploadForm onSubmit={this.onDataUploadSubmit} />
         <ClassificationDataPreview />
-      </React.Fragment>
+      </>
     );
   }
 }

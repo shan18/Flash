@@ -64,19 +64,19 @@ class SentimentAnalysis extends React.Component {
 
   renderModal() {
     return (
-      <React.Fragment>
+      <>
         {this.props.token ? (
           <TrainingSubmitModal onDismiss={this.onModalDismiss} />
         ) : (
           ''
         )}
-      </React.Fragment>
+      </>
     );
   }
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <div className="row mt-5">
           <div className="col-6 mx-auto">
             <SACreate
@@ -87,7 +87,7 @@ class SentimentAnalysis extends React.Component {
           </div>
         </div>
         {this.renderModal()}
-      </React.Fragment>
+      </>
     );
   }
 }

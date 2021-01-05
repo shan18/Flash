@@ -34,11 +34,11 @@ class HoverButtons extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         {_.map(this.props.hoverButtons, buttonData =>
           this.renderButton(buttonData)
         )}
-      </React.Fragment>
+      </>
     );
   }
 }

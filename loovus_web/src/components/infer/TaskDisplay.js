@@ -74,7 +74,7 @@ class TaskDisplay extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <div className="row my-4">
           <div className="col-12 mb-3">
             <h4 className="text-center">
@@ -92,7 +92,7 @@ class TaskDisplay extends React.Component {
           </div>
         </div>
         {this.props.prediction ? this.renderOutput() : ''}
-      </React.Fragment>
+      </>
     );
   }
 }

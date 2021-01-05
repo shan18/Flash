@@ -47,7 +47,7 @@ class Training extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <div className="row">
           <div className="col">
             <h1 className="heading">Train a Model</h1>
@@ -63,7 +63,7 @@ class Training extends React.Component {
           </div>
         </div>
         {this.renderCurrentTask()}
-      </React.Fragment>
+      </>
     );
   }
 }

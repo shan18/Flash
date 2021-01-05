@@ -59,7 +59,7 @@ class SACreate extends React.Component {
 
   renderModal() {
     return (
-      <React.Fragment>
+      <>
         {this.state.displayModal ? (
           <SAModal
             onDismiss={this.onModalDismiss}
@@ -68,17 +68,17 @@ class SACreate extends React.Component {
         ) : (
           ''
         )}
-      </React.Fragment>
+      </>
     );
   }
 
   render() {
     if (_.isEmpty(this.props.configOptions)) {
-      return <React.Fragment>{renderLoadingPage('Loading')}</React.Fragment>;
+      return <>{renderLoadingPage('Loading')}</>;
     }
 
     return (
-      <React.Fragment>
+      <>
         <TrainingConfigForm
           taskName={this.props.taskName}
           form={this.props.formName}
@@ -110,7 +110,7 @@ class SACreate extends React.Component {
           </div>
         </div>
         {this.renderModal()}
-      </React.Fragment>
+      </>
     );
   }
 }

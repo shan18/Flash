@@ -6,7 +6,10 @@ class ClassificationDataPreview extends React.Component {
   renderCard(imgUrl, imgId) {
     return (
       <div className="col mb-3" key={imgId}>
-        <div className="card shadow bg-white rounded" style={{ width: '5rem' }}>
+        <div
+          className="card card-hover shadow bg-white rounded"
+          style={{ width: '5rem' }}
+        >
           <img src={imgUrl} className="card-img-top" alt={`data-${imgId}`} />
         </div>
       </div>
@@ -15,7 +18,7 @@ class ClassificationDataPreview extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         {this.props.imgList ? (
           <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 mt-5 mx-auto">
             {_.map(this.props.imgList, (image, imgId) =>
@@ -25,7 +28,7 @@ class ClassificationDataPreview extends React.Component {
         ) : (
           ''
         )}
-      </React.Fragment>
+      </>
     );
   }
 }

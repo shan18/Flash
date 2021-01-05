@@ -29,14 +29,14 @@ class ClassificationClassList extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <h4>Classes</h4>
         <small>
           Number of classes must be within the range{' '}
           {this.props.numClassesLimit.min} - {this.props.numClassesLimit.max}
         </small>
         {this.renderClassList()}
-      </React.Fragment>
+      </>
     );
   }
 }

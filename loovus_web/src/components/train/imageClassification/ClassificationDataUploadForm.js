@@ -8,7 +8,7 @@ import { renderFormField } from '../../../utils';
 class ClassificationDataUploadForm extends React.Component {
   render() {
     return (
-      <React.Fragment>
+      <>
         {this.props.currentClass &&
         !this.props.numImagesExceeded &&
         !this.props.sizeExceeded ? (
@@ -30,7 +30,7 @@ class ClassificationDataUploadForm extends React.Component {
         ) : (
           ''
         )}
-      </React.Fragment>
+      </>
     );
   }
 }

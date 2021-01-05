@@ -50,7 +50,7 @@ export const renderTextInput = ({
   meta,
 }) => {
   return (
-    <React.Fragment>
+    <>
       {label ? <label>{label}</label> : ''}
       <div className={`input-group ${setErrorClass(meta)}`}>
         <input
@@ -79,7 +79,7 @@ export const renderTextInput = ({
         )}
       </div>
       {renderError(meta)}
-    </React.Fragment>
+    </>
   );
 };
 
