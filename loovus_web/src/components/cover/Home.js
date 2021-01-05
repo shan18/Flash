@@ -13,19 +13,19 @@ class Home extends React.Component {
 
   renderModal() {
     return (
-      <React.Fragment>
+      <>
         {this.state.displayModal ? (
           <CoverModal onDismiss={this.toggleModal} />
         ) : (
           ''
         )}
-      </React.Fragment>
+      </>
     );
   }
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <div className="row">
           <div className="col">
             <h1 className="heading">Home Page</h1>
@@ -42,7 +42,7 @@ class Home extends React.Component {
           </div>
         </div>
         {this.renderModal()}
-      </React.Fragment>
+      </>
     );
   }
 }

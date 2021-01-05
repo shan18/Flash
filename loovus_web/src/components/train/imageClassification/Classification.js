@@ -80,6 +80,13 @@ class Classification extends React.Component {
   render() {
     return (
       <>
+        <div className="card mx-auto mt-4" style={{ width: '22rem' }}>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/imageClassification.gif`}
+            className="card-img-top"
+            alt="source"
+          />
+        </div>
         <div className="row mt-5">
           <div className="col-6 mx-auto">
             <ClassificationCreate

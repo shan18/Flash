@@ -9,31 +9,60 @@ class CoverModal extends React.Component {
   constructor(props) {
     super(props);
 
-    this.modalContent = [
+    this.modalCardContent = [
       {
-        title: 'Train a model',
+        title: 'Training',
         targetUrl: '/training',
-        contentText: 'Train an Image Classifier or a Sentiment Analysis Model.',
-        buttonText: 'Train',
+        contentImage: `${process.env.PUBLIC_URL}/assets/training.gif`,
+        contentText: (
+          <>
+            Train an{' '}
+            <mark>
+              <b>Image Classification</b>
+            </mark>{' '}
+            or{' '}
+            <mark>
+              <b>Sentiment Analysis</b>
+            </mark>{' '}
+            model on your custom dataset.
+          </>
+        ),
+        buttonText: 'Choose Task',
       },
       {
-        title: 'Test an existing model',
+        title: 'Inference',
         targetUrl: '/inference',
-        contentText: 'Test your existing model.',
-        buttonText: 'Test',
+        contentImage: `${process.env.PUBLIC_URL}/assets/inference.gif`,
+        contentText:
+          'Already trained a model on Loovus? Choose this to test your model.',
+        buttonText: 'Test Model',
       },
     ];
   }
 
-  renderCardContent({ title, targetUrl, contentText, buttonText }) {
+  renderCardContent({
+    title,
+    targetUrl,
+    contentImage,
+    contentText,
+    buttonText,
+  }) {
     return (
-      <div className="card p-3" key={targetUrl}>
+      <div className="card card-hover" key={targetUrl}>
+        <img
+          src={contentImage}
+          className="card-img-top"
+          style={{ height: '24vh' }}
+          alt="source"
+        />
         <div className="card-body">
-          <h5 className="card-title">{title}</h5>
-          <p className="card-text">{contentText}</p>
-          <Link to={targetUrl}>
-            <button className="btn btn-primary">{buttonText}</button>
-          </Link>
+          <h4 className="card-title text-center">{title}</h4>
+          <p className="card-text my-4">{contentText}</p>
+          <div className="text-center">
+            <Link to={targetUrl}>
+              <button className="btn btn-info">{buttonText}</button>
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -41,8 +70,8 @@ class CoverModal extends React.Component {
 
   renderContent() {
     return (
-      <div className="card-deck px-5">
-        {_.map(this.modalContent, item => {
+      <div className="card-deck px-0 px-md-5">
+        {_.map(this.modalCardContent, item => {
           return this.renderCardContent(item);
         })}
       </div>
@@ -53,14 +82,14 @@ class CoverModal extends React.Component {
     return ReactDOM.createPortal(
       <div className="modal-container" onClick={this.props.onDismiss}>
         <div className="modal-body" onClick={e => e.stopPropagation()}>
-          <h3 className="text-center">Choose</h3>
-          <hr className="w-100" />
+          <h3 className="text-center">Get Started</h3>
+          <hr className="w-100 mb-4" />
           {this.renderContent()}
-          <hr className="w-100" />
+          <hr className="w-100 mt-4" />
           <div className="row">
             <div className="col text-right">
               <button
-                className="btn btn-primary mr-2"
+                className="btn btn-warning mr-2"
                 onClick={this.props.onDismiss}
               >
                 Go Back

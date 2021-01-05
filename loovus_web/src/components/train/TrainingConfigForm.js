@@ -18,19 +18,21 @@ class TrainingConfigForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.props.handleSubmit}>
-        <div className="form-group row mb-5">
-          <div className="col">
+        <div className="row">
+          <div className="col mx-auto">
             <Field
               name="taskName"
               component={renderFormField}
               contentType="text"
               placeholder="Enter Task Name"
+              formGroupClassName="text-center"
+              label={<h4>Task Name</h4>}
             />
           </div>
         </div>
-        <div className="row">
-          <div className="col col-md-6 mr-auto text-center">
-            <h4 className="mb-3">{this.props.configOptions.modelFieldTitle}</h4>
+        <div className="row mt-5">
+          <div className="col-12 col-md-6 mr-auto text-center">
+            <h4 className="mb-2">{this.props.configOptions.modelFieldTitle}</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.modelTypes}
               currentButtonValue={this.props.currentConfig.modelType}
@@ -38,8 +40,8 @@ class TrainingConfigForm extends React.Component {
               isSmall
             />
           </div>
-          <div className="col col-md-4 ml-auto text-center">
-            <h4 className="mb-3">Dataset Split</h4>
+          <div className="col-12 col-md-4 ml-auto mt-5 mt-md-0 text-center">
+            <h4 className="mb-2">Dataset Split</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.dataSplit}
               currentButtonValue={this.props.currentConfig.dataSplit}
@@ -49,7 +51,7 @@ class TrainingConfigForm extends React.Component {
           </div>
         </div>
         <div className="form-group row my-5">
-          <div className="col text-center">
+          <div className="col-12 col-md-4 text-center">
             <Field
               name="criterion"
               component={renderFormField}
@@ -58,7 +60,7 @@ class TrainingConfigForm extends React.Component {
               options={this.props.configOptions.criterions}
             />
           </div>
-          <div className="col text-center">
+          <div className="col-12 col-md-4 my-3 my-md-0 text-center">
             <Field
               name="optimizer"
               component={renderFormField}
@@ -67,7 +69,7 @@ class TrainingConfigForm extends React.Component {
               options={this.props.configOptions.optimizers}
             />
           </div>
-          <div className="col text-center">
+          <div className="col-12 col-md-4 text-center">
             <Field
               name="learningRate"
               component={renderFormField}
@@ -77,8 +79,8 @@ class TrainingConfigForm extends React.Component {
             />
           </div>
         </div>
-        <div className="form-group row my-5">
-          <div className="col mr-4 text-center">
+        <div className="form-group row">
+          <div className="col-12 col-md-6 text-center">
             <Field
               name="batchSize"
               component={renderFormField}
@@ -87,7 +89,7 @@ class TrainingConfigForm extends React.Component {
               placeholder="Enter batch size"
             />
           </div>
-          <div className="col ml-4 text-center">
+          <div className="col-12 col-md-6 mt-3 mt-md-0 text-center">
             <Field
               name="epochs"
               component={renderFormField}
