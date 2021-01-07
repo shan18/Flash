@@ -4,7 +4,7 @@ import boto3
 
 
 # Names
-BUCKET_NAME = os.environ['S3_BUCKET'] if 'S3_BUCKET' in os.environ else 'loovus'
+BUCKET_NAME = os.environ.get('S3_BUCKET')
 STATUS_FILE = 'status.json'
 
 # S3 Connection
@@ -16,7 +16,7 @@ BUCKET = S3_RESOURCE.Bucket(BUCKET_NAME)
 def fetch_status():
     print('Connecting to S3...')
     obj = S3_CLIENT.get_object(Bucket=BUCKET_NAME, Key=STATUS_FILE)
-    return eval(obj['Body'].read())
+    return json.loads(obj['Body'].read())
 
 
 def change_server_status(new_status, token=None):
@@ -34,7 +34,7 @@ def change_server_status(new_status, token=None):
 def fetch_inference_json():
     print('Fetching inference json')
     obj = S3_CLIENT.get_object(Bucket=BUCKET_NAME, Key='inference.json')
-    return eval(obj['Body'].read())
+    return json.loads(obj['Body'].read())
 
 
 def create_training_json(token, data):
