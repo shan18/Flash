@@ -1,5 +1,6 @@
 import os
 import io
+import json
 import boto3
 
 
@@ -13,7 +14,7 @@ S3_CLIENT = boto3.client('s3')
 def fetch_inference_json():
     print('Fetching inference json')
     obj = S3_CLIENT.get_object(Bucket=BUCKET_NAME, Key='inference.json')
-    return eval(obj['Body'].read())
+    return json.loads(obj['Body'].read())
 
 
 def fetch_model_data(paths):
