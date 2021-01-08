@@ -120,7 +120,6 @@ export const submitTrainRequest = ({
   const serverIsAvailable = await statusCheck();
 
   if (serverIsAvailable) {
-    console.log(trainConfig);
     // Encode data
     const formData = new FormData();
     formData.append('training_data', JSON.stringify(trainConfig));
@@ -206,8 +205,6 @@ export const submitInferenceToken = ({ formName, token }) => async dispatch => {
   if (formName) {
     dispatch(loadingForm(formName));
   }
-
-  console.log({ token });
 
   // Encode data
   const formData = new FormData();

@@ -16,6 +16,10 @@ class TrainingConfigForm extends React.Component {
   };
 
   render() {
+    const {
+      batchSizeLimit: { min: batchSizeMin, max: batchSizeMax },
+      numEpochsLimit: { min: numEpochsMin, max: numEpochsMax },
+    } = this.props.configOptions;
     return (
       <form onSubmit={this.props.handleSubmit}>
         <div className="row">
@@ -86,7 +90,7 @@ class TrainingConfigForm extends React.Component {
               component={renderFormField}
               contentType="text"
               label="Batch Size"
-              placeholder="Enter batch size"
+              placeholder={`Range: ${batchSizeMin} - ${batchSizeMax}`}
             />
           </div>
           <div className="col-12 col-md-6 mt-3 mt-md-0 text-center">
@@ -95,7 +99,7 @@ class TrainingConfigForm extends React.Component {
               component={renderFormField}
               contentType="text"
               label="Epochs"
-              placeholder="Enter number of epochs"
+              placeholder={`Range: ${numEpochsMin} - ${numEpochsMax}`}
             />
           </div>
         </div>
