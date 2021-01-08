@@ -43,7 +43,6 @@ def create_training_json(token, data):
     train_data = {
         'token': token,
         'task_type': data['taskType'].lower(),
-        'criterion': data['criterion'].lower(),
         'optimizer': data['optimizer'].lower(),
         'learning_rate': data['learningRate'],
         'batch_size': data['batchSize'],
@@ -51,6 +50,11 @@ def create_training_json(token, data):
         'data_split': data['dataSplit'],
         'dataset': data['dataset'],
         'model': data['modelType'].lower(),
+        'reduce_lr_on_plateau': {
+            'factor': data['reduceLrOnPlateauFactor'],
+            'patience': data['reduceLrOnPlateauPatience'],
+            'min_lr': data['reduceLrOnPlateauMinLr'],
+        } if data['reduceLrOnPlateau'] else False,
     }
 
     # Upload data to S3

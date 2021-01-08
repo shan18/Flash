@@ -31,8 +31,8 @@ class Classification extends React.Component {
       modelType: 'MobileNet v2',
       dataSplit: '70 : 30',
       optimizer: 'sgd',
-      criterion: 'crossEntropy',
       learningRate: 0.01,
+      ...this.props.currentTrainConfig,
     };
   }
 

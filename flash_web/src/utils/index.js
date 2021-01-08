@@ -166,6 +166,30 @@ export const renderFileInputGroup = ({
   );
 };
 
+export const renderSwitchInputGroup = ({
+  input,
+  label,
+  formGroupClassName,
+  meta,
+}) => {
+  return (
+    <div className={`form-group ${formGroupClassName}`}>
+      <div className={`custom-control custom-switch ${setErrorClass(meta)}`}>
+        <input
+          {...input}
+          type="checkbox"
+          className="custom-control-input"
+          id="custom-switch-input"
+        />
+        <label className="custom-control-label" htmlFor="custom-switch-input">
+          {label}
+        </label>
+      </div>
+      {renderError(meta)}
+    </div>
+  );
+};
+
 export const renderFormField = ({
   input,
   contentType,
@@ -207,6 +231,13 @@ export const renderFormField = ({
       label,
       acceptFileFormat,
       multiple,
+      formGroupClassName,
+      meta,
+    });
+  } else if (contentType === 'switch') {
+    return renderSwitchInputGroup({
+      input,
+      label,
       formGroupClassName,
       meta,
     });

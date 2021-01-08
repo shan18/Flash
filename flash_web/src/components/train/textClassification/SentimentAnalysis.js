@@ -29,8 +29,8 @@ class SentimentAnalysis extends React.Component {
       modelType: 'LSTM',
       dataSplit: '70 : 30',
       optimizer: 'adam',
-      criterion: 'bce',
       learningRate: 0.001,
+      ...this.props.currentTrainConfig,
     };
   }
 

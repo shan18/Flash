@@ -7,6 +7,14 @@ import { renderFormField } from '../../utils';
 import HoverButtons from '../HoverButtons';
 
 class TrainingConfigForm extends React.Component {
+  state = {
+    reduceLrOnPlateau: false,
+  };
+
+  toggleReduceLr = () => {
+    this.setState({ reduceLrOnPlateau: !this.state.reduceLrOnPlateau });
+  };
+
   changeModelType = modelType => {
     this.props.setTrainModelType({ taskName: this.props.taskName, modelType });
   };
@@ -54,17 +62,53 @@ class TrainingConfigForm extends React.Component {
             />
           </div>
         </div>
-        <div className="form-group row my-5">
-          <div className="col-12 col-md-4 text-center">
+        <div className="row mt-5">
+          <div className="col-12 col-md-6 mx-auto text-center">
+            <h4 className="mb-2">Callbacks</h4>
             <Field
-              name="criterion"
+              name="reduceLrOnPlateau"
               component={renderFormField}
-              contentType="dropdown"
-              label="Loss Function"
-              options={this.props.configOptions.criterions}
+              contentType="switch"
+              label="Reduce LR on Plateau"
+              onChange={() => this.toggleReduceLr()}
             />
           </div>
-          <div className="col-12 col-md-4 my-3 my-md-0 text-center">
+        </div>
+        {this.state.reduceLrOnPlateau ? (
+          <div className="form-group row mt-1 mb-5">
+            <div className="col-12 col-md-4 text-center">
+              <Field
+                name="reduceLrOnPlateauPatience"
+                component={renderFormField}
+                contentType="text"
+                label="Patience"
+                placeholder="Enter Patience"
+              />
+            </div>
+            <div className="col-12 col-md-4 my-3 my-md-0 text-center">
+              <Field
+                name="reduceLrOnPlateauFactor"
+                component={renderFormField}
+                contentType="text"
+                label="Factor"
+                placeholder="Enter Factor"
+              />
+            </div>
+            <div className="col-12 col-md-4 text-center">
+              <Field
+                name="reduceLrOnPlateauMinLr"
+                component={renderFormField}
+                contentType="text"
+                label="Minimum LR"
+                placeholder="Enter Min LR"
+              />
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
+        <div className="form-group row my-5">
+          <div className="col-12 col-md-6 text-center">
             <Field
               name="optimizer"
               component={renderFormField}
@@ -73,7 +117,7 @@ class TrainingConfigForm extends React.Component {
               options={this.props.configOptions.optimizers}
             />
           </div>
-          <div className="col-12 col-md-4 text-center">
+          <div className="col-12 col-md-6 mt-3 mt-md-0 text-center">
             <Field
               name="learningRate"
               component={renderFormField}
@@ -117,6 +161,54 @@ const validate = (formValues, { configOptions }) => {
   } else if (!/^[a-zA-Z0-9- ]+$/i.test(formValues.taskName)) {
     errors.taskName =
       'Task name can contain only alphabets, numbers, hyphens and spaces';
+  }
+
+  // Reduce LR on Plateau
+  if (formValues.reduceLrOnPlateau) {
+    const {
+      reduceLrOnPlateauLimit: {
+        factor: factorLimit,
+        patience: patienceLimit,
+        minLr: minLrLimit,
+      },
+    } = configOptions;
+
+    // Patience
+    if (!formValues.reduceLrOnPlateauPatience) {
+      errors.reduceLrOnPlateauPatience = 'Enter a value';
+    } else if (!/^[0-9]+$/i.test(formValues.reduceLrOnPlateauPatience)) {
+      errors.reduceLrOnPlateauPatience = 'Must be an integer';
+    } else if (
+      formValues.reduceLrOnPlateauPatience < patienceLimit.min ||
+      formValues.reduceLrOnPlateauPatience > patienceLimit.max
+    ) {
+      errors.reduceLrOnPlateauPatience = `Must be between ${patienceLimit.min} and ${patienceLimit.max}`;
+    }
+
+    // Factor
+    if (!formValues.reduceLrOnPlateauFactor) {
+      errors.reduceLrOnPlateauFactor = 'Enter a value';
+    } else if (
+      !/^[0-9]+(\.[0-9]+)*$/i.test(formValues.reduceLrOnPlateauFactor)
+    ) {
+      errors.reduceLrOnPlateauFactor = 'Enter a valid value';
+    } else if (
+      formValues.reduceLrOnPlateauFactor < factorLimit.min ||
+      formValues.reduceLrOnPlateauFactor > factorLimit.max
+    ) {
+      errors.reduceLrOnPlateauFactor = `Must be between ${factorLimit.min} and ${factorLimit.max}`;
+    }
+
+    // Min LR
+    if (!formValues.reduceLrOnPlateauMinLr) {
+      errors.reduceLrOnPlateauMinLr = 'Enter a value';
+    } else if (
+      !/^[0-9]+(\.[0-9]+)*$/i.test(formValues.reduceLrOnPlateauMinLr)
+    ) {
+      errors.reduceLrOnPlateauMinLr = 'Enter a valid value';
+    } else if (formValues.reduceLrOnPlateauMinLr < minLrLimit) {
+      errors.reduceLrOnPlateauMinLr = `Minimum value is ${minLrLimit}`;
+    }
   }
 
   // Learning Rate

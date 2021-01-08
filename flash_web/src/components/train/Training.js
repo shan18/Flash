@@ -15,15 +15,22 @@ class Training extends React.Component {
 
     this.trainConfigOptions = {
       dataSplit: ['70 : 30', '80 : 20'],
-      batchSizeLimit: { min: 1, max: 128 },
-      numEpochsLimit: { min: 1, max: 10 },
+      batchSizeLimit: { min: 1, max: 256 },
+      numEpochsLimit: { min: 1, max: 20 },
       optimizers: { adam: 'Adam', sgd: 'SGD' },
       learningRateLimit: { min: 1e-5, max: 2 },
-      criterions: {
-        crossEntropy: 'Cross Entropy',
-        bce: 'Binary Cross Entropy',
-        mse: 'Mean Squared Error',
+      reduceLrOnPlateauLimit: {
+        factor: { min: 0.01, max: 0.5 },
+        patience: { min: 1, max: 20 },
+        minLr: 1e-5,
       },
+    };
+
+    this.currentTrainConfig = {
+      reduceLrOnPlateau: false,
+      reduceLrOnPlateauPatience: 5,
+      reduceLrOnPlateauFactor: 0.1,
+      reduceLrOnPlateauMinLr: 1e-5,
     };
 
     this.state = {
@@ -39,9 +46,19 @@ class Training extends React.Component {
 
   renderCurrentTask() {
     if (this.state.currentTask === 'classification') {
-      return <Classification trainConfigOptions={this.trainConfigOptions} />;
+      return (
+        <Classification
+          trainConfigOptions={this.trainConfigOptions}
+          currentTrainConfig={this.currentTrainConfig}
+        />
+      );
     } else {
-      return <SentimentAnalysis trainConfigOptions={this.trainConfigOptions} />;
+      return (
+        <SentimentAnalysis
+          trainConfigOptions={this.trainConfigOptions}
+          currentTrainConfig={this.currentTrainConfig}
+        />
+      );
     }
   }
 
