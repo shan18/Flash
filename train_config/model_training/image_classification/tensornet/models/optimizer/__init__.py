@@ -2,7 +2,7 @@ import torch.optim as optim
 
 
 def sgd(model, learning_rate=0.01, momentum=0, dampening=0, l2_factor=0.0, nesterov=False):
-    """Create optimizer.
+    """Create SGD optimizer.
 
     Args:
         model (torch.nn.Module): Model Instance.
@@ -22,4 +22,20 @@ def sgd(model, learning_rate=0.01, momentum=0, dampening=0, l2_factor=0.0, neste
         dampening=dampening,
         weight_decay=l2_factor,
         nesterov=nesterov
+    )
+
+
+def adam(model, learning_rate=0.001):
+    """Create Adam optimizer.
+
+    Args:
+        model (torch.nn.Module): Model Instance.
+        learning_rate (float, optional): Learning rate for the optimizer. (default: 0.01)
+    
+    Returns:
+        Adam optimizer.
+    """
+    return optim.Adam(
+        model.parameters(),
+        lr=learning_rate,
     )
