@@ -4,7 +4,7 @@ import boto3
 
 
 # Names
-BUCKET_NAME = os.environ['S3_BUCKET'] if 'S3_BUCKET' in os.environ else 'loovus'
+BUCKET_NAME = os.environ.get('S3_BUCKET')
 
 # S3 Connection
 S3_CLIENT = boto3.client('s3')

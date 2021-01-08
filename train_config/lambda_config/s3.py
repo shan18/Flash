@@ -19,14 +19,15 @@ def fetch_status():
     return json.loads(obj['Body'].read())
 
 
-def change_server_status(new_status, token=None):
+def change_server_status(new_status, dev_mode, token=None):
     print('Changing training server status')
     BUCKET.put_object(
         ContentType='application/json',
         Key=STATUS_FILE,
         Body=json.dumps({
             'status': new_status,
-            'token': '' if token is None else token
+            'token': '' if token is None else token,
+            'dev_mode': dev_mode,
         }, indent=2).encode('utf-8'),
     )
 

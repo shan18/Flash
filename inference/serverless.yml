@@ -1,20 +1,7 @@
 service: flash-inference
 
-provider:
-  name: aws
-  runtime: python3.8
-  stage: dev
-  region: us-east-1
-  timeout: 30
-  environment:
-    S3_BUCKET: loovus
-  iamRoleStatements:
-    - Effect: 'Allow'
-      Action:
-        - s3:getObject
-      Resource: arn:aws:s3:::loovus/*
-
 custom:
+  secrets: ${file(credentials.yml)}
   pythonRequirements:
     dockerizePip: true
     zip: true
@@ -31,6 +18,20 @@ custom:
     useStaticCache: true
     useDownloadCache: true
     cacheLocation: './cache'
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: ${self:custom.secrets.region}
+  timeout: 30
+  environment:
+    S3_BUCKET: ${self:custom.secrets.bucket}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - s3:getObject
+      Resource: arn:aws:s3:::${self:custom.secrets.bucket}/*
 
 package:
   individually: true

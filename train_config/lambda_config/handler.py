@@ -38,7 +38,8 @@ def status(event, context):
 
 def train(event, context):
     try:
-        if fetch_status()['status'] == 'active':
+        server_status = fetch_status()
+        if server_status['status'] == 'active':
             return create_response({
                 'result': 'error',
                 'message': 'Server is busy.',
@@ -55,7 +56,7 @@ def train(event, context):
         print('Token:', token)
 
         # Change server status to active
-        change_server_status('active', token=token)
+        change_server_status('active', server_status['dev_mode'], token=token)
 
         # Initialize training process
         create_training_json(token, data)
@@ -75,7 +76,10 @@ def train(event, context):
 def server_start(event, context):
     message = 'Status not active. Server not turned on.'
     
-    if fetch_status()['status'] == 'active':
+    server_status = fetch_status()
+    if server_status['dev_mode']:
+        message = 'Dev mode is on.'
+    elif server_status['status'] == 'active':
         ec2_client = boto3.client('ec2', region_name=REGION)
         ec2_client.start_instances(InstanceIds=[INSTANCE_ID])
         message = 'Instance started.'
@@ -87,13 +91,17 @@ def server_start(event, context):
 
 
 def server_stop(event, context):
-    # Stop instance
-    ec2_client = boto3.client('ec2', region_name=REGION)
-    ec2_client.stop_instances(InstanceIds=[INSTANCE_ID])
-    message = 'Instance stopped.'
+    server_status = fetch_status()
+    if server_status['dev_mode']:
+        message = 'Dev mode is on.'
+    else:
+        # Stop instance
+        ec2_client = boto3.client('ec2', region_name=REGION)
+        ec2_client.stop_instances(InstanceIds=[INSTANCE_ID])
+        message = 'Instance stopped.'
 
-    # Change server status
-    change_server_status('sleeping')
+        # Change server status
+        change_server_status('sleeping', server_status['dev_mode'])
     
     print(message)
     return create_response({
