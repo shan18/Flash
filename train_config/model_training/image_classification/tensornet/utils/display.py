@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def plot_metric(data, metric, legend_loc='lower right'):
+def plot_metric(data, metric, target_path, legend_loc='lower right'):
     """Plot accuracy graph or loss graph.
 
     Args:
@@ -37,7 +37,7 @@ def plot_metric(data, metric, legend_loc='lower right'):
     plt.xlabel('Epoch')
     plt.ylabel(metric)
 
-    if not single_plot: # Set legend
+    if not single_plot:  # Set legend
         plt.legend(
             tuple(plots), tuple(data.keys()),
             loc=legend_loc,
@@ -46,4 +46,4 @@ def plot_metric(data, metric, legend_loc='lower right'):
         )
 
     # Save plot
-    fig.savefig(f'{"_".join(metric.split()).lower()}_change.png')
+    fig.savefig(target_path)

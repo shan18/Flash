@@ -5,7 +5,9 @@ import numpy as np
 class ModelCheckpoint:
     """Store model checkpoint while training."""
 
-    def __init__(self, path, monitor='val_loss', mode='auto', verbose=0, save_best_only=True, best_value=None):
+    def __init__(
+        self, path, monitor='val_loss', mode='auto', verbose=0, save_best_only=True, best_value=None
+    ):
         """Initialize model checkpoint instance.
 
         Args:
