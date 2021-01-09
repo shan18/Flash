@@ -1,12 +1,13 @@
+import io
 import json
 import base64
 import string
 import random
+import pandas as pd
 from datetime import datetime
 from requests_toolbelt.multipart import decoder
 
-
-TIME_FORMAT = '%d-%m-%y %H:%M'
+from s3 import fetch_inference_json
 
 
 def fetch_post_data(event):
@@ -25,18 +26,12 @@ def fetch_post_data(event):
     return json.loads(decoded)
 
 
-def create_user_token(infer_config, task_type, task_name):
-    existing_tokens = list(infer_config.keys())
+def create_user_token(task_type, task_name):
+    existing_tokens = list(fetch_inference_json().keys())
     base_token = f'{task_type}-{"_".join(task_name.split())}'
     token = f'{base_token}-{"".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(5))}'
     while token in existing_tokens:
         token = f'{base_token}-{"".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(5))}'
-    
-    # Add token to config
-    # infer_config[token] = {
-    #     'model_filename': f'{token}.pt',
-    #     'creation_data': datetime.now().strftime(TIME_FORMAT)
-    # }
 
     return token
 
@@ -50,4 +45,53 @@ def create_response(body, status_code=200):
             'Access-Control-Allow-Credentials': True
         },
         'body': json.dumps(body)
+    }
+
+
+def validate_csv(data):
+    df = pd.read_csv(
+        io.BytesIO(base64.b64decode(data))
+    )
+
+    # Check columns
+    columns = list(df.columns)
+    if not ('input' in columns or 'label' in columns):
+        return {
+            'is_valid': False,
+            'message': 'Dataset should have two columns with names "input" and "label"',
+        }
+    elif not 'input' in columns:
+        return {
+            'is_valid': False,
+            'message': 'Dataset does not have a column named "input"',
+        }
+    elif not 'label' in columns:
+        return {
+            'is_valid': False,
+            'message': 'Dataset does not have a column named "label"',
+        }
+    
+    # Drop invalid rows
+    df.dropna(inplace=True)
+    df = df[df.input.str.strip().str.len() > 0]
+    df = df[df.label.str.strip().str.len() > 0]
+
+    # Check for valid entries
+    if len(df) == 0:
+        return {
+            'is_valid': False,
+            'message': 'The dataset contains invalid entries'
+        }
+
+    # Check number of classes
+    if len(set(df.label)) < 2:
+        return {
+            'is_valid': False,
+            'message': 'The dataset should contain a minimum of two classes',
+        }
+    
+    return {
+        'is_valid': True,
+        'data': base64.b64encode(df.to_csv(index=False).encode()).decode(),
+        'num_classes': len(set(df.label)),
     }

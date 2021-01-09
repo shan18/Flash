@@ -11,11 +11,15 @@ import boto3
 
 from s3 import (
     fetch_status,
-    fetch_inference_json,
     create_training_json,
     change_server_status,
 )
-from utils import fetch_post_data, create_user_token, create_response
+from utils import (
+    fetch_post_data,
+    create_user_token,
+    create_response,
+    validate_csv,
+)
 
 
 INSTANCE_ID = os.environ.get('INSTANCE_ID')
@@ -47,11 +51,24 @@ def train(event, context):
         
         # Fetch data
         data = fetch_post_data(event)
-        infer_config = fetch_inference_json()
+
+        # Get number of classes and validate data
+        if data['taskType'].lower() == 'sentimentanalysis':
+            validation_response = validate_csv(data['dataset'])
+            if validation_response['is_valid']:
+                data['dataset'] = validation_response['data']
+                data['numClasses'] = validation_response['num_classes']
+            else:
+                return create_response({
+                    'result': 'error',
+                    'message': validation_response['message'],
+                })
+        else:
+            data['numClasses'] = len(data['dataset'])
 
         # Create token
         token = create_user_token(
-            infer_config, data['taskType'], data['taskName']
+            data['taskType'], data['taskName']
         )
         print('Token:', token)
 
