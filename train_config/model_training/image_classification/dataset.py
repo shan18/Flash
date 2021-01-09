@@ -5,10 +5,12 @@ import shutil
 import random
 from PIL import Image
 
+from .tensornet.data import Dataset
 
-def config_to_data(dataset_config, raw_data_dir):
+
+def config_to_data(dataset_files, raw_data_dir):
     """Save base64 data to files."""
-    for class_name, images in dataset_config.items():
+    for class_name, images in dataset_files.items():
         # Create class directory
         class_dir = os.path.join(raw_data_dir, class_name)
         os.makedirs(class_dir)
@@ -62,7 +64,7 @@ def split_data(raw_data_dir, target_dir, split_value):
             shutil.copy(os.path.join(src_data_dir, file), target_test_dir)
 
 
-def create_dataset(dataset_config, data_split, target_dir):
+def create_dataset(dataset_files, data_split, target_dir):
     # Create directory for raw dataset
     raw_data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.raw_data')
     os.makedirs(raw_data_dir)
@@ -71,8 +73,29 @@ def create_dataset(dataset_config, data_split, target_dir):
     split_value = int(data_split.split(' : ')[0]) / 100
 
     # Create dataset
-    config_to_data(dataset_config, raw_data_dir)
+    config_to_data(dataset_files, raw_data_dir)
     split_data(raw_data_dir, target_dir, split_value)
 
     # Delete raw dataset
     shutil.rmtree(raw_data_dir)
+
+
+def configure_dataset(config, data_path, cuda):
+    create_dataset(config['dataset'], config['data_split'], data_path)
+
+    dataset = Dataset(
+        train_batch_size=int(config['batch_size']),
+        val_batch_size=int(config['batch_size']),
+        cuda=cuda,
+        num_workers=16,
+        path=data_path,
+        random_resize_crop=(224, 224),
+        scale=(0.4, 1.0),
+        horizontal_flip_prob=0.5,
+    )
+
+    # Create data loaders
+    train_loader = dataset.loader(train=True)
+    val_loader = dataset.loader(train=False)
+
+    return train_loader, val_loader, dataset.classes
