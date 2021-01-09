@@ -4,9 +4,6 @@ except ImportError:
     pass
 
 import os
-import json
-import string
-import random
 import boto3
 
 from s3 import (
@@ -48,7 +45,7 @@ def train(event, context):
                 'result': 'error',
                 'message': 'Server is busy.',
             })
-        
+
         # Fetch data
         data = fetch_post_data(event)
 
@@ -92,7 +89,7 @@ def train(event, context):
 
 def server_start(event, context):
     message = 'Status not active. Server not turned on.'
-    
+
     server_status = fetch_status()
     if server_status['dev_mode']:
         message = 'Dev mode is on.'
@@ -100,7 +97,7 @@ def server_start(event, context):
         ec2_client = boto3.client('ec2', region_name=REGION)
         ec2_client.start_instances(InstanceIds=[INSTANCE_ID])
         message = 'Instance started.'
-    
+
     print(message)
     return create_response({
         'message': message
@@ -119,7 +116,7 @@ def server_stop(event, context):
 
         # Change server status
         change_server_status('sleeping', server_status['dev_mode'])
-    
+
     print(message)
     return create_response({
         'message': message

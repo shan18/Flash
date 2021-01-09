@@ -3,8 +3,6 @@ try:
 except ImportError:
     pass
 
-import json
-
 from s3 import fetch_inference_json, fetch_model_data
 from utils import fetch_post_data, create_response
 from classification import classify
@@ -17,7 +15,7 @@ def inference(event, context):
         data = fetch_post_data(event)
         infer_config = fetch_inference_json()
         print('post data and inference config fetched')
-        
+
         # Check if token exists
         if not data['token'] in infer_config:
             print(f'Token {data["token"]} not found')

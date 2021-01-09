@@ -4,7 +4,6 @@ import base64
 import string
 import random
 import pandas as pd
-from datetime import datetime
 from requests_toolbelt.multipart import decoder
 
 from s3 import fetch_inference_json
@@ -70,7 +69,7 @@ def validate_csv(data):
             'is_valid': False,
             'message': 'Dataset does not have a column named "label"',
         }
-    
+
     # Drop invalid rows
     df.dropna(inplace=True)
     df = df[df.input.str.strip().str.len() > 0]
@@ -89,7 +88,7 @@ def validate_csv(data):
             'is_valid': False,
             'message': 'The dataset should contain a minimum of two classes',
         }
-    
+
     return {
         'is_valid': True,
         'data': base64.b64encode(df.to_csv(index=False).encode()).decode(),

@@ -45,7 +45,6 @@ def create_training_json(token, data):
         'task_type': data['taskType'].lower(),
         'num_classes': data['numClasses'],
         'optimizer': data['optimizer'].lower(),
-        'criterion': 'bce' if data['numClasses'] == 2 else 'cross_entropy',
         'learning_rate': data['learningRate'],
         'batch_size': data['batchSize'],
         'epochs': data['epochs'],

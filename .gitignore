@@ -5,3 +5,4 @@ credentials.yml
 credentials.py
 __pycache__/
 *.pyc
+checkpoints
