@@ -1,6 +1,5 @@
 import os
 import numpy as np
-import torch
 
 
 class ModelCheckpoint:
@@ -30,16 +29,16 @@ class ModelCheckpoint:
             os.makedirs(self.path)
         if self.save_best_only:
             self.path = os.path.join(self.path, 'model.pt')
-        
+
         # Used to avoid overriding checkpoint names if save_best_only is False
         self.counter = 0
-        
+
         # Set monitor quantity and mode
         self.monitor = monitor
         self._set_monitor_mode(mode)
         if not best_value is None:
             self.best = best_value
-    
+
     def _set_monitor_mode(self, mode):
         """Set the mode and monitor operation.
 
@@ -50,7 +49,7 @@ class ModelCheckpoint:
         # Validate mode
         if not mode in ['auto', 'min', 'max']:
             print('WARNING: Invalid mode given. Setting mode to auto.')
-        
+
         # Set mode
         if mode == 'auto':
             if 'loss' in self.monitor:
@@ -61,7 +60,7 @@ class ModelCheckpoint:
                 raise ValueError('Can\'t determine mode value automatically. Please specify a mode.')
         else:
             self.mode = mode
-        
+
         # Set monitor operations
         if self.mode == 'min':
             self.monitor_op = np.less
@@ -69,7 +68,7 @@ class ModelCheckpoint:
         elif self.mode == 'max':
             self.monitor_op = np.greater
             self.best = -np.Inf
-    
+
     def __call__(self, model, current_value, epoch=None, **kwargs):
         """Compare the current value with the best value and save the model
         accordingly.
@@ -87,7 +86,7 @@ class ModelCheckpoint:
                 raise ValueError('Metric value cannot be of None type.')
             else:
                 current_value = -np.Inf
-        
+
         if self.monitor_op(current_value, self.best) or not self.save_best_only:
             # Set save path
             save_path = self.path
@@ -100,7 +99,7 @@ class ModelCheckpoint:
 
             # Save model
             model.save(save_path)
-            
+
             # Print log
             if self.verbose > 0:
                 log = f'Saving model to {save_path}\n'

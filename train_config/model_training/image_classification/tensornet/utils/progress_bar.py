@@ -88,8 +88,10 @@ class ProgressBar:
         now = time.time()
         info = ' - %.0fs' % (now - self._start)
         if self.verbose == 1:
-            if (now - self._last_update < self.interval
-                and self.target is not None and current < self.target):
+            if (
+                now - self._last_update < self.interval
+                and self.target is not None and current < self.target
+            ):
                 return
 
             prev_total_width = self._total_width

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from tensornet.engine.learner import Learner
+from image_classification.tensornet.engine.learner import Learner
 
 
 class BaseModel(nn.Module):
@@ -10,18 +10,18 @@ class BaseModel(nn.Module):
         """This function instantiates all the model layers."""
         super(BaseModel, self).__init__()
         self.learner = None
-    
+
     def forward(self, x):
         """This function defines the forward pass of the model.
 
         Args:
             x: Input.
-        
+
         Returns:
             Model output.
         """
         raise NotImplementedError
-    
+
     def create_learner(
         self, train_loader, optimizer, criterion, device='cpu',
         epochs=1, l1_factor=0.0, val_loader=None, callbacks=None, metrics=None,
@@ -53,7 +53,7 @@ class BaseModel(nn.Module):
             activate_loss_logits=activate_loss_logits, record_train=record_train
         )
         self.learner.set_model(self)
-    
+
     def set_learner(self, learner):
         """Assign a learner object to the model.
 
@@ -75,10 +75,10 @@ class BaseModel(nn.Module):
         if self.learner is None:
             print('Creating a learner object.')
             self.create_learner(*args, **kwargs)
-        
+
         # Train Model
         self.learner.fit(start_epoch=start_epoch)
-    
+
     def save_learnable(self, filepath, **kwargs):
         """Save the learnable model.
 
@@ -94,7 +94,7 @@ class BaseModel(nn.Module):
             'optimizer_state_dict': self.learner.optimizer.state_dict(),
             **kwargs
         }, filepath)
-    
+
     def save(self, filepath):
         """Save the model.
 
@@ -102,13 +102,13 @@ class BaseModel(nn.Module):
             filepath (str): File in which the model will be saved.
         """
         torch.save(self, filepath)
-    
+
     def load(self, filepath):
         """Load the model.
 
         Args:
             filepath (str): File in which the model is be saved.
-        
+
         Returns:
             Parameters saved inside the checkpoint file.
         """

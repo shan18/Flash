@@ -14,7 +14,7 @@ def reduce_lr_on_plateau(optimizer, factor=0.1, patience=10, verbose=False, min_
             (default: False)
         min_lr (float, optional): A scalar or a list of scalars. A lower bound on the
             learning rate of all param groups or each group respectively. (default: 0)
-    
+
     Returns:
         ReduceLROnPlateau instance.
     """

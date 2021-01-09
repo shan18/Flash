@@ -14,7 +14,7 @@ class Transformations:
         mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5), normalize=True, train=True
     ):
         """Create data transformation pipeline.
-        
+
         Args:
             random_resize_crop (tuple, optional): Randomly resize and crop the
                 input to the given height and width. (default: (0, 0))
@@ -35,7 +35,8 @@ class Transformations:
             contrast_prob (float, optional): Randomly changing contrast of the input image.
                 (default: 0)
             mean (float or tuple, optional): Dataset mean. (default: 0.5 for each channel)
-            std (float or tuple, optional): Dataset standard deviation. (default: 0.5 for each channel)
+            std (float or tuple, optional): Dataset standard deviation.
+                (default: 0.5 for each channel)
         """
         transforms_list = []
 
@@ -72,20 +73,20 @@ class Transformations:
             transforms_list += [
                 A.Normalize(mean=mean, std=std, always_apply=True),
             ]
-        
+
         # convert the data to torch.FloatTensor
         transforms_list += [
             ToTensor()
         ]
 
         self.transform = A.Compose(transforms_list)
-    
+
     def __call__(self, image):
         """Process and image through the data transformation pipeline.
 
         Args:
             image: Image to process.
-        
+
         Returns:
             Transformed image.
         """
@@ -102,14 +103,14 @@ def data_loader(data, shuffle=True, batch_size=1, num_workers=1, cuda=False):
 
     Args:
         data (torchvision.datasets): Downloaded dataset.
-        shuffle (bool, optional): If True, shuffle the dataset. 
+        shuffle (bool, optional): If True, shuffle the dataset.
             (default: True)
         batch_size (int, optional): Number of images to considered
             in each batch. (default: 1)
         num_workers (int, optional): How many subprocesses to use
             for data loading. (default: 1)
         cuda (bool, optional): True is GPU is available. (default: False)
-    
+
     Returns:
         DataLoader instance.
     """
@@ -123,7 +124,7 @@ def data_loader(data, shuffle=True, batch_size=1, num_workers=1, cuda=False):
     if cuda:
         loader_args['num_workers'] = num_workers
         loader_args['pin_memory'] = True
-    
+
     return torch.utils.data.DataLoader(data, **loader_args)
 
 

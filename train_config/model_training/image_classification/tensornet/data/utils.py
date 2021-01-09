@@ -1,9 +1,10 @@
 import torch
 import numpy as np
 
+
 def unnormalize(image, mean, std, transpose=False):
     """Un-normalize a given image.
-    
+
     Args:
         image (numpy.ndarray or torch.Tensor): A ndarray
             or tensor. If tensor, it should be in CPU.
@@ -15,7 +16,7 @@ def unnormalize(image, mean, std, transpose=False):
             be returned. This param is effective only when image is
             a tensor. If tensor, the output will have channel number
             as the last dim. (default: False)
-    
+
     Returns:
         Unnormalized image
     """
@@ -27,7 +28,7 @@ def unnormalize(image, mean, std, transpose=False):
         if len(image.size()) == 3:
             image = image.transpose(0, 1).transpose(1, 2)
         image = np.array(image)
-    
+
     # Perform normalization
     image = image * std + mean
 
@@ -36,13 +37,13 @@ def unnormalize(image, mean, std, transpose=False):
         if not transpose and len(image.shape) == 3:
             image = np.transpose(image, (2, 0, 1))
         image = torch.Tensor(image)
-    
+
     return image
 
 
 def normalize(image, mean, std, transpose=False):
     """Normalize a given image.
-    
+
     Args:
         image (numpy.ndarray or torch.Tensor): A ndarray
             or tensor. If tensor, it should be in CPU.
@@ -54,7 +55,7 @@ def normalize(image, mean, std, transpose=False):
             be returned. This param is effective only when image is
             a tensor. If tensor, the output will have channel number
             as the last dim. (default: False)
-    
+
     Returns:
         Normalized image
     """
@@ -66,7 +67,7 @@ def normalize(image, mean, std, transpose=False):
         if len(image.size()) == 3:
             image = image.transpose(0, 1).transpose(1, 2)
         image = np.array(image)
-    
+
     # Perform normalization
     image = (image - mean) / std
 
@@ -84,7 +85,7 @@ def to_numpy(tensor):
 
     Args:
         tensor (torch.Tensor): Tensor to be converted.
-    
+
     Returns:
         numpy.ndarray
     """
@@ -96,7 +97,7 @@ def to_tensor(ndarray):
 
     Args:
         ndarray (numpy.ndarray): Array to be converted.
-    
+
     Returns:
         torch.Tensor
     """

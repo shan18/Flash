@@ -1,10 +1,8 @@
 import os
-import numpy as np
-import torch
 import torchvision
 
-from tensornet.data.processing import Transformations, data_loader
-from tensornet.data.utils import unnormalize, normalize
+from .processing import Transformations, data_loader
+from .utils import unnormalize, normalize
 
 
 class Dataset:
@@ -49,13 +47,13 @@ class Dataset:
             contrast_prob (float, optional): Randomly changing contrast of the input image.
                 (default: 0)
         """
-        
+
         self.cuda = cuda
         self.num_workers = num_workers
         self.path = path
         self.train_batch_size = train_batch_size
         self.val_batch_size = val_batch_size
-        
+
         if not os.path.exists(self.path):
             raise ValueError('Invalid path specified.')
 
@@ -70,7 +68,7 @@ class Dataset:
         self.cutout_dim = cutout_dim
         self.hue_saturation_prob = hue_saturation_prob
         self.contrast_prob = contrast_prob
-        
+
         # Get dataset statistics
         self.image_size = self._get_image_size()
         self.mean = self._get_mean()
@@ -78,7 +76,7 @@ class Dataset:
 
         # Get data
         self._split_data()
-    
+
     def _split_data(self):
         """Split data into training and validation set."""
 
@@ -94,14 +92,14 @@ class Dataset:
             os.path.join(self.path, 'test'),
             transform=self._transform(train=False)
         )
-    
+
     def _transform(self, train=True, normalize=True):
         """Define data transformations
-        
+
         Args:
             train (bool, optional): If True, download training data
                 else download the test data. (default: True)
-        
+
         Returns:
             Returns data transforms based on the training mode.
         """
@@ -131,27 +129,27 @@ class Dataset:
     def _get_image_size(self):
         """Return shape of data i.e. image size."""
         return (3, 224, 224)
-    
+
     def _get_mean(self):
         """Returns mean of the entire dataset."""
         return (0.485, 0.456, 0.406)
-    
+
     def _get_std(self):
         """Returns standard deviation of the entire dataset."""
         return (0.229, 0.224, 0.225)
-    
+
     def data(self, train=True):
         """Return data based on train mode.
 
         Args:
             train (bool, optional): True for training data. (default: True)
-        
+
         Returns:
             Training or validation data and targets.
         """
         data = self.train_data if train else self.val_data
         return data.data, data.targets
-    
+
     def unnormalize(self, image, transpose=False):
         """Un-normalize a given image.
 
@@ -164,7 +162,7 @@ class Dataset:
                 as the last dim. (default: False)
         """
         return unnormalize(image, self.mean, self.std, transpose)
-    
+
     def normalize(self, image, transpose=False, data_type=None):
         """Normalize a given image.
 
@@ -177,13 +175,13 @@ class Dataset:
                 as the last dim. (default: False)
         """
         return normalize(image, self.mean, self.std, transpose)
-    
+
     def loader(self, train=True):
         """Create data loader.
 
         Args:
             train (bool, optional): True for training data. (default: True)
-        
+
         Returns:
             Dataloader instance.
         """

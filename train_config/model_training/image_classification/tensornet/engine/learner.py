@@ -1,12 +1,9 @@
-import math
 import time
 import torch
-import torch.nn.functional as F
 
-from tensornet.engine.ops.regularizer import l1
-from tensornet.engine.ops.checkpoint import ModelCheckpoint
-from tensornet.data.processing import InfiniteDataLoader
-from tensornet.utils.progress_bar import ProgressBar
+from .ops.regularizer import l1
+from .ops.checkpoint import ModelCheckpoint
+from image_classification.tensornet.utils.progress_bar import ProgressBar
 
 
 class Learner:
@@ -49,7 +46,7 @@ class Learner:
         self.l1_factor = l1_factor
         self.activate_loss_logits = activate_loss_logits
         self.record_train = record_train
-        
+
         self.lr_schedulers = {
             'step_lr': None,
             'lr_plateau': None,
@@ -70,7 +67,7 @@ class Learner:
         self.metrics = []
         if metrics:
             self._setup_metrics(metrics)
-    
+
     def _setup_callbacks(self, callbacks):
         """Extract callbacks passed to the class.
 
@@ -90,7 +87,7 @@ class Learner:
                         )
                 else:
                     self.checkpoint = callback
-    
+
     def set_model(self, model):
         """Assign model to learner.
 
@@ -98,14 +95,14 @@ class Learner:
             model (torch.nn.Module): Model Instance.
         """
         self.model = model
-    
+
     def _accuracy(self, label, prediction, idx=0):
         """Calculate accuracy.
-        
+
         Args:
             label (torch.Tensor): Ground truth.
             prediction (torch.Tensor): Prediction.
-        
+
         Returns:
             accuracy
         """
@@ -116,7 +113,7 @@ class Learner:
         self.metrics[idx]['accuracy']['value'] = round(
             100 * self.metrics[idx]['accuracy']['sum'] / self.metrics[idx]['accuracy']['num_steps'], 2
         )
-    
+
     def _setup_metrics(self, metrics):
         """Validate the evaluation metrics passed to the class.
 
@@ -126,17 +123,17 @@ class Learner:
 
         if not isinstance(metrics[0], (list, tuple)):
             metrics = [metrics]
-        
+
         for idx, metric_list in enumerate(metrics):
             metric_dict = {}
             for metric in metric_list:
                 metric_info = {'value': 0, 'sum': 0, 'num_steps': 0}
                 if metric == 'accuracy':
                     metric_info['func'] = self._accuracy
-                
+
                 if 'func' in metric_info:
                     metric_dict[metric] = metric_info
-                
+
             if metric_dict:
                 self.metrics.append(metric_dict)
                 self.train_metrics.append({
@@ -145,10 +142,10 @@ class Learner:
                 self.val_metrics.append({
                     x: [] for x in metric_dict.keys()
                 })
-    
+
     def _calculate_metrics(self, labels, predictions):
         """Update evaluation metric values.
-        
+
         Args:
             label (torch.Tensor or dict): Ground truth.
             prediction (torch.Tensor or dict): Prediction.
@@ -163,13 +160,13 @@ class Learner:
             # If predictions are one-hot encoded
             if label.size() != prediction.size():
                 prediction = prediction.argmax(dim=1, keepdim=True) * 1.0
-            
+
             if idx < len(self.metrics):
                 for metric in self.metrics[idx]:
                     self.metrics[idx][metric]['func'](
                         label, prediction, idx=idx
                     )
-    
+
     def _reset_metrics(self):
         """Reset metric params."""
         for idx in range(len(self.metrics)):
@@ -177,7 +174,7 @@ class Learner:
                 self.metrics[idx][metric]['value'] = 0
                 self.metrics[idx][metric]['sum'] = 0
                 self.metrics[idx][metric]['num_steps'] = 0
-    
+
     def _get_pbar_values(self, loss):
         """Create progress bar description.
 
@@ -207,7 +204,7 @@ class Learner:
                     self.train_metrics[idx][metric].append(
                         self.metrics[idx][metric]['value']
                     )
-    
+
     def reset_history(self):
         """Reset the training history"""
         self.train_losses = []
@@ -217,7 +214,7 @@ class Learner:
                 self.train_metrics[idx][metric] = []
                 self.val_metrics[idx][metric] = []
         self._reset_metrics()
-    
+
     def activate_logits(self, logits):
         """Apply activation function to the logits if needed.
         After this the logits will be sent for calculation of
@@ -225,12 +222,12 @@ class Learner:
 
         Args:
             logits: Model output
-        
+
         Returns:
             activated logits
         """
         return logits
-    
+
     def calculate_criterion(self, logits, targets, train=True):
         """Calculate loss.
 
@@ -239,7 +236,7 @@ class Learner:
             targets (torch.Tensor): Ground truth.
             train (bool, optional): If True, loss is sent to the
                 L1 regularization function. (default: True)
-        
+
         Returns:
             loss value
         """
@@ -248,24 +245,24 @@ class Learner:
         if train:
             return l1(self.model, self.criterion(logits, targets), self.l1_factor)
         return self.criterion(logits, targets)
-    
+
     def fetch_data(self, data):
         """Fetch data from loader and load it to GPU.
 
         Args:
             data (list or tuple): List containing inputs and targets.
-        
+
         Returns:
             inputs and targets loaded to GPU.
         """
         return data[0].to(self.device), data[1].to(self.device)
-    
+
     def train_batch(self, data):
         """Train the model on a batch of data.
 
         Args:
             data: Input and target data for the model.
-        
+
         Returns:
             Batch loss.
         """
@@ -286,7 +283,7 @@ class Learner:
             self.lr_schedulers['one_cycle_policy'].step()
 
         return loss.item()
-    
+
     def train_epoch(self):
         """Run an epoch of model training."""
 
@@ -299,12 +296,12 @@ class Learner:
             # Update Progress Bar
             pbar_values = self._get_pbar_values(loss)
             pbar.update(batch_idx, values=pbar_values)
-            
+
         # Update training history
         self.update_training_history(loss)
         pbar_values = self._get_pbar_values(loss)
         pbar.add(1, values=pbar_values)
-    
+
     def validate(self, verbose=True):
         """Validate an epoch of model training.
 
@@ -315,7 +312,6 @@ class Learner:
         start_time = time.time()
         self.model.eval()
         val_loss = 0
-        correct = 0
         with torch.no_grad():
             for data in self.val_loader:
                 inputs, targets = self.fetch_data(data)
@@ -345,7 +341,7 @@ class Learner:
                     log += f', {metric}: {self.metrics[idx][metric]["value"]}'
             log += '\n'
             print(log)
-    
+
     def save_checkpoint(self, epoch=None):
         """Save model checkpoint.
 
@@ -355,7 +351,6 @@ class Learner:
         """
         if not self.checkpoint is None:
             metric = None
-            params = {}
             if self.checkpoint.monitor == 'train_loss':
                 metric = self.train_losses[-1]
             elif self.checkpoint.monitor == 'val_loss':
@@ -373,9 +368,9 @@ class Learner:
             else:
                 print('Invalid metric function, can\'t save checkpoint.')
                 return
-            
+
             self.checkpoint(self.model, metric, epoch)
-    
+
     def fit(self, start_epoch=1):
         """Perform model training.
 
@@ -391,12 +386,12 @@ class Learner:
             # Train an epoch
             self.train_epoch()
             self._reset_metrics()
-            
+
             # Validate the model
             if not self.val_loader is None:
                 self.validate()
                 self._reset_metrics()
-            
+
             # Save model checkpoint
             self.save_checkpoint(epoch)
 

@@ -1,10 +1,10 @@
-import os
 import json
 import boto3
+import credentials
 
 
 # Names
-BUCKET_NAME = os.environ.get('S3_BUCKET')
+BUCKET_NAME = credentials.BUCKET_NAME
 
 # S3 Connection
 S3_CLIENT = boto3.client('s3')

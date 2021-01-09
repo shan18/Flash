@@ -1,4 +1,3 @@
-import os
 import matplotlib.pyplot as plt
 
 
@@ -19,7 +18,7 @@ def plot_metric(data, metric, legend_loc='lower right'):
     single_plot = True
     if type(data) == dict:
         single_plot = False
-    
+
     # Initialize a figure
     fig = plt.figure(figsize=(7, 5))
 
