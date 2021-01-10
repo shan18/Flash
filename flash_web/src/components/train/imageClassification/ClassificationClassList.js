@@ -32,8 +32,13 @@ class ClassificationClassList extends React.Component {
       <>
         <h4>Classes</h4>
         <small>
-          Number of classes must be within the range{' '}
-          {this.props.numClassesLimit.min} - {this.props.numClassesLimit.max}
+          Number of classes must be within the{' '}
+          <mark>
+            <b>
+              range {this.props.numClassesLimit.min} -{' '}
+              {this.props.numClassesLimit.max}
+            </b>
+          </mark>
         </small>
         {this.renderClassList()}
       </>

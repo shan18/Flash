@@ -87,19 +87,31 @@ class ClassificationDataset extends React.Component {
       <>
         <h4>Images</h4>
         <small>
-          Number of images for each class must be within the range{' '}
-          {this.props.numImagesLimit.min} - {this.props.numImagesLimit.max}.
+          Number of images for each class must be within the{' '}
+          <mark>
+            <b>
+              range {this.props.numImagesLimit.min} -{' '}
+              {this.props.numImagesLimit.max}
+            </b>
+          </mark>
+          .
         </small>
         <br />
         <small>
           If you upload more than {this.props.numImagesLimit.max} images then
-          only the first {this.props.numImagesLimit.max} images will be
-          considered.
+          only the{' '}
+          <mark>
+            <b>first {this.props.numImagesLimit.max} images</b>
+          </mark>{' '}
+          will be considered.
         </small>
         <br />
         <small>
-          The total size of the images for each class must be less than{' '}
-          {this.props.sizeLimit / 1000000} MB.
+          The total size of the images for each class must be{' '}
+          <mark>
+            <b>less than {this.props.sizeLimit / 1000000} MB</b>
+          </mark>
+          .
         </small>
         <ClassificationClassChoiceForm
           onSubmit={this.onClassChoiceSubmit}

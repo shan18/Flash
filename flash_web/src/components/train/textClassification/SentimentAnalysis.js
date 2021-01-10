@@ -52,8 +52,8 @@ class SentimentAnalysis extends React.Component {
     this.props.setTrainConfig({
       taskName: this.taskName,
       config: {
-        ...this.configOptions,
         ...this.props.trainConfigOptions,
+        ...this.configOptions,
         currentConfig: this.currentConfig,
       },
     });

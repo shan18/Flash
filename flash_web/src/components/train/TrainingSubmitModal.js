@@ -25,8 +25,8 @@ class TrainingSubmitModal extends React.Component {
           Note:
           <ul>
             <li>
-              The model shall be trained and available for inference in 5
-              minutes.
+              The model shall be trained and available for inference in 5-10
+              minutes depending upon the size of your dataset.
             </li>
             <li>
               Trained models are available for testing only upto one hour

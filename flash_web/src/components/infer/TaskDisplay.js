@@ -43,7 +43,12 @@ class TaskDisplay extends React.Component {
         <div className="col-12 col-md-3 my-auto text-center">
           <div className="ml-auto">
             <h5>Accuracy</h5>
-            <h5>{(this.props.accuracy * 100).toFixed(2)} %</h5>
+            <h5>
+              {(
+                this.props.accuracy * (this.props.accuracy < 1 ? 100 : 1)
+              ).toFixed(2)}{' '}
+              %
+            </h5>
           </div>
         </div>
         <div className="col-12 col-md-6 mt-5 mt-md-0">
