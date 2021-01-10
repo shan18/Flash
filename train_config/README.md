@@ -4,4 +4,8 @@ Download en for spacy
 `python3 -m spacy download en`
 
 Crontab
-`@reboot /home/ubuntu/start_flash.sh`
+
+```
+@reboot /home/ubuntu/start_flash.sh
+*/30 * * * * /root/idle_check.sh
+```

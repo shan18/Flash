@@ -27,7 +27,8 @@ provider:
   timeout: 30
   environment:
     S3_BUCKET: ${self:custom.secrets.bucket}
-    INSTANCE_ID: ${self:custom.secrets.instanceId}
+    P3_INSTANCE_ID: ${self:custom.secrets.p3InstanceId}
+    T2_INSTANCE_ID: ${self:custom.secrets.t2InstanceId}
     REGION: ${self:custom.secrets.region}
   iamRoleStatements:
     - Effect: 'Allow'
@@ -39,6 +40,10 @@ provider:
         - ec2:StartInstances
         - ec2:StopInstances
       Resource: arn:aws:ec2:${self:custom.secrets.region}:${self:custom.secrets.awsId}:instance/*
+    - Effect: 'Allow'
+      Action:
+        - ec2:DescribeInstances
+      Resource: '*'
 
 package:
   individually: false
