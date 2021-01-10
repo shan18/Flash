@@ -36,6 +36,34 @@ class TaskDisplay extends React.Component {
     }
   };
 
+  renderAccuracy() {
+    return (
+      <div className="row my-5">
+        <div className="col-12 col-md-2" />
+        <div className="col-12 col-md-3 my-auto text-center">
+          <div className="ml-auto">
+            <h5>Accuracy</h5>
+            <h5>{this.props.accuracy * 100} %</h5>
+          </div>
+        </div>
+        <div className="col-12 col-md-6 mt-5 mt-md-0">
+          <h5 className="text-center mb-3">Accuracy Change Plot</h5>
+          <div
+            className="card shadow bg-white rounded mx-auto"
+            style={{ width: '28rem' }}
+          >
+            <img
+              src={`data:image/jpeg;base64,${this.props.accuracyPlot}`}
+              className="card-img-top"
+              alt="sentiment analysis example dataset preview"
+            />
+          </div>
+        </div>
+        <div className="col-12 col-md-1" />
+      </div>
+    );
+  }
+
   renderOutput() {
     return (
       <div className="row mt-5">
@@ -75,14 +103,17 @@ class TaskDisplay extends React.Component {
   render() {
     return (
       <>
-        <div className="row my-4">
-          <div className="col-12 mb-3">
+        <div className="row mb-4">
+          <div className="col-12">
             <h4 className="text-center">
               {this.props.taskType === 'classification'
                 ? 'Image Classification'
                 : 'Sentiment Analysis'}
             </h4>
           </div>
+        </div>
+        {this.renderAccuracy()}
+        <div className="row mb-4">
           <div className="col-11 col-lg-6 mx-auto">
             <InferenceForm
               onSubmit={this.onSubmit}
@@ -97,8 +128,10 @@ class TaskDisplay extends React.Component {
   }
 }
 
-const mapStateToProps = ({ inference: { taskType, prediction } }) => {
-  return { taskType, prediction };
+const mapStateToProps = ({
+  inference: { taskType, prediction, accuracy, accuracyPlot },
+}) => {
+  return { taskType, prediction, accuracy, accuracyPlot };
 };
 
 export default connect(mapStateToProps)(TaskDisplay);
