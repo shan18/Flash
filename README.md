@@ -5,4 +5,4 @@
 
 ![progress badge](https://img.shields.io/badge/status-In%20progress-yellow)
 
-The project is currently in development stage. The final build will be available soon.
+README coming soon!

@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+import { setHome, clearHome } from '../../actions';
 import CoverModal from './CoverModal';
+import '../../styles/Home.css';
 
 class Home extends React.Component {
   state = {
@@ -10,6 +13,14 @@ class Home extends React.Component {
   toggleModal = () => {
     this.setState({ displayModal: !this.state.displayModal });
   };
+
+  componentDidMount() {
+    this.props.setHome();
+  }
+
+  componentWillUnmount() {
+    this.props.clearHome();
+  }
 
   renderModal() {
     return (
@@ -26,25 +37,44 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <div className="row">
-          <div className="col">
-            <h1 className="heading">Home Page</h1>
+        <header>
+          <div className="overlay"></div>
+          {/* <video
+            playsinline="playsinline"
+            autoplay="autoplay"
+            muted="muted"
+            loop="loop"
+          >
+            <source
+              src={`${process.env.PUBLIC_URL}/background.mp4`}
+              type="video/mp4"
+            />
+          </video> */}
+          <div className="container h-100">
+            <div className="d-flex h-100 text-center align-items-center">
+              <div className="w-100 text-white">
+                <h1 className="display-3">
+                  <img
+                    src={`${process.env.PUBLIC_URL}/flash.svg`}
+                    style={{ height: '10vh' }}
+                    alt="flash-logo"
+                  />{' '}
+                  FLASH
+                </h1>
+                <button
+                  className="btn btn-outline-light mt-5"
+                  onClick={() => this.toggleModal()}
+                >
+                  Get Started
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col text-center">
-            <button
-              className="btn border border-secondary mt-2"
-              onClick={() => this.toggleModal()}
-            >
-              Get Started
-            </button>
-          </div>
-        </div>
+        </header>
         {this.renderModal()}
       </>
     );
   }
 }
 
-export default Home;
+export default connect(null, { setHome, clearHome })(Home);

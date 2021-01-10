@@ -1,6 +1,8 @@
 import { reset } from 'redux-form';
 
 import {
+  SET_HOME,
+  CLEAR_HOME,
   LOADING_FORM,
   CLEAR_LOADING_FORM,
   SET_FORM_FILE_FIELD_LABEL,
@@ -34,6 +36,18 @@ import {
   toastError,
   checkResponse,
 } from './utils';
+
+export const setHome = () => {
+  return {
+    type: SET_HOME,
+  };
+};
+
+export const clearHome = () => {
+  return {
+    type: CLEAR_HOME,
+  };
+};
 
 export const loadingForm = formName => {
   return {

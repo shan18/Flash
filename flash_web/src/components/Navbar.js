@@ -19,7 +19,10 @@ class Navbar extends React.Component {
   render() {
     const activeNavItem = this.props.history.location.pathname.substring(1);
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav
+        className="navbar navbar-expand-lg navbar-dark"
+        style={{ backgroundColor: 'black' }}
+      >
         <div className="container">
           <Link to="/" className="navbar-brand">
             <img
@@ -52,22 +55,23 @@ class Navbar extends React.Component {
             id="navbarSupportedContent"
             onClick={this.toggleNavbar}
           >
-            <ul
-              className={`navbar-nav ml-auto ${
-                activeNavItem === 'home' ? 'active' : ''
-              }`}
-            >
-              <li className="nav-item" key="home">
-                <Link className="nav-link" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item" key="training">
+            <ul className="navbar-nav ml-auto">
+              <li
+                className={`nav-item ${
+                  activeNavItem === 'training' ? 'active' : ''
+                }`}
+                key="training"
+              >
                 <Link className="nav-link" to="/training">
                   Training
                 </Link>
               </li>
-              <li className="nav-item" key="inference">
+              <li
+                className={`nav-item ${
+                  activeNavItem === 'inference' ? 'active' : ''
+                }`}
+                key="inference"
+              >
                 <Link className="nav-link" to="/inference">
                   Inference
                 </Link>

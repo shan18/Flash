@@ -29,13 +29,11 @@ class App extends React.Component {
           />
           <Router history={history}>
             <Navbar />
-            <div className="container">
-              <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/training" exact component={Training} />
-                <Route path="/inference" exact component={Inference} />
-              </Switch>
-            </div>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/training" exact component={Training} />
+              <Route path="/inference" exact component={Inference} />
+            </Switch>
           </Router>
         </div>
         <Footer />

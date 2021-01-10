@@ -1,3 +1,5 @@
+export const SET_HOME = 'SET_HOME';
+export const CLEAR_HOME = 'CLEAR_HOME';
 export const LOADING_FORM = 'LOADING_FORM';
 export const CLEAR_LOADING_FORM = 'CLEAR_LOADING_FORM';
 export const SET_FORM_FILE_FIELD_LABEL = 'SET_FORM_FILE_FIELD_LABEL';
