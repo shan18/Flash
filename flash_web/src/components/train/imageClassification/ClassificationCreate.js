@@ -82,8 +82,6 @@ class ClassificationCreate extends React.Component {
         mode: 'training',
         taskType: this.props.taskName,
         ...values,
-        batchSize: parseInt(values.batchSize),
-        epochs: parseInt(values.epochs),
         modelType,
         dataSplit,
         dataset,

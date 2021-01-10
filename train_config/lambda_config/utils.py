@@ -70,10 +70,18 @@ def validate_csv(data):
             'message': 'Dataset does not have a column named "label"',
         }
 
+    # Check column types
+    if str(df.input.dtype) != 'object':
+        return {
+            'is_valid': False,
+            'message': 'Input column entries should be of type "string"'
+        }
+
     # Drop invalid rows
     df.dropna(inplace=True)
     df = df[df.input.str.strip().str.len() > 0]
-    df = df[df.label.str.strip().str.len() > 0]
+    if str(df.label.dtype) == 'object':
+        df = df[df.label.str.strip().str.len() > 0]
 
     # Check for valid entries
     if len(df) == 0:

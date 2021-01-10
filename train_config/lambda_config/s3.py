@@ -43,18 +43,18 @@ def create_training_json(token, data):
     train_data = {
         'token': token,
         'task_type': data['taskType'].lower(),
-        'num_classes': data['numClasses'],
+        'num_classes': int(data['numClasses']),
         'optimizer': data['optimizer'].lower(),
-        'learning_rate': data['learningRate'],
-        'batch_size': data['batchSize'],
-        'epochs': data['epochs'],
+        'learning_rate': float(data['learningRate']),
+        'batch_size': int(data['batchSize']),
+        'epochs': int(data['epochs']),
         'data_split': data['dataSplit'],
         'dataset': data['dataset'],
         'model': data['modelType'].lower(),
         'reduce_lr_on_plateau': {
-            'factor': data['reduceLrOnPlateauFactor'],
-            'patience': data['reduceLrOnPlateauPatience'],
-            'min_lr': data['reduceLrOnPlateauMinLr'],
+            'factor': float(data['reduceLrOnPlateauFactor']),
+            'patience': int(data['reduceLrOnPlateauPatience']),
+            'min_lr': float(data['reduceLrOnPlateauMinLr']),
         } if data['reduceLrOnPlateau'] else False,
     }
 
