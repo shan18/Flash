@@ -13,7 +13,7 @@ class CoverModal extends React.Component {
       {
         title: 'Training',
         targetUrl: '/training',
-        contentImage: `${process.env.PUBLIC_URL}/assets/training.gif`,
+        contentImage: `${process.env.PUBLIC_URL}/assets/images/training.gif`,
         contentText: (
           <>
             Train an{' '}
@@ -32,7 +32,7 @@ class CoverModal extends React.Component {
       {
         title: 'Inference',
         targetUrl: '/inference',
-        contentImage: `${process.env.PUBLIC_URL}/assets/inference.gif`,
+        contentImage: `${process.env.PUBLIC_URL}/assets/images/inference.gif`,
         contentText:
           'Already trained a model on Flash? Choose this to test your model.',
         buttonText: 'Test Model',

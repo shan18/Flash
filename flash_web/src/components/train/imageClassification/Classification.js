@@ -82,7 +82,7 @@ class Classification extends React.Component {
       <>
         <div className="card mx-auto mt-4" style={{ width: '22rem' }}>
           <img
-            src={`${process.env.PUBLIC_URL}/assets/imageClassification.gif`}
+            src={`${process.env.PUBLIC_URL}/assets/images/imageClassification.gif`}
             className="card-img-top"
             alt="source"
           />
