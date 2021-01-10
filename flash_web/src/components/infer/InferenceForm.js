@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { ImUpload3 } from 'react-icons/im';
 
 import { submitInferenceData, clearInferencePrediction } from '../../actions';
 import {
@@ -41,18 +42,26 @@ class InferenceForm extends React.Component {
   render() {
     const { contentType, label, acceptFileFormat } = this.props.field;
     return (
-      <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+      <form
+        onSubmit={this.props.handleSubmit(this.onSubmit)}
+        className="mt-5 mt-md-0"
+      >
         {contentType === 'file' ? (
-          <FormFileField
-            taskName={this.props.taskName}
-            fieldConfig={{
-              name: 'inferenceInput',
-              component: renderFormField,
-              contentType,
-              label,
-              acceptFileFormat,
-            }}
-          />
+          <>
+            <div className="text-center">
+              <ImUpload3 size={35} className="mb-3" />
+            </div>
+            <FormFileField
+              taskName={this.props.taskName}
+              fieldConfig={{
+                name: 'inferenceInput',
+                component: renderFormField,
+                contentType,
+                label,
+                acceptFileFormat,
+              }}
+            />
+          </>
         ) : (
           <Field
             name="inferenceInput"

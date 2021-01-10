@@ -38,40 +38,38 @@ class TaskDisplay extends React.Component {
 
   renderAccuracy() {
     return (
-      <div className="row my-5">
-        <div className="col-12 col-md-2" />
-        <div className="col-12 col-md-3 my-auto text-center">
-          <div className="ml-auto">
-            <h5>Accuracy</h5>
-            <h5>
+      <>
+        <h5 className="text-center mb-3">
+          Best Accuracy:{' '}
+          <mark>
+            <b>
               {(
                 this.props.accuracy * (this.props.accuracy < 1 ? 100 : 1)
               ).toFixed(2)}{' '}
               %
-            </h5>
-          </div>
+            </b>
+          </mark>
+        </h5>
+        <div
+          className="card shadow bg-white rounded mx-auto"
+          style={{ width: '28rem' }}
+        >
+          <img
+            src={`data:image/jpeg;base64,${this.props.accuracyPlot}`}
+            className="card-img-top"
+            alt="sentiment analysis example dataset preview"
+          />
         </div>
-        <div className="col-12 col-md-6 mt-5 mt-md-0">
-          <h5 className="text-center mb-3">Accuracy Change Plot</h5>
-          <div
-            className="card shadow bg-white rounded mx-auto"
-            style={{ width: '28rem' }}
-          >
-            <img
-              src={`data:image/jpeg;base64,${this.props.accuracyPlot}`}
-              className="card-img-top"
-              alt="sentiment analysis example dataset preview"
-            />
-          </div>
-        </div>
-        <div className="col-12 col-md-1" />
-      </div>
+      </>
     );
   }
 
   renderOutput() {
     return (
       <div className="row mt-5">
+        <div className="col-12 mt-4">
+          <h4 className="text-center">Results</h4>
+        </div>
         <div className="col-12 col-lg-6 mt-4 ml-auto text-center">
           <h4 className="text-center">Input</h4>
           {this.props.taskType === 'classification' ? (
@@ -108,7 +106,7 @@ class TaskDisplay extends React.Component {
   render() {
     return (
       <>
-        <div className="row mb-4">
+        <div className="row mb-5">
           <div className="col-12">
             <h4 className="text-center">
               {this.props.taskType === 'classification'
@@ -117,9 +115,9 @@ class TaskDisplay extends React.Component {
             </h4>
           </div>
         </div>
-        {this.renderAccuracy()}
-        <div className="row mb-4">
-          <div className="col-11 col-lg-6 mx-auto">
+        <div className="row">
+          <div className="col-12 col-md-5 mx-auto">{this.renderAccuracy()}</div>
+          <div className="col-12 col-md-4 my-auto mx-auto">
             <InferenceForm
               onSubmit={this.onSubmit}
               taskName={this.props.taskName}
