@@ -60,7 +60,7 @@ class TaskDisplay extends React.Component {
             </div>
           )}
         </div>
-        <div className="col-12 col-lg-6 mt-4 mr-auto text-center">
+        <div className="col-12 col-lg-6 mt-5 mt-md-4 mr-auto text-center">
           <h4 className="text-center">Prediction</h4>
           <div className="card mx-auto mt-3 shadow bg-white rounded">
             <div className="card-body">

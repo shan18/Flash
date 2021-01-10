@@ -13,7 +13,7 @@ const inferenceReducer = (state = {}, action) => {
     case INFERENCE_CONFIG_SET:
       return { ...state, ...action.payload };
     case INFERENCE_CONFIG_CLEAR:
-      return _.omit(state, 'token', 'prediction');
+      return _.omit(state, 'token', 'prediction', 'accuracy', 'accuracyPlot');
     case INFERENCE_SUBMIT:
       return { ...state, prediction: action.payload };
     case INFERENCE_PREDICTION_CLEAR:

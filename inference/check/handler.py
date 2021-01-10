@@ -3,8 +3,6 @@ try:
 except ImportError:
     pass
 
-import json
-
 from s3 import fetch_status, fetch_inference_json
 from utils import fetch_post_data, create_response
 
@@ -22,7 +20,7 @@ def check(event, context):
                 'result': 'error',
                 'message': 'The model is currently training. Please try again after a few minutes.'
             })
-        
+
         # Check if token exists
         if not data['token'] in infer_config:
             return create_response({
@@ -30,9 +28,12 @@ def check(event, context):
                 'message': 'No such token found.'
             })
 
+        task_config = infer_config[data['token']]
         return create_response({
             'result': 'success',
-            'taskType': infer_config[data['token']]['task_type']
+            'taskType': task_config['task_type'],
+            'accuracy': task_config['accuracy'],
+            'accuracyPlot': task_config['accuracy_plot'],
         })
     except Exception as e:
         print(repr(e))

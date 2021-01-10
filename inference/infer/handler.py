@@ -40,7 +40,7 @@ def inference(event, context):
 
         return create_response({
             'result': 'success',
-            'prediction': output
+            'prediction': output,
         })
     except Exception as e:
         print(repr(e))

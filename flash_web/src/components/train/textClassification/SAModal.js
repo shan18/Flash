@@ -61,7 +61,8 @@ class SAModal extends React.Component {
             </li>
           </ul>
           <p>
-            NOTE: The size of the CSV file must be{' '}
+            NOTE: The CSV file must contain{' '}
+            <b>less than {this.props.numRows} rows</b> and its size must be{' '}
             <b>less than {this.props.sizeLimit / 1000000} MB</b>
           </p>
           <br />
@@ -130,11 +131,12 @@ class SAModal extends React.Component {
 
 const mapStateToProps = ({
   sentimentAnalysis: {
-    configOptions: { sizeLimit },
+    configOptions: { sizeLimit, numRows },
   },
 }) => {
   return {
     sizeLimit,
+    numRows,
   };
 };
 

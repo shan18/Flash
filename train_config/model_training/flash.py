@@ -79,5 +79,5 @@ def main():
 
 
 if __name__ == '__main__':
-    if not fetch_json(STATUS_CONFIG)['dev_mode']:
+    if fetch_json(STATUS_CONFIG)['dev_mode']:
         main()

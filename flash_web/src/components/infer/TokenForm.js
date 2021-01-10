@@ -24,17 +24,41 @@ class TokenForm extends React.Component {
       <div className="row mb-1 mt-3 py-5">
         <div className="col-10 col-md-6 mx-auto">
           {this.props.token ? (
-            <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-              <Field
-                name="token"
-                component={renderFormField}
-                contentType="text"
-                label="Token"
-                textAppend={<MdDelete />}
-                enableAppendSubmit
-                isFixed
-              />
-            </form>
+            <>
+              <form
+                onSubmit={this.props.handleSubmit(this.onSubmit)}
+                className="mb-4"
+              >
+                <Field
+                  name="token"
+                  component={renderFormField}
+                  contentType="text"
+                  label="Token"
+                  textAppend={<MdDelete />}
+                  enableAppendSubmit
+                  isFixed
+                />
+              </form>
+              <div className="row text-center mt-5">
+                <div className="col-12 col-md-4 my-auto">
+                  <h4>Accuracy</h4>
+                  <h4>{this.props.accuracy * 100} %</h4>
+                </div>
+                <div className="col-12 col-md-8 mt-5 mt-md-0">
+                  <h4 className="text-center mb-3">Accuracy Change Plot</h4>
+                  <div
+                    className="card shadow bg-white rounded mx-auto"
+                    style={{ width: '21rem' }}
+                  >
+                    <img
+                      src={`data:image/jpeg;base64,${this.props.accuracyPlot}`}
+                      className="card-img-top"
+                      alt="sentiment analysis example dataset preview"
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
           ) : (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
               <Field
@@ -72,8 +96,11 @@ const validate = formValues => {
   return errors;
 };
 
-const mapStateToProps = ({ loadingForm, inference: { token } }) => {
-  return { loadingForm, token };
+const mapStateToProps = ({
+  loadingForm,
+  inference: { token, accuracy, accuracyPlot },
+}) => {
+  return { loadingForm, token, accuracy, accuracyPlot };
 };
 
 export default connect(mapStateToProps, {

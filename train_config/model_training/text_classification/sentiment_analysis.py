@@ -9,9 +9,16 @@ from .train import fit_model
 
 
 def save_metadata(metadata_path, text, label, model_params):
+    # Remove torchtext dependency from stoi
+    stoi = {}
+    for k, v in text.vocab.stoi.items():
+        if (k != text.unk_token and v != model_params['unk_idx']) or (k == text.unk_token):
+            stoi[k] = v
+
+    # Save
     with open(metadata_path, 'wb') as f:
         metadata = {
-            'input_stoi': text.vocab.stoi,
+            'input_stoi': stoi,
             'label_itos': label.vocab.itos,
             'model_params': model_params,
         }

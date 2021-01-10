@@ -220,7 +220,12 @@ export const submitInferenceToken = ({ formName, token }) => async dispatch => {
   if (checkResponse(response)) {
     dispatch({
       type: INFERENCE_CONFIG_SET,
-      payload: { token, taskType: response.data.taskType },
+      payload: {
+        token,
+        taskType: response.data.taskType,
+        accuracy: response.data.accuracy,
+        accuracyPlot: response.data.accuracyPlot,
+      },
     });
   }
 

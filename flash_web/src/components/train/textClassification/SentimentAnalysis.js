@@ -22,7 +22,8 @@ class SentimentAnalysis extends React.Component {
     this.configOptions = {
       modelTypes: ['LSTM', 'GRU'],
       modelFieldTitle: 'RNN Type',
-      sizeLimit: 20000000, // In bytes (20 MB)
+      numRows: 10000,
+      sizeLimit: 1000000, // In bytes (1 MB)
     };
 
     this.currentConfig = {
