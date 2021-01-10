@@ -1,12 +1,7 @@
 import io
 import base64
-import torch
 from torchvision import transforms
 from PIL import Image
-
-
-def load_model(model_path):
-    return torch.jit.load(model_path)
 
 
 def transform_image(b64_image):
@@ -36,7 +31,6 @@ def get_prediction(model, b64_image):
     return model(tensor).argmax().item()
 
 
-def classify(model_path, b64_image, classes):
-    model = load_model(model_path)
+def classify(model, b64_image, classes):
     prediction = get_prediction(model, b64_image)
     return classes[prediction]
