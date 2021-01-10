@@ -115,7 +115,7 @@ def fit_model(config, model, train_loader, test_loader, device, checkpoint_path)
         epoch_mins, epoch_secs = epoch_time(start_time, end_time)
 
         # Update best accuracy
-        if test_accuracy > best_test_accuracy:
+        if test_accuracy >= best_test_accuracy:
             best_test_accuracy = test_accuracy
             torch.save(model.state_dict(), f'{checkpoint_path}/model.pt')
 

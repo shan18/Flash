@@ -6,3 +6,5 @@ credentials.py
 __pycache__/
 *.pyc
 checkpoints
+.vector_cache/
+glove.6B.100d.txt
