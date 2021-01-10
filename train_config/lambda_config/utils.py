@@ -89,6 +89,13 @@ def validate_csv(data):
             'message': 'The dataset should contain a minimum of two classes',
         }
 
+    # Check number of rows
+    if len(df) > 10000:
+        return {
+            'is_valid': False,
+            'message': 'The dataset can contain atmost 10,000 rows',
+        }
+
     return {
         'is_valid': True,
         'data': base64.b64encode(df.to_csv(index=False).encode()).decode(),
