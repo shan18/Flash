@@ -37,7 +37,11 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <header>
+        <header
+          style={{
+            backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/home.gif)`,
+          }}
+        >
           <div className="overlay"></div>
           {/* <video
             playsinline="playsinline"
