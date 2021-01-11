@@ -31,7 +31,7 @@ class Navbar extends React.Component {
               className="mr-2"
               alt="logo"
             />{' '}
-            Flash
+            F L A S H
           </Link>
           <button
             className={`navbar-toggler navbar-toggler-right ${
@@ -74,6 +74,16 @@ class Navbar extends React.Component {
               >
                 <Link className="nav-link" to="/inference">
                   Inference
+                </Link>
+              </li>
+              <li
+                className={`nav-item ${
+                  activeNavItem === 'about' ? 'active' : ''
+                }`}
+                key="about"
+              >
+                <Link className="nav-link" to="/about">
+                  About
                 </Link>
               </li>
             </ul>

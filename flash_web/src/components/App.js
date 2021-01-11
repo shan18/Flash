@@ -8,6 +8,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import Training from './train/Training';
 import Inference from './infer/Inference';
+import About from './About';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/App.css';
@@ -33,6 +34,7 @@ class App extends React.Component {
               <Route path="/" exact component={Home} />
               <Route path="/training" exact component={Training} />
               <Route path="/inference" exact component={Inference} />
+              <Route path="/about" exact component={About} />
             </Switch>
           </Router>
         </div>

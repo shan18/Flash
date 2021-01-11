@@ -5,6 +5,7 @@ import { clearInference } from '../../actions';
 import TokenForm from './TokenForm';
 import TaskDisplay from './TaskDisplay';
 import PreviewTask from './PreviewTask';
+import FloatinHelp from '../FloatingHelp';
 
 class Inference extends React.Component {
   constructor(props) {
@@ -20,13 +21,14 @@ class Inference extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1 className="heading">Test Your Model</h1>
+        <h1 className="heading">Test your Model</h1>
         <TokenForm />
         {this.props.token ? (
           <TaskDisplay taskName={this.taskName} />
         ) : (
           <PreviewTask />
         )}
+        <FloatinHelp target="inference" />
       </div>
     );
   }

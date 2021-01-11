@@ -59,7 +59,7 @@ class Home extends React.Component {
                     style={{ height: '10vh' }}
                     alt="flash-logo"
                   />{' '}
-                  FLASH
+                  F L A S H
                 </h1>
                 <button
                   className="btn btn-outline-light mt-5"

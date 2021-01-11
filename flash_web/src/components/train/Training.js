@@ -3,6 +3,7 @@ import React from 'react';
 import HoverButtons from '../HoverButtons';
 import Classification from './imageClassification/Classification';
 import SentimentAnalysis from './textClassification/SentimentAnalysis';
+import FloatinHelp from '../FloatingHelp';
 
 class Training extends React.Component {
   constructor(props) {
@@ -80,6 +81,7 @@ class Training extends React.Component {
           </div>
         </div>
         {this.renderCurrentTask()}
+        <FloatinHelp target="training" />
       </div>
     );
   }
