@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -20,7 +21,9 @@ class Navbar extends React.Component {
     const activeNavItem = this.props.history.location.pathname.substring(1);
     return (
       <nav
-        className="navbar navbar-expand-lg navbar-dark"
+        className={`navbar ${
+          this.props.isHome ? 'fixed-top' : ''
+        } navbar-expand-lg navbar-dark`}
         style={{ backgroundColor: 'black' }}
       >
         <div className="container">
@@ -94,4 +97,8 @@ class Navbar extends React.Component {
   }
 }
 
-export default withRouter(Navbar);
+const mapStateToProps = ({ isHome }) => {
+  return { isHome };
+};
+
+export default connect(mapStateToProps)(withRouter(Navbar));

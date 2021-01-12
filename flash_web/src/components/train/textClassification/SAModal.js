@@ -74,7 +74,7 @@ class SAModal extends React.Component {
                 style={{ width: '25rem' }}
               >
                 <img
-                  src={`${process.env.PUBLIC_URL}/assets/images/saDataPreview.png`}
+                  src={`${process.env.PUBLIC_URL}/assets/media/saDataPreview.png`}
                   className="card-img-top"
                   alt="sentiment analysis example dataset preview"
                 />

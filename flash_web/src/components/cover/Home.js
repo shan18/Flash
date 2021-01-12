@@ -37,23 +37,14 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <header
-          style={{
-            backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/home.gif)`,
-          }}
-        >
+        <header>
           <div className="overlay"></div>
-          {/* <video
-            playsinline="playsinline"
-            autoplay="autoplay"
-            muted="muted"
-            loop="loop"
-          >
+          <video playsInline="playsinline" autoPlay="autoplay" muted="muted">
             <source
-              src={`${process.env.PUBLIC_URL}/background.mp4`}
+              src={`${process.env.PUBLIC_URL}/assets/media/home.mp4`}
               type="video/mp4"
             />
-          </video> */}
+          </video>
           <div className="container h-100">
             <div className="d-flex h-100 text-center align-items-center">
               <div className="w-100 text-white">

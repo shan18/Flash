@@ -14,7 +14,7 @@ Classify images from your own dataset by using them to train a **ResNet-34** or 
 
 <div align="center">
   <img
-    src="flash_web/public/assets/images/imageClassification.gif"
+    src="media/image_classification.gif"
     width="400px"
     alt="image classification gif"
   />
@@ -26,7 +26,7 @@ Predict sentiment from sentences by training a **LSTM** or **GRU** based sequent
 
 <div align="center">
   <img
-    src="flash_web/public/assets/images/sentimentAnalysis.gif"
+    src="media/sentiment_analysis.gif"
     width="400px"
     alt="sentiment analysis gif"
   />
@@ -42,7 +42,7 @@ For training a model, you'll have to **upload your own dataset** and **select th
 
 After you upload your configuration, the platform will assign you a unique **token**. Please save the token as it will used to test the model on the inference page.
 
-![training snapshots](images/training_snapshots.png)
+![training snapshots](media/training_snapshots.png)
 
 ### Inference
 
@@ -50,4 +50,4 @@ You can perform inference on a trained model by using the **token** provided to 
 
 After submitting the token, you'll get a form where you can upload inputs to check the performance of your trained model. The inference page also provides you with the **results of the training process** by showing you the **accuracy** of the model **on validation set** as well as the **change in accuracy** during training.
 
-![inference snapshots](images/inference_snapshots.png)
+![inference snapshots](media/inference_snapshots.png)

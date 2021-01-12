@@ -78,12 +78,22 @@ class SentimentAnalysis extends React.Component {
   render() {
     return (
       <>
-        <div className="card mx-auto mt-4" style={{ width: '24rem' }}>
-          <img
-            src={`${process.env.PUBLIC_URL}/assets/images/sentimentAnalysis.gif`}
-            className="card-img-top"
-            alt="source"
-          />
+        <div className="row">
+          <div className="col-10 col-md-5 mx-auto">
+            <div className="card mx-auto mt-4">
+              <video
+                playsInline="playsinline"
+                autoPlay="autoplay"
+                muted="muted"
+                className="card-img-top"
+              >
+                <source
+                  src={`${process.env.PUBLIC_URL}/assets/media/sentimentAnalysis.mp4`}
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </div>
         </div>
         <div className="row mt-5">
           <div className="col-6 mx-auto">

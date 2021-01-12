@@ -11,7 +11,7 @@ header {
   background-size: cover;
 }
 
-/* header video {
+header video {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -24,11 +24,12 @@ header {
   -moz-transform: translateX(-50%) translateY(-50%);
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
-} */
+}
 
 header .container {
   position: relative;
   z-index: 2;
+  margin-top: 5vh;
 }
 
 header .overlay {
@@ -44,4 +45,8 @@ header .overlay {
 
 .btn-outline-light:hover {
   background-color: yellow !important;
+}
+
+.display-3 {
+  font-weight: 400;
 }

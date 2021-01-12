@@ -45,7 +45,7 @@ class About extends React.Component {
   renderImageClassificationInfo() {
     return (
       <div className="row">
-        <div className="col my-auto">
+        <div className="col-12 col-md-7 my-auto">
           <h3 className="mb-3">Image Classification</h3>
           <p>
             Classify images from your own dataset by using them to train a{' '}
@@ -63,13 +63,19 @@ class About extends React.Component {
             be pre-trained on the ImageNet dataset.
           </p>
         </div>
-        <div className="col my-auto">
-          <div className="card mx-auto mt-4" style={{ width: '20rem' }}>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/imageClassification.gif`}
+        <div className="col-12 col-md-5 my-auto">
+          <div className="card mx-auto mt-4">
+            <video
+              playsInline="playsinline"
+              autoPlay="autoplay"
+              muted="muted"
               className="card-img-top"
-              alt="img classification gif"
-            />
+            >
+              <source
+                src={`${process.env.PUBLIC_URL}/assets/media/imageClassification.mp4`}
+                type="video/mp4"
+              />
+            </video>
           </div>
         </div>
       </div>
@@ -79,7 +85,7 @@ class About extends React.Component {
   renderSentimentAnalysisInfo() {
     return (
       <div className="row my-5">
-        <div className="col my-auto">
+        <div className="col-12 col-md-7 my-auto">
           <h3 className="mb-3">Sentiment Analysis</h3>
           <p>
             Predict sentiment from sentences by training a{' '}
@@ -94,13 +100,19 @@ class About extends React.Component {
           </p>
           <p>The models will be trained from scratch.</p>
         </div>
-        <div className="col my-auto">
-          <div className="card mx-auto mt-4" style={{ width: '20rem' }}>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/sentimentAnalysis.gif`}
+        <div className="col-12 col-md-5 my-auto">
+          <div className="card mx-auto mt-4">
+            <video
+              playsInline="playsinline"
+              autoPlay="autoplay"
+              muted="muted"
               className="card-img-top"
-              alt="sentiment analysis gif"
-            />
+            >
+              <source
+                src={`${process.env.PUBLIC_URL}/assets/media/sentimentAnalysis.mp4`}
+                type="video/mp4"
+              />
+            </video>
           </div>
         </div>
       </div>
@@ -137,7 +149,7 @@ class About extends React.Component {
             <div className="card card-hover shadow bg-white rounded">
               <img
                 className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/images/training_page.png`}
+                src={`${process.env.PUBLIC_URL}/assets/media/training_page.png`}
                 alt="training page"
               />
             </div>
@@ -146,7 +158,7 @@ class About extends React.Component {
             <div className="card card-hover shadow bg-white rounded">
               <img
                 className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/images/img_classification_data_upload.png`}
+                src={`${process.env.PUBLIC_URL}/assets/media/img_classification_data_upload.png`}
                 alt="img classification data upload"
               />
             </div>
@@ -155,7 +167,7 @@ class About extends React.Component {
             <div className="card card-hover shadow bg-white rounded">
               <img
                 className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/images/sa_data_upload.png`}
+                src={`${process.env.PUBLIC_URL}/assets/media/sa_data_upload.png`}
                 alt="sentiment analysis data upload"
               />
             </div>
@@ -199,7 +211,7 @@ class About extends React.Component {
             <div className="card card-hover shadow bg-white rounded">
               <img
                 className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/images/sa_inference_form.png`}
+                src={`${process.env.PUBLIC_URL}/assets/media/sa_inference_form.png`}
                 alt="img classification data upload"
               />
             </div>
@@ -208,7 +220,7 @@ class About extends React.Component {
             <div className="card card-hover shadow bg-white rounded">
               <img
                 className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/images/img_classification_prediction.png`}
+                src={`${process.env.PUBLIC_URL}/assets/media/img_classification_prediction.png`}
                 alt="img classification prediction"
               />
             </div>
@@ -217,7 +229,7 @@ class About extends React.Component {
             <div className="card card-hover shadow bg-white rounded">
               <img
                 className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/images/inference_page.png`}
+                src={`${process.env.PUBLIC_URL}/assets/media/inference_page.png`}
                 alt="inference page"
               />
             </div>
