@@ -30,7 +30,7 @@ provider:
   iamRoleStatements:
     - Effect: 'Allow'
       Action:
-        - s3:getObject
+        - s3:*
       Resource: arn:aws:s3:::${self:custom.secrets.bucket}/*
 
 package:
@@ -66,6 +66,17 @@ functions:
           path: inference
           method: post
           cors: true
+  clean:
+    handler: handler.clean
+    module: clean
+    memorySize: 3008 # MB
+    timeout: 30 # seconds
+    events:
+      - http:
+          path: clean
+          method: get
+          cors: true
+      - schedule: rate(2 hours)
 
 plugins:
   - serverless-python-requirements

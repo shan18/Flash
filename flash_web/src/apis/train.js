@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://1tyzrad9g7.execute-api.us-east-1.amazonaws.com/dev',
+  baseURL: process.env.REACT_APP_TRAIN_LAMBDA_ENDPOINT,
   headers: {
     post: {
       'Content-Type': 'multipart/form-data',

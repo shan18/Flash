@@ -9,3 +9,4 @@ checkpoints
 .vector_cache/
 glove.6B.100d.txt
 sample_config/
+.env
