@@ -1,0 +1,30 @@
+{
+  "token": "classification-cla-shan-test-ow5o0",
+  "task_type": "classification",
+  "num_classes": 10,
+  "optimizer": "sgd",
+  "learning_rate": 0.01,
+  "batch_size": 128,
+  "epochs": 20,
+  "data_split": "70 : 30",
+  "dataset": {
+    "potpie": [
+      "KBkaEII0KxwRVS0fAkM2Jygg...",
+      "/8QAtRAAAgEDAwIEAwUFBAQA...",
+      "RBRIhMUEGE1FhByJxFDKBkaE...",
+      "II0KxwRVS0fAkM2JyggkKFhc..."
+    ],
+    "pizza": [
+      "YGRolJicoKSo0NTY3ODk6Q0R...",
+      "FRkdISUpTVFVWV1hZWmNkZWZ...",
+      "naGlqc3R1dnd4eXqDhIWGh4i...",
+      "JipKTlJWWl5iZmqKjpKWmp6i..."
+    ]
+  },
+  "model": "mobilenet v2",
+  "reduce_lr_on_plateau": {
+    "factor": 0.1,
+    "patience": 5,
+    "min_lr": 1e-5
+  }
+}
