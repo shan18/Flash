@@ -1,10 +1,10 @@
 # Flash Training Lambda
 
-This sub-module contains the code for AWS lambda used to trigger the training process and check server status.
+This submodule contains the code for AWS lambda used to trigger the training process and check server status.
 
 ## Code Structure
 
-The training lambda sub-module contains four lambda functions
+The training lambda submodule contains four lambda functions
 
 1. **`status`**: Fetches the `status.json` file from S3 and confirms the availability of the server
 2. **`train`**: Receives the training configuration from frontend, validates the dataset and stores it in `training/training.json` in S3

@@ -10,3 +10,4 @@ checkpoints
 glove.6B.100d.txt
 sample_config/
 .env
+.prettierignore
