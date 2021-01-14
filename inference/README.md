@@ -16,9 +16,9 @@ This directory contains the code for the inference section of the platform.
 
 The inference module contains **3 lambda functions**
 
-1. **check**: Checks if the token submitted by the user is valid.
-2. **infer**: Performs inference. It takes in the input and returns the model prediction.
-3. **clean**: Runs every two hours and deletes those models from the server which have expired their validity (i.e. models which are older than two hours).
+1. **`check`**: Checks if the token submitted by the user is valid.
+2. **`infer`**: Performs inference. It takes in the input and returns the model prediction.
+3. **`clean`**: Runs every two hours and deletes those models from the server which have expired their validity (i.e. models which are older than two hours).
 
 ## How it works
 
@@ -37,3 +37,4 @@ _Note: Before beginning the setup, make sure that you have already followed and 
 
 - Setup serverless on your system. For reference, check [this link](https://www.serverless.com/framework/docs/providers/aws/guide/installation/)
 - Rename the `credentials-sample.yml` file to `credentials.yml` and fill out your bucket and region information in that file.
+- To deploy the lambda, run: `npm run deploy`
