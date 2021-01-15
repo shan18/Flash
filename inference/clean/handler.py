@@ -42,9 +42,9 @@ def clean(event, context):
                 if (current_time - creation_time).seconds < 7200:  # 2 hours
                     safe_objects[token] = infer_vals
                 else:  # Delete objects
-                    delete_object(f'{infer_vals["task_type"]}/{token}.pt')
+                    delete_object(infer_vals['model_filename'])
                     if infer_vals['task_type'] == 'sentimentanalysis':
-                        delete_object(f'{infer_vals["task_type"]}/{token}.pkl')
+                        delete_object(infer_vals['metadata_filename'])
                     print('Deleted:', token)
             else:
                 safe_objects[token] = infer_vals
