@@ -68,7 +68,7 @@ const validate = formValues => {
 
   if (!formValues.token) {
     errors.token = 'You must enter a token';
-  } else if (!/^[a-zA-Z0-9- ]+$/i.test(formValues.token)) {
+  } else if (!/^[a-zA-Z0-9-_ ]+$/i.test(formValues.token)) {
     errors.token = 'Invalid token';
   }
 

@@ -4,7 +4,7 @@
 
 Link to project: https://shan18.github.io/Flash
 
-Flash is an **end-to-end Deep Learning** platform which allows users to create, train and deploy their own neural network models in a matter of minutes without writing a single line of code.
+Flash is an **end-to-end Deep Learning** platform that allows users to create, train, and deploy their own neural network models in a matter of minutes without writing a single line of code.
 
 The platform currently supports two types of tasks:
 

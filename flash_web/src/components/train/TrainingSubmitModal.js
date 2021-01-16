@@ -29,7 +29,7 @@ class TrainingSubmitModal extends React.Component {
               minutes depending upon the size of your dataset.
             </li>
             <li>
-              Trained models are available for testing only upto <b>2 hours</b>
+              Trained models are available for testing only upto <b>2 hours</b>{' '}
               starting from the point when they are made available for
               inference.
             </li>
