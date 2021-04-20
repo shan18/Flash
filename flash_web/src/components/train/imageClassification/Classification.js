@@ -24,6 +24,8 @@ class Classification extends React.Component {
       modelFieldTitle: 'Model',
       numClassesLimit: { min: 2, max: 10 },
       numImagesLimit: { min: 10, max: 100 },
+      batchSizeLimit: { min: 1, max: 32 },
+      numEpochsLimit: { min: 1, max: 10 },
       sizeLimit: 10000000, // In bytes (10 MB)
     };
 
