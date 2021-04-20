@@ -18,9 +18,7 @@ from utils import (
     validate_csv,
 )
 
-
-P3_INSTANCE_ID = os.environ.get('P3_INSTANCE_ID')
-T2_INSTANCE_ID = os.environ.get('T2_INSTANCE_ID')
+INSTANCE_ID = os.environ.get('INSTANCE_ID')
 REGION = os.environ.get('REGION')
 
 EC2_RESOURCE = boto3.resource('ec2', region_name=REGION)
@@ -53,15 +51,7 @@ def train(event, context):
         data = fetch_post_data(event)
 
         # Check if server is properly shutdown
-        if (
-            (
-                data['taskType'].lower() == 'classification' and
-                EC2_RESOURCE.Instance(P3_INSTANCE_ID).state['Name'] == 'stopping'
-            ) or (
-                data['taskType'].lower() == 'sentimentanalysis' and
-                EC2_RESOURCE.Instance(T2_INSTANCE_ID).state['Name'] == 'stopping'
-            )
-        ):
+        if EC2_RESOURCE.Instance(INSTANCE_ID).state['Name'] == 'stopping':
             return create_response({
                 'result': 'error',
                 'message': 'Server is currently training another model, please check back in 5 minutes.'
@@ -116,9 +106,7 @@ def server_start(event, context):
         message = 'Dev mode is on.'
     elif server_status['status'] == 'active':
         ec2_client = boto3.client('ec2', region_name=REGION)
-        ec2_client.start_instances(InstanceIds=[
-            P3_INSTANCE_ID if server_status['task_type'] == 'classification' else T2_INSTANCE_ID
-        ])
+        ec2_client.start_instances(InstanceIds=[INSTANCE_ID])
         message = 'Instance started.'
 
     print(message)
@@ -134,9 +122,7 @@ def server_stop(event, context):
     else:
         # Stop instance
         ec2_client = boto3.client('ec2', region_name=REGION)
-        ec2_client.stop_instances(InstanceIds=[
-            P3_INSTANCE_ID if server_status['task_type'] == 'classification' else T2_INSTANCE_ID
-        ])
+        ec2_client.stop_instances(InstanceIds=[INSTANCE_ID])
         message = 'Instance stopped.'
 
         # Change server status

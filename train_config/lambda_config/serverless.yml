@@ -27,8 +27,7 @@ provider:
   timeout: 30
   environment:
     S3_BUCKET: ${self:custom.secrets.bucket}
-    P3_INSTANCE_ID: ${self:custom.secrets.p3InstanceId}
-    T2_INSTANCE_ID: ${self:custom.secrets.t2InstanceId}
+    INSTANCE_ID: ${self:custom.secrets.instanceId}
     REGION: ${self:custom.secrets.region}
   iamRoleStatements:
     - Effect: 'Allow'
