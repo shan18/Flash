@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 import ClassificationClassList from './ClassificationClassList';
 import ClassificationDataset from './ClassificationDataset';
@@ -8,14 +11,14 @@ import '../../../styles/Modal.css';
 class ClassificationModal extends React.Component {
   renderContent() {
     return (
-      <div className="row">
-        <div className="col col-md-4 text-center">
+      <Row>
+        <Col md={4} className="text-center">
           <ClassificationClassList />
-        </div>
-        <div className="col col-md-8 text-center">
+        </Col>
+        <Col md={8} className="text-center">
           <ClassificationDataset />
-        </div>
-      </div>
+        </Col>
+      </Row>
     );
   }
 
@@ -31,24 +34,26 @@ class ClassificationModal extends React.Component {
           <hr className="w-100" />
           {this.renderContent()}
           <hr className="w-100" />
-          <div className="row">
-            <div className="col text-right">
-              <button
-                className="btn btn-success mr-2"
+          <Row>
+            <Col className="text-right">
+              <Button
+                variant="success"
+                className="mr-2"
                 onClick={() => {
                   this.props.onDismiss();
                 }}
               >
                 Save Dataset
-              </button>
-              <button
-                className="btn btn-warning mr-2"
+              </Button>
+              <Button
+                variant="warning"
+                className="mr-2"
                 onClick={() => this.props.onDismiss(true)}
               >
                 Go Back
-              </button>
-            </div>
-          </div>
+              </Button>
+            </Col>
+          </Row>
         </div>
       </div>,
       document.querySelector('#modal') // places the modal inside the container with id 'modal' in index.html

@@ -1,18 +1,21 @@
 import _ from 'lodash';
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 
 class ClassificationDataPreview extends React.Component {
   renderCard(imgUrl, imgId) {
     return (
-      <div className="col mb-3" key={imgId}>
-        <div
-          className="card card-hover shadow bg-white rounded"
+      <Col className="mb-3" key={imgId}>
+        <Card
+          className="card-hover shadow bg-white rounded"
           style={{ width: '5rem' }}
         >
-          <img src={imgUrl} className="card-img-top" alt={`data-${imgId}`} />
-        </div>
-      </div>
+          <Card.Img variant="top" src={imgUrl} alt={`data-${imgId}`} />
+        </Card>
+      </Col>
     );
   }
 
@@ -20,11 +23,11 @@ class ClassificationDataPreview extends React.Component {
     return (
       <>
         {this.props.imgList ? (
-          <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 mt-5 mx-auto">
+          <Row xs={1} md={3} lg={4} xl={6} className="mt-5 mx-auto">
             {_.map(this.props.imgList, (image, imgId) =>
               this.renderCard(image, imgId)
             )}
-          </div>
+          </Row>
         ) : (
           ''
         )}

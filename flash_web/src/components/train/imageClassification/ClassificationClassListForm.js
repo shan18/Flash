@@ -1,5 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { FaCheck } from 'react-icons/fa';
@@ -46,17 +49,16 @@ class ClassificationClassListForm extends React.Component {
 
   render() {
     return (
-      <form
+      <Form
         onSubmit={event => {
           event.preventDefault();
           this.onSubmit();
         }}
         className="my-2"
       >
-        <div className="input-group">
-          <input
+        <InputGroup>
+          <Form.Control
             type="text"
-            className="form-control"
             placeholder={`Enter class name${
               this.props.isOptionalField ? ' (optional)' : ''
             }`}
@@ -72,17 +74,17 @@ class ClassificationClassListForm extends React.Component {
           />
           <div className="input-group-append">
             {this.state.isSaved ? (
-              <button className="btn btn-danger">
+              <Button type="submit" variant="danger">
                 <MdDelete />
-              </button>
+              </Button>
             ) : (
-              <button className="btn btn-outline-success">
+              <Button type="submit" variant="outline-success">
                 <FaCheck />
-              </button>
+              </Button>
             )}
           </div>
-        </div>
-      </form>
+        </InputGroup>
+      </Form>
     );
   }
 }

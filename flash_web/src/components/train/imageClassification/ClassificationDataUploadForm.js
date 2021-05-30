@@ -1,4 +1,7 @@
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { ImUpload3 } from 'react-icons/im';
@@ -12,9 +15,9 @@ class ClassificationDataUploadForm extends React.Component {
         {this.props.currentClass &&
         !this.props.numImagesExceeded &&
         !this.props.sizeExceeded ? (
-          <form>
-            <div className="row mt-3">
-              <div className="col-5 mx-auto">
+          <Form>
+            <Row className="mt-3">
+              <Col xs={5} className="mx-auto">
                 <ImUpload3 size={30} className="mb-3" />
                 <Field
                   name="classImages"
@@ -24,9 +27,9 @@ class ClassificationDataUploadForm extends React.Component {
                   acceptFileFormat="image/jpeg,image/png"
                   multiple
                 />
-              </div>
-            </div>
-          </form>
+              </Col>
+            </Row>
+          </Form>
         ) : (
           ''
         )}

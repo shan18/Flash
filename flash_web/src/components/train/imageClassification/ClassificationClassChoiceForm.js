@@ -1,5 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
@@ -9,9 +12,9 @@ class ClassificationClassChoiceForm extends React.Component {
   render() {
     const { classList } = this.props;
     return (
-      <form>
-        <div className="row mt-3">
-          <div className="col-8 mx-auto">
+      <Form>
+        <Row className="mt-3">
+          <Col xs={8} className="mx-auto">
             <Field
               name="classChoice"
               component={renderFormField}
@@ -21,9 +24,9 @@ class ClassificationClassChoiceForm extends React.Component {
                 ..._.zipObject(classList, classList),
               }}
             />
-          </div>
-        </div>
-      </form>
+          </Col>
+        </Row>
+      </Form>
     );
   }
 }
