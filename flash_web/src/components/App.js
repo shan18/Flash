@@ -28,19 +28,19 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="page-container">
-        <div className="content-wrap">
-          <ToastContainer
-            position="top-center"
-            autoClose={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            style={{ width: '40%' }}
-          />
-          <Router history={history}>
+      <Router history={history}>
+        <div className="page-container">
+          <div className="content-wrap">
+            <ToastContainer
+              position="top-center"
+              autoClose={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              style={{ width: '40%' }}
+            />
             <NavigationBar />
             <Switch>
               <Route path="/" exact component={Home} />
@@ -48,10 +48,10 @@ class App extends React.Component {
               <Route path="/inference" exact component={Inference} />
               <Route path="/about" exact component={About} />
             </Switch>
-          </Router>
+          </div>
+          <Footer isMobile={this.state.isMobile} />
         </div>
-        <Footer isMobile={this.state.isMobile} />
-      </div>
+      </Router>
     );
   }
 }
