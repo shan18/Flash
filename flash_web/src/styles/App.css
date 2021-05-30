@@ -22,6 +22,11 @@ body {
   color: black;
 }
 
+.anchor-white {
+  text-decoration: none;
+  color: white;
+}
+
 .heading {
   text-align: center;
   margin-top: 3rem;

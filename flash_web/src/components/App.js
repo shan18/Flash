@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 
 import history from '../history';
 import Home from './cover/Home';
-import Navbar from './Navbar';
+import NavigationBar from './NavigationBar';
 import Footer from './Footer';
 import Training from './train/Training';
 import Inference from './infer/Inference';
@@ -14,6 +14,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/App.css';
 
 class App extends React.Component {
+  state = { isMobile: null };
+
+  resize() {
+    this.setState({ isMobile: window.innerWidth <= 767 });
+  }
+
+  componentDidMount() {
+    // Check for mobile view
+    window.addEventListener('resize', this.resize.bind(this));
+    this.resize();
+  }
+
   render() {
     return (
       <div className="page-container">
@@ -29,7 +41,7 @@ class App extends React.Component {
             style={{ width: '40%' }}
           />
           <Router history={history}>
-            <Navbar />
+            <NavigationBar />
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/training" exact component={Training} />
@@ -38,7 +50,7 @@ class App extends React.Component {
             </Switch>
           </Router>
         </div>
-        <Footer />
+        <Footer isMobile={this.state.isMobile} />
       </div>
     );
   }

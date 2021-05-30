@@ -1,6 +1,7 @@
 import { reset } from 'redux-form';
 
 import {
+  SET_NAV_LINKS,
   SET_HOME,
   CLEAR_HOME,
   LOADING_FORM,
@@ -36,6 +37,13 @@ import {
   toastError,
   checkResponse,
 } from './utils';
+
+export const setNavLinks = navLinks => {
+  return {
+    type: SET_NAV_LINKS,
+    payload: navLinks,
+  };
+};
 
 export const setHome = () => {
   return {
@@ -122,44 +130,43 @@ export const clearTrainConfig = taskName => dispatch => {
   dispatch({ type: taskName === 'classification' ? CLASSIFY_CLEAR : SA_CLEAR });
 };
 
-export const submitTrainRequest = ({
-  formName,
-  trainConfig,
-}) => async dispatch => {
-  if (formName) {
-    dispatch(loadingForm(formName));
-  }
-
-  // Check server status
-  const serverIsAvailable = await statusCheck();
-
-  if (serverIsAvailable) {
-    // Encode data
-    const formData = new FormData();
-    formData.append('training_data', JSON.stringify(trainConfig));
-
-    // Processing the last url in list to display in webpage
-    const response = await networkTransaction({
-      url: '/train',
-      formData,
-      requestType: 'post',
-      apiType: 'train',
-    });
-
-    if (checkResponse(response)) {
-      dispatch({ type: TRAIN_TOKEN_SET, payload: response.data.token });
-      dispatch(reset(formName));
+export const submitTrainRequest =
+  ({ formName, trainConfig }) =>
+  async dispatch => {
+    if (formName) {
+      dispatch(loadingForm(formName));
     }
-  } else {
-    toastError(
-      'Server is currently training another model! Please try again after a few minutes.'
-    );
-  }
 
-  if (formName) {
-    dispatch(clearLoadingForm(formName));
-  }
-};
+    // Check server status
+    const serverIsAvailable = await statusCheck();
+
+    if (serverIsAvailable) {
+      // Encode data
+      const formData = new FormData();
+      formData.append('training_data', JSON.stringify(trainConfig));
+
+      // Processing the last url in list to display in webpage
+      const response = await networkTransaction({
+        url: '/train',
+        formData,
+        requestType: 'post',
+        apiType: 'train',
+      });
+
+      if (checkResponse(response)) {
+        dispatch({ type: TRAIN_TOKEN_SET, payload: response.data.token });
+        dispatch(reset(formName));
+      }
+    } else {
+      toastError(
+        'Server is currently training another model! Please try again after a few minutes.'
+      );
+    }
+
+    if (formName) {
+      dispatch(clearLoadingForm(formName));
+    }
+  };
 
 export const classifyAddClass = classNameValue => {
   return {
@@ -215,67 +222,68 @@ export const clearInference = taskName => dispatch => {
   dispatch({ type: INFERENCE_CLEAR });
 };
 
-export const submitInferenceToken = ({ formName, token }) => async dispatch => {
-  if (formName) {
-    dispatch(loadingForm(formName));
-  }
+export const submitInferenceToken =
+  ({ formName, token }) =>
+  async dispatch => {
+    if (formName) {
+      dispatch(loadingForm(formName));
+    }
 
-  // Encode data
-  const formData = new FormData();
-  formData.append('token', JSON.stringify({ token }));
+    // Encode data
+    const formData = new FormData();
+    formData.append('token', JSON.stringify({ token }));
 
-  const response = await networkTransaction({
-    url: '/check',
-    formData,
-    requestType: 'post',
-    apiType: 'inference',
-  });
-
-  if (checkResponse(response)) {
-    dispatch({
-      type: INFERENCE_CONFIG_SET,
-      payload: {
-        token,
-        taskType: response.data.taskType,
-        accuracy: response.data.accuracy,
-        accuracyPlot: response.data.accuracyPlot,
-      },
+    const response = await networkTransaction({
+      url: '/check',
+      formData,
+      requestType: 'post',
+      apiType: 'inference',
     });
-  }
 
-  if (formName) {
-    dispatch(clearLoadingForm(formName));
-  }
-};
+    if (checkResponse(response)) {
+      dispatch({
+        type: INFERENCE_CONFIG_SET,
+        payload: {
+          token,
+          taskType: response.data.taskType,
+          accuracy: response.data.accuracy,
+          accuracyPlot: response.data.accuracyPlot,
+        },
+      });
+    }
 
-export const submitInferenceData = ({
-  formName,
-  formInput,
-}) => async dispatch => {
-  if (formName) {
-    dispatch(loadingForm(formName));
-  }
+    if (formName) {
+      dispatch(clearLoadingForm(formName));
+    }
+  };
 
-  // Encode data
-  const formData = new FormData();
-  formData.append('inferenceInput', JSON.stringify(formInput));
+export const submitInferenceData =
+  ({ formName, formInput }) =>
+  async dispatch => {
+    if (formName) {
+      dispatch(loadingForm(formName));
+    }
 
-  const response = await networkTransaction({
-    url: '/inference',
-    formData,
-    requestType: 'post',
-    apiType: 'inference',
-    maxNumTries: 3,
-  });
+    // Encode data
+    const formData = new FormData();
+    formData.append('inferenceInput', JSON.stringify(formInput));
 
-  if (checkResponse(response)) {
-    dispatch({
-      type: INFERENCE_SUBMIT,
-      payload: response.data.prediction,
+    const response = await networkTransaction({
+      url: '/inference',
+      formData,
+      requestType: 'post',
+      apiType: 'inference',
+      maxNumTries: 3,
     });
-  }
 
-  if (formName) {
-    dispatch(clearLoadingForm(formName));
-  }
-};
+    if (checkResponse(response)) {
+      dispatch({
+        type: INFERENCE_SUBMIT,
+        payload: response.data.prediction,
+      });
+    }
+
+    if (formName) {
+      dispatch(clearLoadingForm(formName));
+    }
+  };
