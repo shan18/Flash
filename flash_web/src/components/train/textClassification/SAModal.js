@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { MdError } from 'react-icons/md';
@@ -31,8 +34,8 @@ class SAModal extends React.Component {
 
   renderContent() {
     return (
-      <div className="row px-3">
-        <div className="col text-justify">
+      <Row className="px-3">
+        <Col className="text-justify">
           <p>
             Upload the dataset as a <b>CSV (Comma-Separated Values)</b> file
             with <b>two columns</b>:{' '}
@@ -66,29 +69,29 @@ class SAModal extends React.Component {
             <b>less than {this.props.sizeLimit / 1000000} MB</b>
           </p>
           <br />
-          <div className="row">
-            <div className="col col-md-6">
+          <Row>
+            <Col md={6}>
               <h4 className="mb-3 text-center">Example Dataset Preview</h4>
-              <div
-                className="card shadow bg-white rounded mx-auto"
+              <Card
+                className="shadow bg-white rounded mx-auto"
                 style={{ width: '25rem' }}
               >
-                <img
+                <Card.Img
+                  variant="top"
                   src={`${process.env.PUBLIC_URL}/assets/media/saDataPreview.png`}
-                  className="card-img-top"
                   alt="sentiment analysis example dataset preview"
                 />
-              </div>
-            </div>
-            <div className="col col-md-6">
+              </Card>
+            </Col>
+            <Col md={6}>
               <SADataUploadForm
                 onSubmit={this.onDataUploadSubmit}
                 taskName={this.props.taskName}
               />
-            </div>
-          </div>
-        </div>
-      </div>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     );
   }
 

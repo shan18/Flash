@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { setNavLinks } from '../actions';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Image from 'react-bootstrap/Image';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setNavLinks } from '../actions';
 
 class NavigationBar extends React.Component {
   constructor(props) {

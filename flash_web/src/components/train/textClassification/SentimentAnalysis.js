@@ -1,4 +1,7 @@
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 
 import {
@@ -78,32 +81,33 @@ class SentimentAnalysis extends React.Component {
   render() {
     return (
       <>
-        <div className="row">
-          <div className="col-10 col-md-5 mx-auto">
-            <div className="card mx-auto mt-4">
-              <video
+        <Row>
+          <Col xs={10} md={5} className="mx-auto">
+            <Card className="mx-auto mt-4">
+              <Card.Img
+                variant="top"
+                as="video"
                 playsInline="playsinline"
                 autoPlay="autoplay"
                 muted="muted"
-                className="card-img-top"
               >
                 <source
                   src={`${process.env.PUBLIC_URL}/assets/media/sentimentAnalysis.mp4`}
                   type="video/mp4"
                 />
-              </video>
-            </div>
-          </div>
-        </div>
-        <div className="row mt-5">
-          <div className="col-6 mx-auto">
+              </Card.Img>
+            </Card>
+          </Col>
+        </Row>
+        <Row className="mt-5">
+          <Col xs={6} className="mx-auto">
             <SACreate
               taskName={this.taskName}
               formName={this.formName}
               onSubmit={this.onSubmit}
             />
-          </div>
-        </div>
+          </Col>
+        </Row>
         {this.renderModal()}
       </>
     );
