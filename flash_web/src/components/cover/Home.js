@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
 import { connect } from 'react-redux';
 
 import { setHome, clearHome } from '../../actions';
@@ -45,7 +46,7 @@ class Home extends React.Component {
               type="video/mp4"
             />
           </video>
-          <div className="container h-100">
+          <Container className="h-100">
             <div className="d-flex h-100 text-center align-items-center">
               <div className="w-100 text-white">
                 <h1 className="display-3">
@@ -64,7 +65,7 @@ class Home extends React.Component {
                 </button>
               </div>
             </div>
-          </div>
+          </Container>
         </header>
         {this.renderModal()}
       </>

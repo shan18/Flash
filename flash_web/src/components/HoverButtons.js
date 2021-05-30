@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 class HoverButtons extends React.Component {
   renderButton(buttonData) {
@@ -15,12 +16,10 @@ class HoverButtons extends React.Component {
     }
 
     return (
-      <button
-        className={`btn border border-secondary mx-2 my-2 btn-hover ${
-          this.props.isSmall ? 'btn-sm' : ''
-        } ${
-          this.props.currentButtonValue === buttonValue ? 'btn-primary' : ''
-        }`}
+      <Button
+        variant={this.props.currentButtonValue === buttonValue ? 'primary' : ''}
+        size={this.props.isSmall ? 'sm' : ''}
+        className="border border-secondary mx-2 my-2 btn-hover"
         onClick={event => {
           event.preventDefault();
           this.props.changeCurrentButtonValue(buttonValue);
@@ -28,7 +27,7 @@ class HoverButtons extends React.Component {
         key={buttonValue}
       >
         {buttonText === undefined ? buttonValue : buttonText}
-      </button>
+      </Button>
     );
   }
 
