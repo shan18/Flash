@@ -3,6 +3,8 @@ import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 
 export const renderLoadingPage = loadingText => {
@@ -55,12 +57,11 @@ export const renderTextInput = ({
 }) => {
   return (
     <>
-      {label ? <label>{label}</label> : ''}
-      <div className={`input-group ${setErrorClass(meta)}`}>
-        <input
+      {label ? <Form.Label>{label}</Form.Label> : ''}
+      <InputGroup className={setErrorClass(meta)}>
+        <Form.Control
           {...input}
           type={type}
-          className="form-control"
           placeholder={placeholder}
           autoComplete="off"
           readOnly={readOnly}
@@ -68,20 +69,23 @@ export const renderTextInput = ({
         {textAppend ? (
           <div className="input-group-append">
             {enableAppendSumbit ? (
-              <button className="btn btn-danger">{textAppend}</button>
+              <Button type="submit" variant="danger">
+                {textAppend}
+              </Button>
             ) : (
-              <button
-                className="btn btn-danger"
+              <Button
+                type="submit"
+                variant="danger"
                 onClick={event => event.preventDefault}
               >
                 {textAppend}
-              </button>
+              </Button>
             )}
           </div>
         ) : (
           ''
         )}
-      </div>
+      </InputGroup>
       {renderError(meta)}
     </>
   );
@@ -99,7 +103,7 @@ export const renderTextInputGroup = ({
   meta,
 }) => {
   return (
-    <div className={`form-group ${formGroupClassName}`}>
+    <Form.Group className={formGroupClassName}>
       {renderTextInput({
         input,
         label,
@@ -110,7 +114,7 @@ export const renderTextInputGroup = ({
         readOnly,
         meta,
       })}
-    </div>
+    </Form.Group>
   );
 };
 
@@ -122,10 +126,10 @@ export const renderDropdownInputGroup = ({
   meta,
 }) => {
   return (
-    <div className={`form-group ${formGroupClassName}`}>
-      {label ? <label>{label}</label> : ''}
-      <div className={`input-group ${setErrorClass(meta)}`}>
-        <select {...input} className="form-control custom-select">
+    <Form.Group className={formGroupClassName}>
+      {label ? <Form.Label>{label}</Form.Label> : ''}
+      <InputGroup className={setErrorClass(meta)}>
+        <Form.Control as="select" {...input} className="custom-select">
           {options.default ? <option value="">{options.default}</option> : ''}
           {_.map(options, (value, key) => {
             if (key !== 'default') {
@@ -137,10 +141,10 @@ export const renderDropdownInputGroup = ({
             }
             return '';
           })}
-        </select>
-      </div>
+        </Form.Control>
+      </InputGroup>
       {renderError(meta)}
-    </div>
+    </Form.Group>
   );
 };
 
@@ -154,9 +158,9 @@ export const renderFileInputGroup = ({
 }) => {
   let isMultiple = multiple ? multiple : false;
   return (
-    <div className={`form-group ${formGroupClassName}`}>
+    <Form.Group className={formGroupClassName}>
       <div className={`custom-file ${setErrorClass(meta)}`}>
-        <label className="custom-file-label text-left">{label}</label>
+        <Form.Label className="custom-file-label text-left">{label}</Form.Label>
         <input
           {..._.omit(input, 'value')}
           type="file"
@@ -166,7 +170,7 @@ export const renderFileInputGroup = ({
         />
       </div>
       {renderError(meta)}
-    </div>
+    </Form.Group>
   );
 };
 
@@ -177,7 +181,7 @@ export const renderSwitchInputGroup = ({
   meta,
 }) => {
   return (
-    <div className={`form-group ${formGroupClassName}`}>
+    <Form.Group className={formGroupClassName}>
       <div className={`custom-control custom-switch ${setErrorClass(meta)}`}>
         <input
           {...input}
@@ -185,12 +189,15 @@ export const renderSwitchInputGroup = ({
           className="custom-control-input"
           id="custom-switch-input"
         />
-        <label className="custom-control-label" htmlFor="custom-switch-input">
+        <Form.Label
+          className="custom-control-label"
+          htmlFor="custom-switch-input"
+        >
           {label}
-        </label>
+        </Form.Label>
       </div>
       {renderError(meta)}
-    </div>
+    </Form.Group>
   );
 };
 
