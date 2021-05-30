@@ -1,4 +1,9 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiInstagram } from 'react-icons/si';
@@ -9,11 +14,40 @@ class About extends React.Component {
 
     this.trainingSectionRef = React.createRef();
     this.inferenceSectionRef = React.createRef();
+
+    this.trainingSnapshots = [
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/training_page.png`,
+        text: 'Training page',
+      },
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/img_classification_data_upload.png`,
+        text: 'Image classification data upload',
+      },
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/sa_data_upload.png`,
+        text: 'Sentiment analysis data upload',
+      },
+    ];
+
+    this.inferenceSnapshots = [
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/sa_inference_form.png`,
+        text: 'Inference results',
+      },
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/img_classification_prediction.png`,
+        text: 'Image classification prediction',
+      },
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/inference_page.png`,
+        text: 'Inference page',
+      },
+    ];
   }
 
   componentDidMount() {
     const { state: locationState } = this.props.location;
-    console.log(locationState);
     if (locationState) {
       if (locationState.targetSection === 'training') {
         this.trainingSectionRef.current.scrollIntoView({
@@ -31,7 +65,7 @@ class About extends React.Component {
     return (
       <mark>
         <b>
-          <img
+          <Image
             src={`${process.env.PUBLIC_URL}/flash.svg`}
             style={{ height: '1.8vh' }}
             alt="flash logo"
@@ -44,8 +78,8 @@ class About extends React.Component {
 
   renderImageClassificationInfo() {
     return (
-      <div className="row">
-        <div className="col-12 col-md-7 my-auto">
+      <Row>
+        <Col xs={12} md={7} className="my-auto">
           <h3 className="mb-3">Image Classification</h3>
           <p>
             Classify images from your own dataset by using them to train a{' '}
@@ -62,30 +96,31 @@ class About extends React.Component {
             Training happens via transfer learning where models available will
             be pre-trained on the ImageNet dataset.
           </p>
-        </div>
-        <div className="col-12 col-md-5 my-auto">
-          <div className="card mx-auto mt-4">
-            <video
+        </Col>
+        <Col xs={12} md={5} className="my-auto">
+          <Card className="mx-auto mt-4">
+            <Card.Img
+              variant="top"
+              as="video"
               playsInline="playsinline"
               autoPlay="autoplay"
               muted="muted"
-              className="card-img-top"
             >
               <source
                 src={`${process.env.PUBLIC_URL}/assets/media/imageClassification.mp4`}
                 type="video/mp4"
               />
-            </video>
-          </div>
-        </div>
-      </div>
+            </Card.Img>
+          </Card>
+        </Col>
+      </Row>
     );
   }
 
   renderSentimentAnalysisInfo() {
     return (
-      <div className="row my-5">
-        <div className="col-12 col-md-7 my-auto">
+      <Row className="my-5">
+        <Col xs={12} md={7} className="my-auto">
           <h3 className="mb-3">Sentiment Analysis</h3>
           <p>
             Predict sentiment from sentences by training a{' '}
@@ -99,23 +134,43 @@ class About extends React.Component {
             based sequential model on your own dataset.
           </p>
           <p>The models will be trained from scratch.</p>
-        </div>
-        <div className="col-12 col-md-5 my-auto">
-          <div className="card mx-auto mt-4">
-            <video
+        </Col>
+        <Col xs={12} md={5} className="my-auto">
+          <Card className="mx-auto mt-4">
+            <Card.Img
+              variant="top"
+              as="video"
               playsInline="playsinline"
               autoPlay="autoplay"
               muted="muted"
-              className="card-img-top"
             >
               <source
                 src={`${process.env.PUBLIC_URL}/assets/media/sentimentAnalysis.mp4`}
                 type="video/mp4"
               />
-            </video>
-          </div>
-        </div>
-      </div>
+            </Card.Img>
+          </Card>
+        </Col>
+      </Row>
+    );
+  }
+
+  renderSnapshots(snapshotData) {
+    return (
+      <Row xs={1} md={3} className="mx-auto mt-4">
+        {snapshotData.map(snapshot => (
+          <Col className="mb-3" key={snapshot.text}>
+            <Card className="card-hover shadow bg-white rounded">
+              <Card.Img
+                variant="top"
+                className="img-fluid"
+                src={snapshot.image}
+                alt={snapshot.text}
+              />
+            </Card>
+          </Col>
+        ))}
+      </Row>
     );
   }
 
@@ -144,35 +199,7 @@ class About extends React.Component {
         <p>
           To train a model, <Link to="/training">go here</Link>.
         </p>
-        <div className="row row-cols-1 row-cols-md-3 mx-auto mt-4">
-          <div className="col mb-3">
-            <div className="card card-hover shadow bg-white rounded">
-              <img
-                className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/media/training_page.png`}
-                alt="training page"
-              />
-            </div>
-          </div>
-          <div className="col mb-3">
-            <div className="card card-hover shadow bg-white rounded">
-              <img
-                className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/media/img_classification_data_upload.png`}
-                alt="img classification data upload"
-              />
-            </div>
-          </div>
-          <div className="col mb-3">
-            <div className="card card-hover shadow bg-white rounded">
-              <img
-                className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/media/sa_data_upload.png`}
-                alt="sentiment analysis data upload"
-              />
-            </div>
-          </div>
-        </div>
+        {this.renderSnapshots(this.trainingSnapshots)}
       </div>
     );
   }
@@ -206,53 +233,25 @@ class About extends React.Component {
         <p>
           To test your model, <Link to="/inference">go here</Link>.
         </p>
-        <div className="row row-cols-1 row-cols-md-3 mx-auto mt-4">
-          <div className="col mb-3">
-            <div className="card card-hover shadow bg-white rounded">
-              <img
-                className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/media/sa_inference_form.png`}
-                alt="img classification data upload"
-              />
-            </div>
-          </div>
-          <div className="col mb-3">
-            <div className="card card-hover shadow bg-white rounded">
-              <img
-                className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/media/img_classification_prediction.png`}
-                alt="img classification prediction"
-              />
-            </div>
-          </div>
-          <div className="col mb-3">
-            <div className="card card-hover shadow bg-white rounded">
-              <img
-                className="img-fluid card-img-top"
-                src={`${process.env.PUBLIC_URL}/assets/media/inference_page.png`}
-                alt="inference page"
-              />
-            </div>
-          </div>
-        </div>
+        {this.renderSnapshots(this.inferenceSnapshots)}
       </div>
     );
   }
 
   render() {
     return (
-      <div className="container" style={{ fontSize: '1.6vh' }}>
+      <Container style={{ fontSize: '1.6vh' }}>
         <h1 className="heading">
           About{' '}
-          <img
+          <Image
             src={`${process.env.PUBLIC_URL}/flash.svg`}
             style={{ height: '8vh' }}
             alt="flash logo"
           />{' '}
           Flash
         </h1>
-        <div className="row">
-          <div className="col-12 mx-auto">
+        <Row>
+          <Col xs={12} className="mx-auto">
             <p className="text-center mb-5">
               {this.renderFlash()}
               &nbsp;&nbsp;&nbsp; is an <b>end-to-end Deep Learning</b> platform
@@ -318,9 +317,9 @@ class About extends React.Component {
                 <SiInstagram size={25} title="Instagram: shan_1.0" />
               </a>
             </p>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

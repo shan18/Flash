@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
 import { connect } from 'react-redux';
 
 import { clearInference } from '../../actions';
@@ -20,7 +21,7 @@ class Inference extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <Container>
         <h1 className="heading">Test your Model</h1>
         <TokenForm />
         {this.props.token ? (
@@ -29,7 +30,7 @@ class Inference extends React.Component {
           <PreviewTask />
         )}
         <FloatinHelp target="inference" />
-      </div>
+      </Container>
     );
   }
 }

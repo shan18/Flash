@@ -1,4 +1,6 @@
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { connect } from 'react-redux';
 import { Field, reset, reduxForm } from 'redux-form';
 import { MdDelete } from 'react-icons/md';
@@ -21,8 +23,8 @@ class TokenForm extends React.Component {
 
   render() {
     return (
-      <div className="row mb-1 mt-3 py-5">
-        <div className="col-10 col-md-6 mx-auto">
+      <Row className="mb-1 mt-3 py-5">
+        <Col xs={10} md={6} className="mx-auto">
           {this.props.token ? (
             <form
               onSubmit={this.props.handleSubmit(this.onSubmit)}
@@ -46,19 +48,19 @@ class TokenForm extends React.Component {
                 contentType="text"
                 placeholder="Enter Token"
               />
-              <div className="row mt-3">
-                <div className="col text-right">
+              <Row className="mt-3">
+                <Col className="text-right">
                   {renderSubmitButton({
                     loading: this.props.loadingForm.includes(this.props.form),
                     originalText: 'Validate Token',
                     loadingText: 'Validating...',
                   })}
-                </div>
-              </div>
+                </Col>
+              </Row>
             </form>
           )}
-        </div>
-      </div>
+        </Col>
+      </Row>
     );
   }
 }

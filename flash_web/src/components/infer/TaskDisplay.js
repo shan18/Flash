@@ -1,4 +1,7 @@
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 
 import InferenceForm from './InferenceForm';
@@ -50,81 +53,83 @@ class TaskDisplay extends React.Component {
             </b>
           </mark>
         </h5>
-        <div
-          className="card shadow bg-white rounded mx-auto"
+        <Card
+          className="shadow bg-white rounded mx-auto"
           style={{ width: '28rem' }}
         >
-          <img
+          <Card.Img
+            variant="top"
             src={`data:image/jpeg;base64,${this.props.accuracyPlot}`}
-            className="card-img-top"
             alt="sentiment analysis example dataset preview"
           />
-        </div>
+        </Card>
       </>
     );
   }
 
   renderOutput() {
     return (
-      <div className="row mt-5">
-        <div className="col-12 mt-4">
+      <Row className="mb-5">
+        <Col xs={12} className="mt-4">
           <h4 className="text-center">Results</h4>
-        </div>
-        <div className="col-12 col-lg-6 mt-4 ml-auto text-center">
+        </Col>
+        <Col xs={12} lg={6} className="mt-4 ml-auto text-center">
           <h4 className="text-center">Input</h4>
           {this.props.taskType === 'classification' ? (
-            <div
-              className="card mx-auto mt-3 shadow bg-white rounded"
+            <Card
+              className="mx-auto mt-3 shadow bg-white rounded"
               style={{ width: '20rem' }}
             >
-              <img
+              <Card.Img
+                variant="top"
                 src={this.state.inferenceInput}
-                className="card-img-top"
                 alt="source"
               />
-            </div>
+            </Card>
           ) : (
-            <div className="card mx-auto shadow p-3 bg-white rounded">
-              <div className="card-body">
-                <h5 className="card-text">{this.state.inferenceInput}</h5>
-              </div>
-            </div>
+            <Card className="mx-auto shadow p-3 bg-white rounded">
+              <Card.Body>
+                <Card.Text as="h5">{this.state.inferenceInput}</Card.Text>
+              </Card.Body>
+            </Card>
           )}
-        </div>
-        <div className="col-12 col-lg-6 mt-5 mt-md-4 mr-auto text-center">
+        </Col>
+        <Col xs={12} lg={6} className="mt-5 mt-md-4 mr-auto text-center">
           <h4 className="text-center">Prediction</h4>
-          <div className="card mx-auto mt-3 shadow bg-white rounded">
-            <div className="card-body">
-              <h5 className="card-title">{this.props.prediction}</h5>
-            </div>
-          </div>
-        </div>
-      </div>
+          <Card className="mx-auto mt-3 shadow bg-white rounded">
+            <Card.Body>
+              <Card.Title as="h5">{this.props.prediction}</Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     );
   }
 
   render() {
     return (
       <>
-        <div className="row mb-5">
-          <div className="col-12">
+        <Row className="mb-5">
+          <Col xs={12}>
             <h4 className="text-center">
               {this.props.taskType === 'classification'
                 ? 'Image Classification'
                 : 'Sentiment Analysis'}
             </h4>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-md-5 mx-auto">{this.renderAccuracy()}</div>
-          <div className="col-12 col-md-4 my-auto mx-auto">
+          </Col>
+        </Row>
+        <Row className="mb-5">
+          <Col xs={12} md={5} className="mx-auto">
+            {this.renderAccuracy()}
+          </Col>
+          <Col xs={12} md={4} className="my-auto mx-auto">
             <InferenceForm
               onSubmit={this.onSubmit}
               taskName={this.props.taskName}
               field={this.fieldValues}
             />
-          </div>
-        </div>
+          </Col>
+        </Row>
         {this.props.prediction ? this.renderOutput() : ''}
       </>
     );

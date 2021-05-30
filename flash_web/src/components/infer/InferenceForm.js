@@ -1,4 +1,6 @@
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { ImUpload3 } from 'react-icons/im';
@@ -70,21 +72,21 @@ class InferenceForm extends React.Component {
             label={label}
           />
         )}
-        <div className="row mt-3">
-          <div className="col mx-auto">
+        <Row className="mt-3">
+          <Col className="mx-auto">
             {renderSubmitButton({
               loading: this.props.loadingForm.includes(this.props.form),
               originalText: 'Predict',
               loadingText: 'Predicting...',
             })}
-          </div>
-          <div className="col-12">
+          </Col>
+          <Col xs={12}>
             <small>
               *The model might take more than 1 min to give predictions for the
               first time.
             </small>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </form>
     );
   }

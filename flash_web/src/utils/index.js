@@ -1,16 +1,20 @@
 import _ from 'lodash';
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
 export const renderLoadingPage = loadingText => {
   return (
-    <div className="row">
-      <div className="col-12 text-center">
+    <Row>
+      <Col className="text-center">
         <h4 className="heading">{loadingText}</h4>
-      </div>
-      <div className="col-12 text-center">
-        <div className="spinner-grow spinner-grow-md" role="status" />
-      </div>
-    </div>
+      </Col>
+      <Col className="text-center">
+        <Spinner animation="grow" size="md" role="status" />
+      </Col>
+    </Row>
   );
 };
 
@@ -262,25 +266,22 @@ export const renderSubmitButton = ({
   }
   if (loading) {
     return (
-      <button className={`btn btn-${btnColor}`} type={type} ref={ref} disabled>
-        <span
-          className="spinner-border spinner-border-sm"
+      <Button variant={btnColor} type={type} ref={ref} disabled>
+        <Spinner
+          as="span"
+          animation="border"
+          size="sm"
           role="status"
           aria-hidden="true"
-        ></span>
+        ></Spinner>
         &nbsp;&nbsp;{loadingText}
-      </button>
+      </Button>
     );
   } else {
     return (
-      <button
-        className={`btn btn-${btnColor}`}
-        type={type}
-        ref={ref}
-        onClick={onClick}
-      >
+      <Button variant={btnColor} type={type} ref={ref} onClick={onClick}>
         {originalText}
-      </button>
+      </Button>
     );
   }
 };
