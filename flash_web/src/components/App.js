@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
 import history from '../history';
@@ -9,15 +10,14 @@ import Footer from './Footer';
 import Training from './train/Training';
 import Inference from './infer/Inference';
 import About from './About';
+import { setMobile } from '../actions';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/App.css';
 
 class App extends React.Component {
-  state = { isMobile: null };
-
   resize() {
-    this.setState({ isMobile: window.innerWidth <= 767 });
+    this.props.setMobile(window.innerWidth <= 767);
   }
 
   componentDidMount() {
@@ -49,11 +49,11 @@ class App extends React.Component {
               <Route path="/about" exact component={About} />
             </Switch>
           </div>
-          <Footer isMobile={this.state.isMobile} />
+          <Footer />
         </div>
       </Router>
     );
   }
 }
 
-export default App;
+export default connect(null, { setMobile })(App);

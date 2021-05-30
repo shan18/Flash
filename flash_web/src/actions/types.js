@@ -1,4 +1,5 @@
 export const SET_NAV_LINKS = 'SET_NAV_LINKS';
+export const SET_MOBILE = 'SET_MOBILE';
 export const SET_HOME = 'SET_HOME';
 export const CLEAR_HOME = 'CLEAR_HOME';
 export const LOADING_FORM = 'LOADING_FORM';

@@ -17,7 +17,7 @@ class ClassificationDataUploadForm extends React.Component {
         !this.props.sizeExceeded ? (
           <Form>
             <Row className="mt-3">
-              <Col xs={5} className="mx-auto">
+              <Col xs={10} xl={6} className="mx-auto">
                 <ImUpload3 size={30} className="mb-3" />
                 <Field
                   name="classImages"

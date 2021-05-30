@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
 import { connect } from 'react-redux';
 
 import { setHome, clearHome } from '../../actions';
@@ -49,8 +50,8 @@ class Home extends React.Component {
           <Container className="h-100">
             <div className="d-flex h-100 text-center align-items-center">
               <div className="w-100 text-white">
-                <h1 className="display-3">
-                  <img
+                <h1 style={{ fontSize: this.props.isMobile ? '3rem' : '5rem' }}>
+                  <Image
                     src={`${process.env.PUBLIC_URL}/flash.svg`}
                     style={{ height: '10vh' }}
                     alt="flash-logo"
@@ -73,4 +74,8 @@ class Home extends React.Component {
   }
 }
 
-export default connect(null, { setHome, clearHome })(Home);
+const mapStateToProps = ({ isMobile }) => {
+  return { isMobile };
+};
+
+export default connect(mapStateToProps, { setHome, clearHome })(Home);

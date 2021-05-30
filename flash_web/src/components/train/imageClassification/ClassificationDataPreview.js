@@ -23,7 +23,7 @@ class ClassificationDataPreview extends React.Component {
     return (
       <>
         {this.props.imgList ? (
-          <Row xs={1} md={3} lg={4} xl={6} className="mt-5 mx-auto">
+          <Row xs={3} lg={4} xl={6} className="mt-5 mx-auto">
             {_.map(this.props.imgList, (image, imgId) =>
               this.renderCard(image, imgId)
             )}

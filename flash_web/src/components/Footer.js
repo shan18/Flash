@@ -162,8 +162,8 @@ class Footer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ isHome, navigationLinks }) => {
-  return { isHome, navigationLinks };
+const mapStateToProps = ({ isHome, navigationLinks, isMobile }) => {
+  return { isHome, navigationLinks, isMobile };
 };
 
 export default connect(mapStateToProps)(Footer);

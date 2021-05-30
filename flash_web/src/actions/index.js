@@ -2,6 +2,7 @@ import { reset } from 'redux-form';
 
 import {
   SET_NAV_LINKS,
+  SET_MOBILE,
   SET_HOME,
   CLEAR_HOME,
   LOADING_FORM,
@@ -42,6 +43,13 @@ export const setNavLinks = navLinks => {
   return {
     type: SET_NAV_LINKS,
     payload: navLinks,
+  };
+};
+
+export const setMobile = isMobile => {
+  return {
+    type: SET_MOBILE,
+    payload: isMobile,
   };
 };
 

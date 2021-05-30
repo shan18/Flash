@@ -55,7 +55,7 @@ class TaskDisplay extends React.Component {
         </h5>
         <Card
           className="shadow bg-white rounded mx-auto"
-          style={{ width: '28rem' }}
+          style={{ height: this.props.isMobile ? '20vh' : '30vh' }}
         >
           <Card.Img
             variant="top"
@@ -119,10 +119,18 @@ class TaskDisplay extends React.Component {
           </Col>
         </Row>
         <Row className="mb-5">
-          <Col xs={12} md={5} className="mx-auto">
+          <Col
+            xs={12}
+            md={5}
+            className={`${this.props.isMobile ? 'mb-5' : ''} mx-auto`}
+          >
             {this.renderAccuracy()}
           </Col>
-          <Col xs={12} md={4} className="my-auto mx-auto">
+          <Col
+            xs={12}
+            md={4}
+            className={`${this.props.isMobile ? 'mt-5' : 'my-auto'} mx-auto`}
+          >
             <InferenceForm
               onSubmit={this.onSubmit}
               taskName={this.props.taskName}
@@ -137,9 +145,10 @@ class TaskDisplay extends React.Component {
 }
 
 const mapStateToProps = ({
+  isMobile,
   inference: { taskType, prediction, accuracy, accuracyPlot },
 }) => {
-  return { taskType, prediction, accuracy, accuracyPlot };
+  return { isMobile, taskType, prediction, accuracy, accuracyPlot };
 };
 
 export default connect(mapStateToProps)(TaskDisplay);

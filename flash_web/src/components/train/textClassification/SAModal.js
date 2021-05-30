@@ -69,21 +69,23 @@ class SAModal extends React.Component {
             <b>less than {this.props.sizeLimit / 1000000} MB</b>
           </p>
           <br />
-          <Row>
-            <Col md={6}>
+          <Row className="mb-4">
+            <Col xs={12} md={6}>
               <h4 className="mb-3 text-center">Example Dataset Preview</h4>
-              <Card
-                className="shadow bg-white rounded mx-auto"
-                style={{ width: '25rem' }}
-              >
+              <Card className="shadow bg-white rounded mx-auto">
                 <Card.Img
                   variant="top"
+                  style={{ height: this.props.isMobile ? '20vh' : '24vh' }}
                   src={`${process.env.PUBLIC_URL}/assets/media/saDataPreview.png`}
                   alt="sentiment analysis example dataset preview"
                 />
               </Card>
             </Col>
-            <Col md={6}>
+            <Col
+              xs={12}
+              md={6}
+              className={this.props.isMobile ? 'mt-5' : 'my-auto'}
+            >
               <SADataUploadForm
                 onSubmit={this.onDataUploadSubmit}
                 taskName={this.props.taskName}
@@ -100,7 +102,10 @@ class SAModal extends React.Component {
       <div className="modal-container" onClick={() => this.props.onDismiss()}>
         <div
           className="modal-body"
-          style={{ width: '50%', maxHeight: 'calc(100vh - 20vh)' }}
+          style={{
+            width: this.props.isMobile ? '90%' : '50%',
+            maxHeight: 'calc(100vh - 20vh)',
+          }}
           onClick={e => e.stopPropagation()}
         >
           <h3 className="text-center">Upload Dataset</h3>
@@ -133,11 +138,13 @@ class SAModal extends React.Component {
 }
 
 const mapStateToProps = ({
+  isMobile,
   sentimentAnalysis: {
     configOptions: { sizeLimit, numRows },
   },
 }) => {
   return {
+    isMobile,
     sizeLimit,
     numRows,
   };

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
 
 import ClassificationClassList from './ClassificationClassList';
 import ClassificationDataset from './ClassificationDataset';
@@ -12,10 +13,14 @@ class ClassificationModal extends React.Component {
   renderContent() {
     return (
       <Row>
-        <Col md={4} className="text-center">
+        <Col xs={12} md={4} className="text-center">
           <ClassificationClassList />
         </Col>
-        <Col md={8} className="text-center">
+        <Col
+          xs={12}
+          md={8}
+          className={`${this.props.isMobile ? 'mt-5' : ''} text-center`}
+        >
           <ClassificationDataset />
         </Col>
       </Row>
@@ -27,7 +32,10 @@ class ClassificationModal extends React.Component {
       <div className="modal-container" onClick={() => this.props.onDismiss()}>
         <div
           className="modal-body"
-          style={{ width: '60%', maxHeight: 'calc(100vh - 20vh)' }}
+          style={{
+            width: this.props.isMobile ? '90%' : '60%',
+            maxHeight: 'calc(100vh - 20vh)',
+          }}
           onClick={e => e.stopPropagation()}
         >
           <h3 className="text-center">Upload Dataset</h3>
@@ -61,4 +69,8 @@ class ClassificationModal extends React.Component {
   }
 }
 
-export default ClassificationModal;
+const mapStateToProps = ({ isMobile }) => {
+  return { isMobile };
+};
+
+export default connect(mapStateToProps)(ClassificationModal);
