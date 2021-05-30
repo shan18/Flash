@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 
 import '../../styles/Modal.css';
@@ -7,21 +10,21 @@ import '../../styles/Modal.css';
 class TrainingSubmitModal extends React.Component {
   renderContent() {
     return (
-      <div className="row my-4">
-        <div className="col-12 mb-4">
+      <Row className="my-4">
+        <Col xs={12} className="mb-4">
           Your dataset and model configuration has been successfully uploaded to
           the server for training.
-        </div>
-        <div className="col-12">
+        </Col>
+        <Col xs={12}>
           <h5>
             <b>Token:</b>&nbsp;&nbsp;&nbsp; {this.props.token}
           </h5>
-        </div>
-        <div className="col-12 mt-4">
+        </Col>
+        <Col xs={12} className="mt-4">
           Please copy and save the token provided above. It will be required for
           testing the model on the inference page.
-        </div>
-        <div className="col-12 mt-4">
+        </Col>
+        <Col xs={12} className="mt-4">
           Note:
           <ul>
             <li>
@@ -34,8 +37,8 @@ class TrainingSubmitModal extends React.Component {
               inference.
             </li>
           </ul>
-        </div>
-      </div>
+        </Col>
+      </Row>
     );
   }
 
@@ -51,16 +54,17 @@ class TrainingSubmitModal extends React.Component {
           <hr className="w-100" />
           {this.renderContent()}
           <hr className="w-100" />
-          <div className="row">
-            <div className="col text-right">
-              <button
-                className="btn btn-success mr-2"
+          <Row>
+            <Col className="text-right">
+              <Button
+                variant="success"
+                className="mr-2"
                 onClick={() => this.props.onDismiss(true)}
               >
                 Dismiss
-              </button>
-            </div>
-          </div>
+              </Button>
+            </Col>
+          </Row>
         </div>
       </div>,
       document.querySelector('#modal') // places the modal inside the container with id 'modal' in index.html

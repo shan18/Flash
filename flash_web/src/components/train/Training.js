@@ -1,4 +1,7 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import HoverButtons from '../HoverButtons';
 import Classification from './imageClassification/Classification';
@@ -65,24 +68,24 @@ class Training extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col">
+      <Container>
+        <Row>
+          <Col>
             <h1 className="heading">Train a Model</h1>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col text-center">
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
             <HoverButtons
               hoverButtons={this.hoverButtons}
               currentButtonValue={this.state.currentTask}
               changeCurrentButtonValue={this.changeCurrentTask}
             />
-          </div>
-        </div>
+          </Col>
+        </Row>
         {this.renderCurrentTask()}
         <FloatinHelp target="training" />
-      </div>
+      </Container>
     );
   }
 }

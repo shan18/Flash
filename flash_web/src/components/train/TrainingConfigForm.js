@@ -1,4 +1,7 @@
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
@@ -29,9 +32,9 @@ class TrainingConfigForm extends React.Component {
       numEpochsLimit: { min: numEpochsMin, max: numEpochsMax },
     } = this.props.configOptions;
     return (
-      <form onSubmit={this.props.handleSubmit}>
-        <div className="row">
-          <div className="col mx-auto">
+      <Form onSubmit={this.props.handleSubmit}>
+        <Row>
+          <Col className="mx-auto">
             <Field
               name="taskName"
               component={renderFormField}
@@ -40,10 +43,10 @@ class TrainingConfigForm extends React.Component {
               formGroupClassName="text-center"
               label={<h4>Task Name</h4>}
             />
-          </div>
-        </div>
-        <div className="row mt-5">
-          <div className="col-12 col-md-6 mr-auto text-center">
+          </Col>
+        </Row>
+        <Row className="mt-5">
+          <Col xs={12} md={6} className="mr-auto text-center">
             <h4 className="mb-2">{this.props.configOptions.modelFieldTitle}</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.modelTypes}
@@ -51,8 +54,8 @@ class TrainingConfigForm extends React.Component {
               changeCurrentButtonValue={this.changeModelType}
               isSmall
             />
-          </div>
-          <div className="col-12 col-md-4 ml-auto mt-5 mt-md-0 text-center">
+          </Col>
+          <Col xs={12} md={4} className="ml-auto mt-5 mt-md-0 text-center">
             <h4 className="mb-2">Dataset Split</h4>
             <HoverButtons
               hoverButtons={this.props.configOptions.dataSplit}
@@ -60,10 +63,10 @@ class TrainingConfigForm extends React.Component {
               changeCurrentButtonValue={this.changeDataSplit}
               isSmall
             />
-          </div>
-        </div>
-        <div className="row mt-5">
-          <div className="col-12 col-md-6 mx-auto text-center">
+          </Col>
+        </Row>
+        <Row className="mt-5">
+          <Col xs={12} md={6} className="mx-auto text-center">
             <h4 className="mb-2">Callbacks</h4>
             <Field
               name="reduceLrOnPlateau"
@@ -72,11 +75,11 @@ class TrainingConfigForm extends React.Component {
               label="Reduce LR on Plateau"
               onChange={() => this.toggleReduceLr()}
             />
-          </div>
-        </div>
+          </Col>
+        </Row>
         {this.state.reduceLrOnPlateau ? (
-          <div className="form-group row mt-1 mb-5">
-            <div className="col-12 col-md-4 text-center">
+          <Form.Group as={Row} className="mt-1 mb-5">
+            <Col xs={12} md={4} className="text-center">
               <Field
                 name="reduceLrOnPlateauPatience"
                 component={renderFormField}
@@ -84,8 +87,8 @@ class TrainingConfigForm extends React.Component {
                 label="Patience"
                 placeholder="Enter Patience"
               />
-            </div>
-            <div className="col-12 col-md-4 my-3 my-md-0 text-center">
+            </Col>
+            <Col xs={12} md={4} className="my-3 my-md-0 text-center">
               <Field
                 name="reduceLrOnPlateauFactor"
                 component={renderFormField}
@@ -93,8 +96,8 @@ class TrainingConfigForm extends React.Component {
                 label="Factor"
                 placeholder="Enter Factor"
               />
-            </div>
-            <div className="col-12 col-md-4 text-center">
+            </Col>
+            <Col xs={12} md={4} className="text-center">
               <Field
                 name="reduceLrOnPlateauMinLr"
                 component={renderFormField}
@@ -102,13 +105,13 @@ class TrainingConfigForm extends React.Component {
                 label="Minimum LR"
                 placeholder="Enter Min LR"
               />
-            </div>
-          </div>
+            </Col>
+          </Form.Group>
         ) : (
           ''
         )}
-        <div className="form-group row my-5">
-          <div className="col-12 col-md-6 text-center">
+        <Form.Group as={Row} className="my-5">
+          <Col xs={12} md={6} className="text-center">
             <Field
               name="optimizer"
               component={renderFormField}
@@ -116,8 +119,8 @@ class TrainingConfigForm extends React.Component {
               label="Optimizer"
               options={this.props.configOptions.optimizers}
             />
-          </div>
-          <div className="col-12 col-md-6 mt-3 mt-md-0 text-center">
+          </Col>
+          <Col xs={12} md={6} className="mt-3 mt-md-0 text-center">
             <Field
               name="learningRate"
               component={renderFormField}
@@ -125,10 +128,10 @@ class TrainingConfigForm extends React.Component {
               label="Learning Rate"
               placeholder="Enter LR"
             />
-          </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-12 col-md-6 text-center">
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Col xs={12} md={6} className="text-center">
             <Field
               name="batchSize"
               component={renderFormField}
@@ -136,8 +139,8 @@ class TrainingConfigForm extends React.Component {
               label="Batch Size"
               placeholder={`Range: ${batchSizeMin} - ${batchSizeMax}`}
             />
-          </div>
-          <div className="col-12 col-md-6 mt-3 mt-md-0 text-center">
+          </Col>
+          <Col xs={12} md={6} className="mt-3 mt-md-0 text-center">
             <Field
               name="epochs"
               component={renderFormField}
@@ -145,9 +148,9 @@ class TrainingConfigForm extends React.Component {
               label="Epochs"
               placeholder={`Range: ${numEpochsMin} - ${numEpochsMax}`}
             />
-          </div>
-        </div>
-      </form>
+          </Col>
+        </Form.Group>
+      </Form>
     );
   }
 }
