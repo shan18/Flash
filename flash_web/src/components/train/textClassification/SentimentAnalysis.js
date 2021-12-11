@@ -92,7 +92,7 @@ class SentimentAnalysis extends React.Component {
                 muted="muted"
               >
                 <source
-                  src={`${process.env.PUBLIC_URL}/assets/media/sentimentAnalysis.mp4`}
+                  src={`${process.env.PUBLIC_URL}/assets/media/textClassification.mp4`}
                   type="video/mp4"
                 />
               </Card.Img>

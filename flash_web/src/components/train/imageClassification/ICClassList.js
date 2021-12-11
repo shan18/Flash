@@ -2,9 +2,9 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ClassificationClassListForm from './ClassificationClassListForm';
+import ICClassListForm from './ICClassListForm';
 
-class ClassificationClassList extends React.Component {
+class ICClassList extends React.Component {
   renderClassList() {
     return _.map(_.range(0, this.props.numClassesLimit.max), number => {
       let isOptionalField =
@@ -17,7 +17,7 @@ class ClassificationClassList extends React.Component {
         };
       }
       return (
-        <ClassificationClassListForm
+        <ICClassListForm
           form="classForm"
           isOptionalField={isOptionalField}
           key={number}
@@ -47,7 +47,7 @@ class ClassificationClassList extends React.Component {
 }
 
 const mapStateToProps = ({
-  classification: {
+  imageclassification: {
     dataset,
     configOptions: { numClassesLimit },
   },
@@ -55,4 +55,4 @@ const mapStateToProps = ({
   return { classList: _.keys(dataset), numClassesLimit };
 };
 
-export default connect(mapStateToProps)(ClassificationClassList);
+export default connect(mapStateToProps)(ICClassList);

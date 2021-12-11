@@ -10,7 +10,7 @@ import { MdDelete, MdError } from 'react-icons/md';
 
 import { classifyAddClass, classifyDeleteClass } from '../../../actions';
 
-class ClassificationClassListForm extends React.Component {
+class ICClassListForm extends React.Component {
   state = {
     classValue: '',
     isSaved: false,
@@ -89,11 +89,11 @@ class ClassificationClassListForm extends React.Component {
   }
 }
 
-const mapStateToProps = ({ classification: { dataset } }) => {
+const mapStateToProps = ({ imageclassification: { dataset } }) => {
   return { classList: _.keys(dataset) };
 };
 
 export default connect(mapStateToProps, {
   classifyAddClass,
   classifyDeleteClass,
-})(ClassificationClassListForm);
+})(ICClassListForm);

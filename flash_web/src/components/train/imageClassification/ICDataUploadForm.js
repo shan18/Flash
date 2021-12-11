@@ -8,7 +8,7 @@ import { ImUpload3 } from 'react-icons/im';
 
 import { renderFormField } from '../../../utils';
 
-class ClassificationDataUploadForm extends React.Component {
+class ICDataUploadForm extends React.Component {
   render() {
     return (
       <>
@@ -39,7 +39,7 @@ class ClassificationDataUploadForm extends React.Component {
 }
 
 const mapStateToProps = ({
-  classification: {
+  imageclassification: {
     currentClass,
     dataset,
     datasetSize,
@@ -62,9 +62,9 @@ const mapStateToProps = ({
 
 export default connect(mapStateToProps)(
   reduxForm({
-    form: 'classificationDataUploadForm',
+    form: 'icDataUploadForm',
     onChange: (values, dispatch, props) => {
       props.submit();
     },
-  })(ClassificationDataUploadForm)
+  })(ICDataUploadForm)
 );

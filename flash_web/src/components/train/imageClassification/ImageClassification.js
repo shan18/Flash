@@ -12,14 +12,14 @@ import {
   clearTrainConfig,
 } from '../../../actions';
 import history from '../../../history';
-import ClassificationCreate from './ClassificationCreate';
+import ICCreate from './ICCreate';
 import TrainingSubmitModal from '../TrainingSubmitModal';
 
-class Classification extends React.Component {
+class ImageClassification extends React.Component {
   constructor(props) {
     super(props);
 
-    this.taskName = 'classification';
+    this.taskName = 'imageclassification';
     this.formName = `${this.taskName}ConfigForm`;
 
     this.configOptions = {
@@ -105,7 +105,7 @@ class Classification extends React.Component {
         </Row>
         <Row className="mt-5">
           <Col xs={6} className="mx-auto">
-            <ClassificationCreate
+            <ICCreate
               taskName={this.taskName}
               formName={this.formName}
               onSubmit={this.onSubmit}
@@ -128,4 +128,4 @@ export default connect(mapStateToProps, {
   submitTrainRequest,
   clearTrainData,
   clearTrainConfig,
-})(Classification);
+})(ImageClassification);

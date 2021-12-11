@@ -11,15 +11,15 @@ import {
   CLEAR_FORM_FILE_FIELD_LABEL,
   TRAIN_TOKEN_SET,
   TRAIN_TOKEN_CLEAR,
-  CLASSIFY_CONFIG,
-  CLASSIFY_MODEL_TYPE,
-  CLASSIFY_DATA_SPLIT,
-  CLASSIFY_ADD_CLASS,
-  CLASSIFY_DELETE_CLASS,
-  CLASSIFY_CURRENT_CLASS,
-  CLASSIFY_ADD_IMAGES,
-  CLASSIFY_DATA_CLEAR,
-  CLASSIFY_CLEAR,
+  IC_CONFIG,
+  IC_MODEL_TYPE,
+  IC_DATA_SPLIT,
+  IC_ADD_CLASS,
+  IC_DELETE_CLASS,
+  IC_CURRENT_CLASS,
+  IC_ADD_IMAGES,
+  IC_DATA_CLEAR,
+  IC_CLEAR,
   SA_CONFIG,
   SA_RNN_TYPE,
   SA_DATA_SPLIT,
@@ -100,8 +100,7 @@ export const clearTrainToken = () => {
 };
 
 export const setTrainConfig = ({ taskName, config }) => {
-  const actionType =
-    taskName === 'classification' ? CLASSIFY_CONFIG : SA_CONFIG;
+  const actionType = taskName === 'imageclassification' ? IC_CONFIG : SA_CONFIG;
   return {
     type: actionType,
     payload: config,
@@ -110,7 +109,7 @@ export const setTrainConfig = ({ taskName, config }) => {
 
 export const setTrainDataSplit = ({ taskName, dataSplit }) => {
   const actionType =
-    taskName === 'classification' ? CLASSIFY_DATA_SPLIT : SA_DATA_SPLIT;
+    taskName === 'imageclassification' ? IC_DATA_SPLIT : SA_DATA_SPLIT;
   return {
     type: actionType,
     payload: dataSplit,
@@ -119,7 +118,7 @@ export const setTrainDataSplit = ({ taskName, dataSplit }) => {
 
 export const setTrainModelType = ({ taskName, modelType }) => {
   const actionType =
-    taskName === 'classification' ? CLASSIFY_MODEL_TYPE : SA_RNN_TYPE;
+    taskName === 'imageclassification' ? IC_MODEL_TYPE : SA_RNN_TYPE;
   return {
     type: actionType,
     payload: modelType,
@@ -129,13 +128,13 @@ export const setTrainModelType = ({ taskName, modelType }) => {
 export const clearTrainData = taskName => dispatch => {
   dispatch(clearFormFileFieldLabel(taskName));
   dispatch({
-    type: taskName === 'classification' ? CLASSIFY_DATA_CLEAR : SA_DATA_CLEAR,
+    type: taskName === 'imageclassification' ? IC_DATA_CLEAR : SA_DATA_CLEAR,
   });
 };
 
 export const clearTrainConfig = taskName => dispatch => {
   dispatch(clearFormFileFieldLabel(taskName));
-  dispatch({ type: taskName === 'classification' ? CLASSIFY_CLEAR : SA_CLEAR });
+  dispatch({ type: taskName === 'imageclassification' ? IC_CLEAR : SA_CLEAR });
 };
 
 export const submitTrainRequest =
@@ -178,21 +177,21 @@ export const submitTrainRequest =
 
 export const classifyAddClass = classNameValue => {
   return {
-    type: CLASSIFY_ADD_CLASS,
+    type: IC_ADD_CLASS,
     payload: classNameValue,
   };
 };
 
 export const classifyDeleteClass = classNameValue => {
   return {
-    type: CLASSIFY_DELETE_CLASS,
+    type: IC_DELETE_CLASS,
     payload: classNameValue,
   };
 };
 
 export const classifyCurrentClass = classNameValue => {
   return {
-    type: CLASSIFY_CURRENT_CLASS,
+    type: IC_CURRENT_CLASS,
     payload: classNameValue,
   };
 };
@@ -203,7 +202,7 @@ export const classifyAddImages = ({
   imagesListPreview,
 }) => {
   return {
-    type: CLASSIFY_ADD_IMAGES,
+    type: IC_ADD_IMAGES,
     payload: { imagesList, imagesListSize, imagesListPreview },
   };
 };

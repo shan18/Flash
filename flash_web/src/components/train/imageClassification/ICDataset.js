@@ -6,11 +6,11 @@ import { MdError } from 'react-icons/md';
 
 import { classifyCurrentClass, classifyAddImages } from '../../../actions';
 import { convertFileToBase64, removeFileBase64Header } from '../../../utils';
-import ClassificationClassChoiceForm from './ClassificationClassChoiceForm';
-import ClassificationDataUploadForm from './ClassificationDataUploadForm';
-import ClassificationDataPreview from './ClassificationDataPreview';
+import ICClassChoiceForm from './ICClassChoiceForm';
+import ICDataUploadForm from './ICDataUploadForm';
+import ICDataPreview from './ICDataPreview';
 
-class ClassificationDataset extends React.Component {
+class ICDataset extends React.Component {
   onClassChoiceSubmit = values => {
     this.props.classifyCurrentClass(_.values(values)[0]);
   };
@@ -113,19 +113,19 @@ class ClassificationDataset extends React.Component {
           </mark>
           .
         </small>
-        <ClassificationClassChoiceForm
+        <ICClassChoiceForm
           onSubmit={this.onClassChoiceSubmit}
           initialValues={{ classChoice: this.props.currentClass }}
         />
-        <ClassificationDataUploadForm onSubmit={this.onDataUploadSubmit} />
-        <ClassificationDataPreview />
+        <ICDataUploadForm onSubmit={this.onDataUploadSubmit} />
+        <ICDataPreview />
       </>
     );
   }
 }
 
 const mapStateToProps = ({
-  classification: {
+  imageclassification: {
     currentClass,
     dataset,
     datasetSize,
@@ -146,4 +146,4 @@ const mapStateToProps = ({
 export default connect(mapStateToProps, {
   classifyCurrentClass,
   classifyAddImages,
-})(ClassificationDataset);
+})(ICDataset);

@@ -12,9 +12,9 @@ import { MdError } from 'react-icons/md';
 import { clearTrainData } from '../../../actions';
 import { renderLoadingPage, renderSubmitButton } from '../../../utils';
 import TrainingConfigForm from '../TrainingConfigForm';
-import ClassificationModal from './ClassificationModal';
+import ICModal from './ICModal';
 
-class ClassificationCreate extends React.Component {
+class ICCreate extends React.Component {
   state = {
     displayModal: false,
   };
@@ -96,7 +96,7 @@ class ClassificationCreate extends React.Component {
     return (
       <>
         {this.state.displayModal ? (
-          <ClassificationModal onDismiss={this.onModalDismiss} />
+          <ICModal onDismiss={this.onModalDismiss} />
         ) : (
           ''
         )}
@@ -149,7 +149,7 @@ class ClassificationCreate extends React.Component {
 
 const mapStateToProps = ({
   loadingForm,
-  classification: { configOptions, currentConfig, dataset },
+  imageclassification: { configOptions, currentConfig, dataset },
 }) => {
   return { loadingForm, configOptions, currentConfig, dataset };
 };
@@ -161,7 +161,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ClassificationCreate);
+export default connect(mapStateToProps, mapDispatchToProps)(ICCreate);
