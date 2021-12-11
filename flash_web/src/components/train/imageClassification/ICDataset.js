@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { MdError } from 'react-icons/md';
 
-import { classifyCurrentClass, classifyAddImages } from '../../../actions';
+import { icCurrentClass, icAddImages } from '../../../actions';
 import { convertFileToBase64, removeFileBase64Header } from '../../../utils';
 import ICClassChoiceForm from './ICClassChoiceForm';
 import ICDataUploadForm from './ICDataUploadForm';
@@ -12,7 +12,7 @@ import ICDataPreview from './ICDataPreview';
 
 class ICDataset extends React.Component {
   onClassChoiceSubmit = values => {
-    this.props.classifyCurrentClass(_.values(values)[0]);
+    this.props.icCurrentClass(_.values(values)[0]);
   };
 
   fileListToArray = fileList => {
@@ -74,7 +74,7 @@ class ICDataset extends React.Component {
       imagesList = this.removeBase64HeaderFromImageList(imagesListPreview);
 
       // Update redux store
-      this.props.classifyAddImages({
+      this.props.icAddImages({
         imagesList,
         imagesListPreview,
         imagesListSize,
@@ -144,6 +144,6 @@ const mapStateToProps = ({
 };
 
 export default connect(mapStateToProps, {
-  classifyCurrentClass,
-  classifyAddImages,
+  icCurrentClass,
+  icAddImages,
 })(ICDataset);

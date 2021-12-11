@@ -175,28 +175,28 @@ export const submitTrainRequest =
     }
   };
 
-export const classifyAddClass = classNameValue => {
+export const icAddClass = classNameValue => {
   return {
     type: IC_ADD_CLASS,
     payload: classNameValue,
   };
 };
 
-export const classifyDeleteClass = classNameValue => {
+export const icDeleteClass = classNameValue => {
   return {
     type: IC_DELETE_CLASS,
     payload: classNameValue,
   };
 };
 
-export const classifyCurrentClass = classNameValue => {
+export const icCurrentClass = classNameValue => {
   return {
     type: IC_CURRENT_CLASS,
     payload: classNameValue,
   };
 };
 
-export const classifyAddImages = ({
+export const icAddImages = ({
   imagesList,
   imagesListSize,
   imagesListPreview,
