@@ -37,6 +37,7 @@ import {
   statusCheck,
   toastError,
   checkResponse,
+  correctTaskTypeCase,
 } from './utils';
 
 export const setNavLinks = navLinks => {
@@ -252,7 +253,7 @@ export const submitInferenceToken =
         type: INFERENCE_CONFIG_SET,
         payload: {
           token,
-          taskType: response.data.taskType,
+          taskType: correctTaskTypeCase(response.data.taskType),
           accuracy: response.data.accuracy,
           accuracyPlot: response.data.accuracyPlot,
         },

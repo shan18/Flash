@@ -35,7 +35,8 @@ const PreviewTask = () => {
       <Row className="my-4">
         <Col xs={11} className="mx-auto">
           <h5>
-            <b>Token:</b>&nbsp;&nbsp;&nbsp; classification-tinyimgnet-demo-dbasb
+            <b>Token:</b>&nbsp;&nbsp;&nbsp;
+            imageClassification-tinyimgnet-demo-dbasb
           </h5>
         </Col>
       </Row>
@@ -78,4 +79,4 @@ const PreviewTask = () => {
 
 export default PreviewTask;
 
-// classification-tinyimgnet-demo-dbasb
+// imageClassification-tinyimgnet-demo-dbasb
