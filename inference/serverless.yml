@@ -66,6 +66,16 @@ functions:
           path: inference
           method: post
           cors: true
+  download:
+    handler: handler.download
+    module: download
+    memorySize: 3008 # MB
+    timeout: 30 # seconds
+    events:
+      - http:
+          path: download
+          method: post
+          cors: true
   clean:
     handler: handler.clean
     module: clean
