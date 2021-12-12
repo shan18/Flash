@@ -9,12 +9,12 @@ import { MdError } from 'react-icons/md';
 
 import { saAddData } from '../../../actions';
 import { convertFileToBase64, removeFileBase64Header } from '../../../utils';
-import SADataUploadForm from './SADataUploadForm';
+import TCDataUploadForm from './TCDataUploadForm';
 import '../../../styles/Modal.css';
 
-class SAModal extends React.Component {
+class TCModal extends React.Component {
   onDataUploadSubmit = async values => {
-    let csvData = values.saCsvData;
+    let csvData = values.tcCsvData;
     if (csvData.length > 0) {
       csvData = csvData[0];
       if (csvData.size > this.props.sizeLimit) {
@@ -59,8 +59,7 @@ class SAModal extends React.Component {
               <mark>
                 <b>label</b>
               </mark>
-              : Contains the label (sentiment) for the corresponding input
-              sentences.
+              : Contains the type (class) for the corresponding input sentences.
             </li>
           </ul>
           <p>
@@ -76,8 +75,8 @@ class SAModal extends React.Component {
                 <Card.Img
                   variant="top"
                   style={{ height: this.props.isMobile ? '20vh' : '24vh' }}
-                  src={`${process.env.PUBLIC_URL}/assets/media/saDataPreview.png`}
-                  alt="sentiment analysis example dataset preview"
+                  src={`${process.env.PUBLIC_URL}/assets/media/textClassificationDataPreview.png`}
+                  alt="text classification example dataset preview"
                 />
               </Card>
             </Col>
@@ -86,7 +85,7 @@ class SAModal extends React.Component {
               md={6}
               className={this.props.isMobile ? 'mt-5' : 'my-auto'}
             >
-              <SADataUploadForm
+              <TCDataUploadForm
                 onSubmit={this.onDataUploadSubmit}
                 taskName={this.props.taskName}
               />
@@ -139,7 +138,7 @@ class SAModal extends React.Component {
 
 const mapStateToProps = ({
   isMobile,
-  sentimentAnalysis: {
+  textClassification: {
     configOptions: { sizeLimit, numRows },
   },
 }) => {
@@ -150,4 +149,4 @@ const mapStateToProps = ({
   };
 };
 
-export default connect(mapStateToProps, { saAddData })(SAModal);
+export default connect(mapStateToProps, { saAddData })(TCModal);

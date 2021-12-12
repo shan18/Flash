@@ -12,9 +12,9 @@ import { MdError } from 'react-icons/md';
 import { clearTrainData } from '../../../actions';
 import { renderLoadingPage, renderSubmitButton } from '../../../utils';
 import TrainingConfigForm from '../TrainingConfigForm';
-import SAModal from './SAModal';
+import TCModal from './TCModal';
 
-class SACreate extends React.Component {
+class TCCreate extends React.Component {
   state = {
     displayModal: false,
   };
@@ -64,7 +64,7 @@ class SACreate extends React.Component {
     return (
       <>
         {this.state.displayModal ? (
-          <SAModal
+          <TCModal
             onDismiss={this.onModalDismiss}
             taskName={this.props.taskName}
           />
@@ -120,7 +120,7 @@ class SACreate extends React.Component {
 
 const mapStateToProps = ({
   loadingForm,
-  sentimentAnalysis: { configOptions, currentConfig, dataset },
+  textClassification: { configOptions, currentConfig, dataset },
 }) => {
   return { loadingForm, configOptions, currentConfig, dataset };
 };
@@ -132,4 +132,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SACreate);
+export default connect(mapStateToProps, mapDispatchToProps)(TCCreate);

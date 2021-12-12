@@ -20,15 +20,15 @@ Classify images from your own dataset by using them to train a **ResNet-34** or 
   />
 </div>
 
-### Sentiment Analysis
+### Text Classification
 
-Predict sentiment from sentences by training a **LSTM** or **GRU** based sequential model on your own dataset. The models will be trained from scratch.
+Classify sentences by training a **LSTM** or **GRU** based sequential model on your own dataset. The models will be trained from scratch.
 
 <div align="center">
   <img
-    src="media/sentiment_analysis.gif"
+    src="media/text_classification.gif"
     width="400px"
-    alt="sentiment analysis gif"
+    alt="text classification gif"
   />
 </div>
 

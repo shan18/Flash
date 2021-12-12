@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import {
-  SA_CONFIG,
-  SA_RNN_TYPE,
-  SA_DATA_SPLIT,
-  SA_DATA_ADD,
-  SA_DATA_CLEAR,
-  SA_CLEAR,
+  TC_CONFIG,
+  TC_RNN_TYPE,
+  TC_DATA_SPLIT,
+  TC_DATA_ADD,
+  TC_DATA_CLEAR,
+  TC_CLEAR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -14,32 +14,32 @@ const INITIAL_STATE = {
   dataset: null,
 };
 
-const sentimentAnalysisReducer = (state = INITIAL_STATE, action) => {
+const textClassificationReducer = (state = INITIAL_STATE, action) => {
   let currentConfig;
   switch (action.type) {
-    case SA_CONFIG:
+    case TC_CONFIG:
       return {
         ...state,
         configOptions: _.omit(action.payload, 'currentConfig'),
         currentConfig: action.payload.currentConfig,
       };
-    case SA_RNN_TYPE:
+    case TC_RNN_TYPE:
       currentConfig = { ...state.currentConfig, modelType: action.payload };
       return { ...state, currentConfig };
-    case SA_DATA_SPLIT:
+    case TC_DATA_SPLIT:
       currentConfig = { ...state.currentConfig, dataSplit: action.payload };
       return { ...state, currentConfig };
-    case SA_DATA_ADD:
+    case TC_DATA_ADD:
       return {
         ...state,
         dataset: action.payload,
       };
-    case SA_DATA_CLEAR:
+    case TC_DATA_CLEAR:
       return {
         ...state,
         ..._.omit(INITIAL_STATE, 'configOptions', 'currentConfig'),
       };
-    case SA_CLEAR:
+    case TC_CLEAR:
       return {
         ...state,
         ...INITIAL_STATE,
@@ -49,4 +49,4 @@ const sentimentAnalysisReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default sentimentAnalysisReducer;
+export default textClassificationReducer;

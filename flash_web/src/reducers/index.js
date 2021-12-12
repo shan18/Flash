@@ -7,7 +7,7 @@ import homeReducer from './homeReducer';
 import loadingFormReducer from './loadingFormReducer';
 import formFileFieldReducer from './formFileFieldReducer';
 import imageClassificationReducer from './imageClassificationReducer';
-import sentimentAnalysisReducer from './sentimentAnalysisReducer';
+import textClassificationReducer from './textClassificationReducer';
 import serverConfigReducer from './serverConfigReducer';
 import inferenceReducer from './inferenceReducer';
 
@@ -18,8 +18,8 @@ export default combineReducers({
   isHome: homeReducer,
   loadingForm: loadingFormReducer,
   formFileField: formFileFieldReducer,
-  imageclassification: imageClassificationReducer,
-  sentimentAnalysis: sentimentAnalysisReducer,
+  imageClassification: imageClassificationReducer,
+  textClassification: textClassificationReducer,
   serverConfig: serverConfigReducer,
   inference: inferenceReducer,
 });

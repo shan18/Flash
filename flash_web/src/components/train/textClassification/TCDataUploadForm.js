@@ -8,7 +8,7 @@ import { ImUpload3 } from 'react-icons/im';
 import { renderFormField } from '../../../utils';
 import FormFileField from '../../FormFileField';
 
-class SADataUploadForm extends React.Component {
+class TCDataUploadForm extends React.Component {
   render() {
     return (
       <Row className="text-center">
@@ -21,7 +21,7 @@ class SADataUploadForm extends React.Component {
             <FormFileField
               taskName={this.props.taskName}
               fieldConfig={{
-                name: 'saCsvData',
+                name: 'tcCsvData',
                 component: renderFormField,
                 contentType: 'file',
                 label: 'Choose File',
@@ -36,8 +36,8 @@ class SADataUploadForm extends React.Component {
 }
 
 export default reduxForm({
-  form: 'saDataUploadForm',
+  form: 'tcDataUploadForm',
   onChange: (values, dispatch, props) => {
     props.submit();
   },
-})(SADataUploadForm);
+})(TCDataUploadForm);

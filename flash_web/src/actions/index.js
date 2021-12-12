@@ -20,12 +20,12 @@ import {
   IC_ADD_IMAGES,
   IC_DATA_CLEAR,
   IC_CLEAR,
-  SA_CONFIG,
-  SA_RNN_TYPE,
-  SA_DATA_SPLIT,
-  SA_DATA_ADD,
-  SA_DATA_CLEAR,
-  SA_CLEAR,
+  TC_CONFIG,
+  TC_RNN_TYPE,
+  TC_DATA_SPLIT,
+  TC_DATA_ADD,
+  TC_DATA_CLEAR,
+  TC_CLEAR,
   INFERENCE_CONFIG_SET,
   INFERENCE_CONFIG_CLEAR,
   INFERENCE_SUBMIT,
@@ -100,7 +100,7 @@ export const clearTrainToken = () => {
 };
 
 export const setTrainConfig = ({ taskName, config }) => {
-  const actionType = taskName === 'imageclassification' ? IC_CONFIG : SA_CONFIG;
+  const actionType = taskName === 'imageClassification' ? IC_CONFIG : TC_CONFIG;
   return {
     type: actionType,
     payload: config,
@@ -109,7 +109,7 @@ export const setTrainConfig = ({ taskName, config }) => {
 
 export const setTrainDataSplit = ({ taskName, dataSplit }) => {
   const actionType =
-    taskName === 'imageclassification' ? IC_DATA_SPLIT : SA_DATA_SPLIT;
+    taskName === 'imageClassification' ? IC_DATA_SPLIT : TC_DATA_SPLIT;
   return {
     type: actionType,
     payload: dataSplit,
@@ -118,7 +118,7 @@ export const setTrainDataSplit = ({ taskName, dataSplit }) => {
 
 export const setTrainModelType = ({ taskName, modelType }) => {
   const actionType =
-    taskName === 'imageclassification' ? IC_MODEL_TYPE : SA_RNN_TYPE;
+    taskName === 'imageClassification' ? IC_MODEL_TYPE : TC_RNN_TYPE;
   return {
     type: actionType,
     payload: modelType,
@@ -128,13 +128,13 @@ export const setTrainModelType = ({ taskName, modelType }) => {
 export const clearTrainData = taskName => dispatch => {
   dispatch(clearFormFileFieldLabel(taskName));
   dispatch({
-    type: taskName === 'imageclassification' ? IC_DATA_CLEAR : SA_DATA_CLEAR,
+    type: taskName === 'imageClassification' ? IC_DATA_CLEAR : TC_DATA_CLEAR,
   });
 };
 
 export const clearTrainConfig = taskName => dispatch => {
   dispatch(clearFormFileFieldLabel(taskName));
-  dispatch({ type: taskName === 'imageclassification' ? IC_CLEAR : SA_CLEAR });
+  dispatch({ type: taskName === 'imageClassification' ? IC_CLEAR : TC_CLEAR });
 };
 
 export const submitTrainRequest =
@@ -209,7 +209,7 @@ export const icAddImages = ({
 
 export const saAddData = csvData => {
   return {
-    type: SA_DATA_ADD,
+    type: TC_DATA_ADD,
     payload: csvData,
   };
 };

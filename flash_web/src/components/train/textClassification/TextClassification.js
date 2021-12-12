@@ -12,14 +12,14 @@ import {
   clearTrainData,
 } from '../../../actions';
 import history from '../../../history';
-import SACreate from './SACreate';
+import TCCreate from './TCCreate';
 import TrainingSubmitModal from '../TrainingSubmitModal';
 
-class SentimentAnalysis extends React.Component {
+class TextClassification extends React.Component {
   constructor(props) {
     super(props);
 
-    this.taskName = 'sentimentAnalysis';
+    this.taskName = 'textClassification';
     this.formName = `${this.taskName}ConfigForm`;
 
     this.configOptions = {
@@ -101,7 +101,7 @@ class SentimentAnalysis extends React.Component {
         </Row>
         <Row className="mt-5">
           <Col xs={6} className="mx-auto">
-            <SACreate
+            <TCCreate
               taskName={this.taskName}
               formName={this.formName}
               onSubmit={this.onSubmit}
@@ -124,4 +124,4 @@ export default connect(mapStateToProps, {
   clearTrainConfig,
   submitTrainRequest,
   clearTrainData,
-})(SentimentAnalysis);
+})(TextClassification);

@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 
 import HoverButtons from '../HoverButtons';
 import ImageClassification from './imageClassification/ImageClassification';
-import SentimentAnalysis from './textClassification/SentimentAnalysis';
+import TextClassification from './textClassification/TextClassification';
 import FloatinHelp from '../FloatingHelp';
 
 class Training extends React.Component {
@@ -14,10 +14,10 @@ class Training extends React.Component {
 
     this.hoverButtons = [
       {
-        buttonValue: 'imageclassification',
+        buttonValue: 'imageClassification',
         buttonText: 'Image Classification',
       },
-      { buttonValue: 'sentiment', buttonText: 'Sentiment Analysis' },
+      { buttonValue: 'textclassification', buttonText: 'Text Classification' },
     ];
 
     this.trainConfigOptions = {
@@ -41,7 +41,7 @@ class Training extends React.Component {
     };
 
     this.state = {
-      currentTask: 'imageclassification',
+      currentTask: 'imageClassification',
     };
   }
 
@@ -52,7 +52,7 @@ class Training extends React.Component {
   };
 
   renderCurrentTask() {
-    if (this.state.currentTask === 'imageclassification') {
+    if (this.state.currentTask === 'imageClassification') {
       return (
         <ImageClassification
           trainConfigOptions={this.trainConfigOptions}
@@ -61,7 +61,7 @@ class Training extends React.Component {
       );
     } else {
       return (
-        <SentimentAnalysis
+        <TextClassification
           trainConfigOptions={this.trainConfigOptions}
           currentTrainConfig={this.currentTrainConfig}
         />

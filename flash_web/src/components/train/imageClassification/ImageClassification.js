@@ -19,7 +19,7 @@ class ImageClassification extends React.Component {
   constructor(props) {
     super(props);
 
-    this.taskName = 'imageclassification';
+    this.taskName = 'imageClassification';
     this.formName = `${this.taskName}ConfigForm`;
 
     this.configOptions = {

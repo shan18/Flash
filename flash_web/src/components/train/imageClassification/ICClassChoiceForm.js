@@ -31,7 +31,7 @@ class IcClassChoiceForm extends React.Component {
   }
 }
 
-const mapStateToProps = ({ imageclassification: { dataset } }) => {
+const mapStateToProps = ({ imageClassification: { dataset } }) => {
   return { classList: _.keys(dataset) };
 };
 

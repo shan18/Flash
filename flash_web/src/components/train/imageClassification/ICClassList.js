@@ -47,7 +47,7 @@ class ICClassList extends React.Component {
 }
 
 const mapStateToProps = ({
-  imageclassification: {
+  imageClassification: {
     dataset,
     configOptions: { numClassesLimit },
   },

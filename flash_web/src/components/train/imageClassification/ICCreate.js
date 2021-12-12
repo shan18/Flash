@@ -149,7 +149,7 @@ class ICCreate extends React.Component {
 
 const mapStateToProps = ({
   loadingForm,
-  imageclassification: { configOptions, currentConfig, dataset },
+  imageClassification: { configOptions, currentConfig, dataset },
 }) => {
   return { loadingForm, configOptions, currentConfig, dataset };
 };

@@ -16,7 +16,7 @@ class TaskDisplay extends React.Component {
 
     // Set field values for form
     let fieldValues = {};
-    if (this.props.taskType === 'imageclassification') {
+    if (this.props.taskType === 'imageClassification') {
       fieldValues = {
         contentType: 'file',
         label: 'Upload Image',
@@ -32,7 +32,7 @@ class TaskDisplay extends React.Component {
   }
 
   onSubmit = inferenceInput => {
-    if (this.props.taskType === 'imageclassification') {
+    if (this.props.taskType === 'imageClassification') {
       this.setState({ inferenceInput: inferenceInput });
     } else {
       this.setState({ inferenceInput });
@@ -75,7 +75,7 @@ class TaskDisplay extends React.Component {
         </Col>
         <Col xs={12} lg={6} className="mt-4 ml-auto text-center">
           <h4 className="text-center">Input</h4>
-          {this.props.taskType === 'imageclassification' ? (
+          {this.props.taskType === 'imageClassification' ? (
             <Card
               className="mx-auto mt-3 shadow bg-white rounded"
               style={{ width: '20rem' }}
@@ -112,7 +112,7 @@ class TaskDisplay extends React.Component {
         <Row className="mb-5">
           <Col xs={12}>
             <h4 className="text-center">
-              {this.props.taskType === 'imageclassification'
+              {this.props.taskType === 'imageClassification'
                 ? 'Image Classification'
                 : 'Text Classification'}
             </h4>

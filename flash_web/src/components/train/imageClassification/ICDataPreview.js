@@ -37,7 +37,7 @@ class ICDataPreview extends React.Component {
 }
 
 const mapStateToProps = ({
-  imageclassification: { currentClass, datasetPreview },
+  imageClassification: { currentClass, datasetPreview },
 }) => {
   return { imgList: datasetPreview[currentClass] };
 };

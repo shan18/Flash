@@ -125,7 +125,7 @@ class ICDataset extends React.Component {
 }
 
 const mapStateToProps = ({
-  imageclassification: {
+  imageClassification: {
     currentClass,
     dataset,
     datasetSize,
