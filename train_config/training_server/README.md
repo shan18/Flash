@@ -5,8 +5,8 @@ This submodule contains the code used to train models on AWS EC2.
 ## How it Works
 
 - **`flash.py`** fetches the `training.json` file from S3, parses the information
-- If task type is `classification` then the training configuration is passed to the **`image_classification`** module
-- If task type is `sentimentanalysis` then the training configuration is passed to the **`text_classification`** module
+- If task type is `imageclassification` then the training configuration is passed to the **`image_classification`** module
+- If task type is `textclassification` then the training configuration is passed to the **`text_classification`** module
 - After training is completed, **`flash.py`** updates the `inference.json` file on S3 and uploads the trained model.
 - After uploading, **`flash.py`** deletes the `training.json` config file from S3.
 

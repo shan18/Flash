@@ -43,7 +43,7 @@ def plot_accuracy_chart(train_accuracies, test_accuracies, target_path):
     fig.savefig(target_path)
 
 
-def train_sa(config):
+def train_text_classification(config):
     # Define paths
     embeddings_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
