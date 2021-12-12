@@ -2,7 +2,7 @@
 
 Page Link: https://shan18.github.io/Flash/training
 
-This directory contains the code for the training section of the platform. For training, the project uses two EC2 instances: `p3.2xlarge` and `t3.2xlarge`. This is because, image classification trains very slow on a CPU instance so in order to minimize AWS costs, only the image classification task is trained on a GPU server while sentiment analysis is trained on a CPU instance.
+This directory contains the code for the training section of the platform. For training, the project uses two EC2 instances: `p3.2xlarge` and `t3.2xlarge`. This is because, image classification trains very slow on a CPU instance so in order to minimize AWS costs, only the image classification task is trained on a GPU server while text classification is trained on a CPU instance.
 
 ### Tech Stack
 

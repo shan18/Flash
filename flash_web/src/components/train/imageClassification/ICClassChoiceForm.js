@@ -8,7 +8,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { renderFormField } from '../../../utils';
 
-class ClassificationClassChoiceForm extends React.Component {
+class IcClassChoiceForm extends React.Component {
   render() {
     const { classList } = this.props;
     return (
@@ -31,16 +31,16 @@ class ClassificationClassChoiceForm extends React.Component {
   }
 }
 
-const mapStateToProps = ({ classification: { dataset } }) => {
+const mapStateToProps = ({ imageClassification: { dataset } }) => {
   return { classList: _.keys(dataset) };
 };
 
 export default connect(mapStateToProps)(
   reduxForm({
-    form: 'classificationClassChoiceForm',
+    form: 'icClassChoiceForm',
     enableReinitialize: true,
     onChange: (values, dispatch, props) => {
       props.submit();
     },
-  })(ClassificationClassChoiceForm)
+  })(IcClassChoiceForm)
 );

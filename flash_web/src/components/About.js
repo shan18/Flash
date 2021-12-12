@@ -25,14 +25,14 @@ class About extends React.Component {
         text: 'Image classification data upload',
       },
       {
-        image: `${process.env.PUBLIC_URL}/assets/media/sa_data_upload.png`,
-        text: 'Sentiment analysis data upload',
+        image: `${process.env.PUBLIC_URL}/assets/media/tc_data_upload.png`,
+        text: 'Text classification data upload',
       },
     ];
 
     this.inferenceSnapshots = [
       {
-        image: `${process.env.PUBLIC_URL}/assets/media/sa_inference_form.png`,
+        image: `${process.env.PUBLIC_URL}/assets/media/tc_inference_form.png`,
         text: 'Inference results',
       },
       {
@@ -117,13 +117,13 @@ class About extends React.Component {
     );
   }
 
-  renderSentimentAnalysisInfo() {
+  renderTextClassificationInfo() {
     return (
       <Row className="my-5">
         <Col xs={12} md={7} className="my-auto">
-          <h3 className="mb-3">Sentiment Analysis</h3>
+          <h3 className="mb-3">Text Classification</h3>
           <p>
-            Predict sentiment from sentences by training a{' '}
+            Classify sentences by training a{' '}
             <mark>
               <b>LSTM</b>
             </mark>{' '}
@@ -145,7 +145,7 @@ class About extends React.Component {
               muted="muted"
             >
               <source
-                src={`${process.env.PUBLIC_URL}/assets/media/sentimentAnalysis.mp4`}
+                src={`${process.env.PUBLIC_URL}/assets/media/textClassification.mp4`}
                 type="video/mp4"
               />
             </Card.Img>
@@ -261,7 +261,7 @@ class About extends React.Component {
             </p>
             <p>The platform currently supports two types of tasks:</p>
             {this.renderImageClassificationInfo()}
-            {this.renderSentimentAnalysisInfo()}
+            {this.renderTextClassificationInfo()}
             <hr className="my-5" />
             <h2>How It Works</h2>
             <p className="my-4">

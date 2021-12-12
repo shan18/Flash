@@ -1,6 +1,6 @@
 {
-  "token": "classification-cla-shan-test-ow5o0",
-  "task_type": "classification",
+  "token": "imageClassification-cla-shan-test-ow5o0",
+  "task_type": "imageclassification",
   "num_classes": 10,
   "optimizer": "sgd",
   "learning_rate": 0.01,

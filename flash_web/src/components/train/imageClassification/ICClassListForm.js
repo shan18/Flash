@@ -8,9 +8,9 @@ import { toast } from 'react-toastify';
 import { FaCheck } from 'react-icons/fa';
 import { MdDelete, MdError } from 'react-icons/md';
 
-import { classifyAddClass, classifyDeleteClass } from '../../../actions';
+import { icAddClass, icDeleteClass } from '../../../actions';
 
-class ClassificationClassListForm extends React.Component {
+class ICClassListForm extends React.Component {
   state = {
     classValue: '',
     isSaved: false,
@@ -32,9 +32,9 @@ class ClassificationClassListForm extends React.Component {
     } else {
       const { classValue } = this.state;
       if (!isSaved) {
-        this.props.classifyAddClass(classValue);
+        this.props.icAddClass(classValue);
       } else {
-        this.props.classifyDeleteClass(classValue);
+        this.props.icDeleteClass(classValue);
         this.setState({ classValue: '' });
       }
       this.toggleSaveMode();
@@ -89,11 +89,11 @@ class ClassificationClassListForm extends React.Component {
   }
 }
 
-const mapStateToProps = ({ classification: { dataset } }) => {
+const mapStateToProps = ({ imageClassification: { dataset } }) => {
   return { classList: _.keys(dataset) };
 };
 
 export default connect(mapStateToProps, {
-  classifyAddClass,
-  classifyDeleteClass,
-})(ClassificationClassListForm);
+  icAddClass,
+  icDeleteClass,
+})(ICClassListForm);

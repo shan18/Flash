@@ -27,7 +27,7 @@ class CoverModal extends React.Component {
             </mark>{' '}
             or{' '}
             <mark>
-              <b>Sentiment Analysis</b>
+              <b>Text Classification</b>
             </mark>{' '}
             model on your custom dataset.
           </>

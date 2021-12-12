@@ -7,38 +7,42 @@ import { connect } from 'react-redux';
 import {
   clearTrainToken,
   setTrainConfig,
-  clearTrainConfig,
   submitTrainRequest,
   clearTrainData,
+  clearTrainConfig,
 } from '../../../actions';
 import history from '../../../history';
-import SACreate from './SACreate';
+import ICCreate from './ICCreate';
 import TrainingSubmitModal from '../TrainingSubmitModal';
 
-class SentimentAnalysis extends React.Component {
+class ImageClassification extends React.Component {
   constructor(props) {
     super(props);
 
-    this.taskName = 'sentimentAnalysis';
+    this.taskName = 'imageClassification';
     this.formName = `${this.taskName}ConfigForm`;
 
     this.configOptions = {
-      modelTypes: ['LSTM', 'GRU'],
-      modelFieldTitle: 'RNN Type',
-      numRows: 10000,
-      sizeLimit: 1000000, // In bytes (1 MB)
+      modelTypes: ['MobileNet v2', 'ResNet34'],
+      modelFieldTitle: 'Model',
+      numClassesLimit: { min: 2, max: 10 },
+      numImagesLimit: { min: 10, max: 100 },
+      batchSizeLimit: { min: 1, max: 32 },
+      numEpochsLimit: { min: 1, max: 10 },
+      sizeLimit: 10000000, // In bytes (10 MB)
     };
 
     this.currentConfig = {
-      modelType: 'LSTM',
+      modelType: 'MobileNet v2',
       dataSplit: '70 : 30',
-      optimizer: 'adam',
-      learningRate: 0.001,
+      optimizer: 'sgd',
+      learningRate: 0.01,
       ...this.props.currentTrainConfig,
     };
   }
 
   onSubmit = values => {
+    // Send values to server
     this.props.submitTrainRequest({
       formName: this.formName,
       trainConfig: values,
@@ -82,7 +86,7 @@ class SentimentAnalysis extends React.Component {
     return (
       <>
         <Row>
-          <Col xs={10} md={5} className="mx-auto">
+          <Col xs={9} md={4} className="mx-auto">
             <Card className="mx-auto mt-4">
               <Card.Img
                 variant="top"
@@ -92,7 +96,7 @@ class SentimentAnalysis extends React.Component {
                 muted="muted"
               >
                 <source
-                  src={`${process.env.PUBLIC_URL}/assets/media/sentimentAnalysis.mp4`}
+                  src={`${process.env.PUBLIC_URL}/assets/media/imageClassification.mp4`}
                   type="video/mp4"
                 />
               </Card.Img>
@@ -101,7 +105,7 @@ class SentimentAnalysis extends React.Component {
         </Row>
         <Row className="mt-5">
           <Col xs={6} className="mx-auto">
-            <SACreate
+            <ICCreate
               taskName={this.taskName}
               formName={this.formName}
               onSubmit={this.onSubmit}
@@ -121,7 +125,7 @@ const mapStateToProps = ({ serverConfig: { token } }) => {
 export default connect(mapStateToProps, {
   clearTrainToken,
   setTrainConfig,
-  clearTrainConfig,
   submitTrainRequest,
   clearTrainData,
-})(SentimentAnalysis);
+  clearTrainConfig,
+})(ImageClassification);

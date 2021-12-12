@@ -58,7 +58,7 @@ def train(event, context):
             })
 
         # Get number of classes and validate data
-        if data['taskType'].lower() == 'sentimentanalysis':
+        if data['taskType'].lower() == 'textclassification':
             validation_response = validate_csv(data['dataset'])
             if validation_response['is_valid']:
                 data['dataset'] = validation_response['data']

@@ -4,8 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import HoverButtons from '../HoverButtons';
-import Classification from './imageClassification/Classification';
-import SentimentAnalysis from './textClassification/SentimentAnalysis';
+import ImageClassification from './imageClassification/ImageClassification';
+import TextClassification from './textClassification/TextClassification';
 import FloatinHelp from '../FloatingHelp';
 
 class Training extends React.Component {
@@ -13,8 +13,11 @@ class Training extends React.Component {
     super(props);
 
     this.hoverButtons = [
-      { buttonValue: 'classification', buttonText: 'Image Classification' },
-      { buttonValue: 'sentiment', buttonText: 'Sentiment Analysis' },
+      {
+        buttonValue: 'imageClassification',
+        buttonText: 'Image Classification',
+      },
+      { buttonValue: 'textclassification', buttonText: 'Text Classification' },
     ];
 
     this.trainConfigOptions = {
@@ -38,7 +41,7 @@ class Training extends React.Component {
     };
 
     this.state = {
-      currentTask: 'classification',
+      currentTask: 'imageClassification',
     };
   }
 
@@ -49,16 +52,16 @@ class Training extends React.Component {
   };
 
   renderCurrentTask() {
-    if (this.state.currentTask === 'classification') {
+    if (this.state.currentTask === 'imageClassification') {
       return (
-        <Classification
+        <ImageClassification
           trainConfigOptions={this.trainConfigOptions}
           currentTrainConfig={this.currentTrainConfig}
         />
       );
     } else {
       return (
-        <SentimentAnalysis
+        <TextClassification
           trainConfigOptions={this.trainConfigOptions}
           currentTrainConfig={this.currentTrainConfig}
         />

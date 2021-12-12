@@ -71,3 +71,9 @@ export const checkResponse = response => {
   }
   return false;
 };
+
+export const correctTaskTypeCase = taskType => {
+  return taskType === 'imageclassification'
+    ? 'imageClassification'
+    : 'textClassification';
+};

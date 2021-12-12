@@ -5,23 +5,23 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 
-import ClassificationClassList from './ClassificationClassList';
-import ClassificationDataset from './ClassificationDataset';
+import ICClassList from './ICClassList';
+import ICDataset from './ICDataset';
 import '../../../styles/Modal.css';
 
-class ClassificationModal extends React.Component {
+class IcModal extends React.Component {
   renderContent() {
     return (
       <Row>
         <Col xs={12} md={4} className="text-center">
-          <ClassificationClassList />
+          <ICClassList />
         </Col>
         <Col
           xs={12}
           md={8}
           className={`${this.props.isMobile ? 'mt-5' : ''} text-center`}
         >
-          <ClassificationDataset />
+          <ICDataset />
         </Col>
       </Row>
     );
@@ -73,4 +73,4 @@ const mapStateToProps = ({ isMobile }) => {
   return { isMobile };
 };
 
-export default connect(mapStateToProps)(ClassificationModal);
+export default connect(mapStateToProps)(IcModal);

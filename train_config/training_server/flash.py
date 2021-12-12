@@ -4,8 +4,8 @@ import base64
 from datetime import datetime
 
 from s3 import fetch_json, put_object, upload_file, delete_object
-from image_classification import train_classification
-from text_classification import train_sa
+from image_classification import train_img_classification
+from text_classification import train_text_classification
 
 
 # Paths to config files in S3 Bucket
@@ -27,7 +27,7 @@ def setup_inference(token, task_type, accuracy, model_path, acc_plot_path, metad
     s3_model_path = os.path.join(task_type, os.path.basename(model_path))
     upload_file(model_path, s3_model_path)
 
-    if task_type == 'sentimentanalysis':
+    if task_type == 'textclassification':
         s3_meta_path = os.path.join(task_type, os.path.basename(metadata['metadata_filename']))
         upload_file(metadata['metadata_filename'], s3_meta_path)
         metadata['metadata_filename'] = s3_meta_path
@@ -49,13 +49,13 @@ def main():
     train_config = fetch_json(TRAIN_CONFIG)
 
     # Train model
-    if train_config['task_type'] == 'classification':
-        print('Starting classification')
-        accuracy, classes, model_path, acc_plot_path, remove_paths = train_classification(train_config)
+    if train_config['task_type'] == 'imageclassification':
+        print('Starting image classification')
+        accuracy, classes, model_path, acc_plot_path, remove_paths = train_img_classification(train_config)
         metadata = {'classes': classes}
     else:
-        print('Starting sentiment analysis')
-        accuracy, model_path, metadata_path, acc_plot_path, remove_paths = train_sa(train_config)
+        print('Starting text classification')
+        accuracy, model_path, metadata_path, acc_plot_path, remove_paths = train_text_classification(train_config)
         metadata = {'metadata_filename': metadata_path}
 
     # Deploy model

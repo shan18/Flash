@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 
-class ClassificationDataPreview extends React.Component {
+class ICDataPreview extends React.Component {
   renderCard(imgUrl, imgId) {
     return (
       <Col className="mb-3" key={imgId}>
@@ -37,9 +37,9 @@ class ClassificationDataPreview extends React.Component {
 }
 
 const mapStateToProps = ({
-  classification: { currentClass, datasetPreview },
+  imageClassification: { currentClass, datasetPreview },
 }) => {
   return { imgList: datasetPreview[currentClass] };
 };
 
-export default connect(mapStateToProps)(ClassificationDataPreview);
+export default connect(mapStateToProps)(ICDataPreview);

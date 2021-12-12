@@ -14,7 +14,7 @@ def plot_accuracy_chart(model, target_path):
     }, 'Accuracy', target_path)
 
 
-def train_classification(config):
+def train_img_classification(config):
     # Define paths
     data_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),

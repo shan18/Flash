@@ -7,42 +7,38 @@ import { connect } from 'react-redux';
 import {
   clearTrainToken,
   setTrainConfig,
+  clearTrainConfig,
   submitTrainRequest,
   clearTrainData,
-  clearTrainConfig,
 } from '../../../actions';
 import history from '../../../history';
-import ClassificationCreate from './ClassificationCreate';
+import TCCreate from './TCCreate';
 import TrainingSubmitModal from '../TrainingSubmitModal';
 
-class Classification extends React.Component {
+class TextClassification extends React.Component {
   constructor(props) {
     super(props);
 
-    this.taskName = 'classification';
+    this.taskName = 'textClassification';
     this.formName = `${this.taskName}ConfigForm`;
 
     this.configOptions = {
-      modelTypes: ['MobileNet v2', 'ResNet34'],
-      modelFieldTitle: 'Model',
-      numClassesLimit: { min: 2, max: 10 },
-      numImagesLimit: { min: 10, max: 100 },
-      batchSizeLimit: { min: 1, max: 32 },
-      numEpochsLimit: { min: 1, max: 10 },
-      sizeLimit: 10000000, // In bytes (10 MB)
+      modelTypes: ['LSTM', 'GRU'],
+      modelFieldTitle: 'RNN Type',
+      numRows: 10000,
+      sizeLimit: 1000000, // In bytes (1 MB)
     };
 
     this.currentConfig = {
-      modelType: 'MobileNet v2',
+      modelType: 'LSTM',
       dataSplit: '70 : 30',
-      optimizer: 'sgd',
-      learningRate: 0.01,
+      optimizer: 'adam',
+      learningRate: 0.001,
       ...this.props.currentTrainConfig,
     };
   }
 
   onSubmit = values => {
-    // Send values to server
     this.props.submitTrainRequest({
       formName: this.formName,
       trainConfig: values,
@@ -86,7 +82,7 @@ class Classification extends React.Component {
     return (
       <>
         <Row>
-          <Col xs={9} md={4} className="mx-auto">
+          <Col xs={10} md={5} className="mx-auto">
             <Card className="mx-auto mt-4">
               <Card.Img
                 variant="top"
@@ -96,7 +92,7 @@ class Classification extends React.Component {
                 muted="muted"
               >
                 <source
-                  src={`${process.env.PUBLIC_URL}/assets/media/imageClassification.mp4`}
+                  src={`${process.env.PUBLIC_URL}/assets/media/textClassification.mp4`}
                   type="video/mp4"
                 />
               </Card.Img>
@@ -105,7 +101,7 @@ class Classification extends React.Component {
         </Row>
         <Row className="mt-5">
           <Col xs={6} className="mx-auto">
-            <ClassificationCreate
+            <TCCreate
               taskName={this.taskName}
               formName={this.formName}
               onSubmit={this.onSubmit}
@@ -125,7 +121,7 @@ const mapStateToProps = ({ serverConfig: { token } }) => {
 export default connect(mapStateToProps, {
   clearTrainToken,
   setTrainConfig,
+  clearTrainConfig,
   submitTrainRequest,
   clearTrainData,
-  clearTrainConfig,
-})(Classification);
+})(TextClassification);
