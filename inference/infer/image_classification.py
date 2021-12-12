@@ -31,6 +31,6 @@ def get_prediction(model, b64_image):
     return model(tensor).argmax().item()
 
 
-def classify(model, b64_image, classes):
+def classify_image(model, b64_image, classes):
     prediction = get_prediction(model, b64_image)
     return classes[prediction]

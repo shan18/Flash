@@ -1,7 +1,7 @@
 {
-  "classification-tinyimgnet-demo-dbasb": {
-    "task_type": "classification",
-    "model_filename": "classification/classification-tinyimgnet-demo-dbasb.pt",
+  "imageClassification-tinyimgnet-demo-dbasb": {
+    "task_type": "imageclassification",
+    "model_filename": "imageclassification/imageClassification-tinyimgnet-demo-dbasb.pt",
     "classes": [
       "birdhouse",
       "hourglass",
@@ -14,10 +14,10 @@
     "accuracy_plot": "/9j/4AAQSkZJRgABAQEAZABkAAD/...",
     "created": "10-01-21 18:13"
   },
-  "sentimentAnalysis-test-sa-demo-xjfsf": {
-    "task_type": "sentimentanalysis",
-    "model_filename": "sentimentanalysis/sentimentAnalysis-test-sa-demo-xjfsf.pt",
-    "metadata_filename": "sentimentanalysis/sentimentAnalysis-test-sa-demo-xjfsf_metadata.pkl",
+  "textClassification-test-sa-demo-xjfsf": {
+    "task_type": "textclassification",
+    "model_filename": "textclassification/textClassification-test-sa-demo-xjfsf.pt",
+    "metadata_filename": "textclassification/textClassification-test-sa-demo-xjfsf_metadata.pkl",
     "accuracy": 0.6666666865348816,
     "accuracy_plot": "/9j/4AAQSkZJRgABAQEAZABkAAD/2w...",
     "created": "10-01-21 19:22"

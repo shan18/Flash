@@ -16,8 +16,8 @@ This section will explain how the config files are initialized and setup for use
 - Create a S3 bucket
 - Inside the bucket, create the following folders
   - _training_
-  - _classification_
-  - _sentimentanalysis_
+  - _imageclassification_
+  - _textclassification_
 - Read through the sections below to setup each of the config file
   - _Location_ refers to the path of the file relative to the root of S3
   - _Initial Content_ refers to the content that should be stored inside the file before uploading to S3
@@ -28,7 +28,7 @@ The config file contains the following keys
 
 - **`status`**: Can be either `active` or `sleeping`. If the value is set to `active`, it means that the training server is currently busy and it won't accept any more training requests for the time being.
 - **`token`**: If the status is active then this key will hold the token of the user whose model is currently being trained on the server.
-- **`task_type`**: Can be either `classification` or `sentimentanalysis`. If the status is active then it will store the type of the task that is currently being trained on the server.
+- **`task_type`**: Can be either `imageclassification` or `textclassification`. If the status is active then it will store the type of the task that is currently being trained on the server.
 - **`dev_mode`**: Can be a _boolean_ value. If it is set to true then the platform will halt all operations. This key is set to true only when any maintainence work has to be done.
 
 [Click here](status.json) to check a sample preview of status.json
@@ -72,9 +72,9 @@ The config file contains the following keys
 
 At the top level, this config file contains the tokens of the models available for inference as keys. For each token, the file has the following set of keys
 
-- **`task_type`**: Can be either `classification` or `sentimentanalysis`. It determines the model type.
+- **`task_type`**: Can be either `imageclassification` or `textclassification`. It determines the model type.
 - **`model_filename`**: Path of the _.pt_ (trained model) file in the S3 bucket.
-- **`classes`** or **`metadata_filename`**: The name of this key depends upon the model type. If the model is an image classification model then the name will be `classes` else if the model belongs to sentiment analysis then the name will be `metadata_filename`
+- **`classes`** or **`metadata_filename`**: The name of this key depends upon the model type. If the model is an image classification model then the name will be `classes` else if the model belongs to text classification then the name will be `metadata_filename`
 - **`accuracy`**: Represents the best accuracy of the model on validation dataset.
 - **`accuracy_plot`**: Stores the _base64_ string of the accuracy chart plot created during the training process.
 - **`created`**: Stores the date and time when the model was created and made available for inference.
@@ -96,7 +96,7 @@ At the top level, this config file contains the tokens of the models available f
 The config file contains the following keys
 
 - **`token`**: Token assigned to the user so that he can access the model after it has been deployed.
-- **`task_type`**: Can be either `classification` or `sentimentanalysis`. It determines the model type.
+- **`task_type`**: Can be either `imageclassification` or `textclassification`. It determines the model type.
 - **`num_classes`**: Total number of classes present in the dataset.
 - **`optimizer`**: Optimizer for training.
 - **`learning_rate`**: Learning rate for the optimizer.

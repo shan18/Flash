@@ -1,6 +1,6 @@
 {
   "status": "sleeping",
   "token": "lkfb84kj",
-  "task_type": "classification",
+  "task_type": "imageclassification",
   "dev_mode": false
 }

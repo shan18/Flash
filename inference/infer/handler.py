@@ -3,10 +3,10 @@ try:
 except ImportError:
     pass
 
-from s3 import fetch_inference_json, fetch_classification_model, fetch_sa_data
+from s3 import fetch_inference_json, fetch_image_classification_model, fetch_text_classification_data
 from utils import fetch_post_data, create_response
-from classification import classify
-from sentiment_analysis import get_sentiment
+from image_classification import classify_image
+from text_classification import classify_text
 
 
 def inference(event, context):
@@ -26,15 +26,15 @@ def inference(event, context):
 
         # Make predictions
         task_config = infer_config[data['token']]
-        if task_config['task_type'] == 'classification':
-            model = fetch_classification_model(task_config['model_filename'])
-            output = classify(model, data['input'], task_config['classes'])
+        if task_config['task_type'] == 'imageclassification':
+            model = fetch_image_classification_model(task_config['model_filename'])
+            output = classify_image(model, data['input'], task_config['classes'])
         else:
-            model_path, model_metadata_path = fetch_sa_data(
+            model_path, model_metadata_path = fetch_text_classification_data(
                 task_config['model_filename'],
                 task_config['metadata_filename'],
             )
-            output = get_sentiment(
+            output = classify_text(
                 data['input'], model_path, model_metadata_path
             )
 
