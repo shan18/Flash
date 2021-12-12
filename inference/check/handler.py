@@ -31,6 +31,7 @@ def check(event, context):
         task_config = infer_config[data['token']]
         return create_response({
             'result': 'success',
+            'downloadable': task_config['downloadable'],
             'taskType': task_config['task_type'],
             'accuracy': task_config['accuracy'],
             'accuracyPlot': task_config['accuracy_plot'],

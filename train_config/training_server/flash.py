@@ -52,11 +52,11 @@ def main():
     if train_config['task_type'] == 'imageclassification':
         print('Starting image classification')
         accuracy, classes, model_path, acc_plot_path, remove_paths = train_img_classification(train_config)
-        metadata = {'classes': classes}
+        metadata = {'classes': classes, 'downloadable': True}
     else:
         print('Starting text classification')
         accuracy, model_path, metadata_path, acc_plot_path, remove_paths = train_text_classification(train_config)
-        metadata = {'metadata_filename': metadata_path}
+        metadata = {'metadata_filename': metadata_path, 'downloadable': False}
 
     # Deploy model
     print('Deploying model')
