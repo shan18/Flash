@@ -187,11 +187,11 @@ export const renderSwitchInputGroup = ({
           {...input}
           type="checkbox"
           className="custom-control-input"
-          id="custom-switch-input"
+          id={`custom-switch-input-${label.split(' ')[0]}`}
         />
         <Form.Label
           className="custom-control-label"
-          htmlFor="custom-switch-input"
+          htmlFor={`custom-switch-input-${label.split(' ')[0]}`}
         >
           {label}
         </Form.Label>

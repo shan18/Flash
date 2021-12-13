@@ -31,6 +31,10 @@ class Training extends React.Component {
         patience: { min: 1, max: 20 },
         minLr: 1e-5,
       },
+      stepLrLimit: {
+        stepSize: { min: 1, max: 10 },
+        gamma: { min: 0.01, max: 0.9 },
+      },
     };
 
     this.currentTrainConfig = {
@@ -38,6 +42,8 @@ class Training extends React.Component {
       reduceLrOnPlateauPatience: 5,
       reduceLrOnPlateauFactor: 0.1,
       reduceLrOnPlateauMinLr: 1e-5,
+      stepLrStepSize: 4,
+      stepLrGamma: 0.1,
     };
 
     this.state = {
