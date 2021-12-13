@@ -34,8 +34,7 @@ def configure_training_params(config, model, checkpoint_path):
             step_lr(
                 optimizer,
                 step_size=step_lr_config['step_size'],
-                gamma=step_lr_config['gamma'],
-                last_epoch=step_lr_config['last_epoch'],
+                gamma=step_lr_config['gamma']
             )
         ]
 
