@@ -30,7 +30,7 @@ def download(event, context):
                 'result': 'error',
                 'message': 'This model cannot be downloaded.'
             })
-        
+
         if download_config['format'].lower() == 'pytorch':
             return create_response({
                 'result': 'success',
@@ -39,9 +39,9 @@ def download(event, context):
         elif download_config['format'].lower() == 'onnx':
             return create_response({
                 'result': 'success',
-                'url': 'will have s3 onnx url'
+                'url': fetch_url(task_config['model_filename_onnx'])
             })
-        
+
         return create_response({
             'result': 'error',
             'message': 'Invalid model format given.'
