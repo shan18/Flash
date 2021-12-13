@@ -12,3 +12,6 @@ sample_config/
 .env
 .prettierignore
 *.mp4
+*.pt
+*.pth
+*.onnx

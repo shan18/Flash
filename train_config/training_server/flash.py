@@ -30,7 +30,7 @@ def setup_inference(token, task_type, accuracy, model_path, acc_plot_path, metad
     if model_path_onnx is not None:
         s3_model_path_onnx = os.path.join(task_type, os.path.basename(model_path_onnx))
         upload_file(model_path_onnx, s3_model_path_onnx)
-        metadata['model_path_onnx'] = s3_model_path_onnx
+        metadata['model_filename_onnx'] = s3_model_path_onnx
 
     if task_type == 'textclassification':
         s3_meta_path = os.path.join(task_type, os.path.basename(metadata['metadata_filename']))

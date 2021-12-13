@@ -2,6 +2,7 @@
   "imageClassification-tinyimgnet-demo-dbasb": {
     "task_type": "imageclassification",
     "model_filename": "imageclassification/imageClassification-tinyimgnet-demo-dbasb.pt",
+    "model_filename_onnx": "imageclassification/imageClassification-tinyimgnet-demo-dbasb.onnx",
     "classes": [
       "birdhouse",
       "hourglass",
