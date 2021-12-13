@@ -11,7 +11,7 @@ from utils import create_response
 
 # Files to be excluded from cleanup
 WHITELIST_TOKENS = [
-    'imageClassification-tinyimgnet-demo-dbasb',
+    'imageClassification-tinyimgnet-demo-a0uac',
     'textClassification-test-sa-demo-xjfsf'
 ]
 
@@ -43,6 +43,8 @@ def clean(event, context):
                     safe_objects[token] = infer_vals
                 else:  # Delete objects
                     delete_object(infer_vals['model_filename'])
+                    if infer_vals['task_type'] == 'imageclassification':
+                        delete_object(infer_vals['model_filename_onnx'])
                     if infer_vals['task_type'] == 'textclassification':
                         delete_object(infer_vals['metadata_filename'])
                     print('Deleted:', token)
