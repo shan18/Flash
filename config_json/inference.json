@@ -11,6 +11,7 @@
       "seashore",
       "stopwatch"
     ],
+    "downloadable": true,
     "accuracy": 96.67,
     "accuracy_plot": "/9j/4AAQSkZJRgABAQEAZABkAAD/...",
     "created": "10-01-21 18:13"
@@ -19,6 +20,7 @@
     "task_type": "textclassification",
     "model_filename": "textclassification/textClassification-test-sa-demo-xjfsf.pt",
     "metadata_filename": "textclassification/textClassification-test-sa-demo-xjfsf_metadata.pkl",
+    "downloadable": false,
     "accuracy": 0.6666666865348816,
     "accuracy_plot": "/9j/4AAQSkZJRgABAQEAZABkAAD/2w...",
     "created": "10-01-21 19:22"

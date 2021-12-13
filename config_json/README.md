@@ -76,6 +76,7 @@ At the top level, this config file contains the tokens of the models available f
 - **`model_filename`**: Path of the _.pt_ (trained model) file in the S3 bucket.
 - **`model_filename_onnx`**: Path of the _.onnx_ (trained model) file in the S3 bucket.
 - **`classes`** or **`metadata_filename`**: The name of this key depends upon the model type. If the model is an image classification model then the name will be `classes` else if the model belongs to text classification then the name will be `metadata_filename`
+- **`downloadable`**: Shows whether the model weights can be downloaded.
 - **`accuracy`**: Represents the best accuracy of the model on validation dataset.
 - **`accuracy_plot`**: Stores the _base64_ string of the accuracy chart plot created during the training process.
 - **`created`**: Stores the date and time when the model was created and made available for inference.
