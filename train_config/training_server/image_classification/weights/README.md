@@ -1,0 +1,1 @@
+This directory contains the weights for Resnet18, Resnet34 and MobileNet V2 trained on CIFAR100 dataset.

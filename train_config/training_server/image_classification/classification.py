@@ -43,7 +43,7 @@ def train_img_classification(config):
     )
 
     # Create model
-    model = configure_model(config['model'], config['num_classes'], device)
+    model = configure_model(config['pretrain_dataset'], config['model'], config['num_classes'], device)
 
     # Train model
     model = fit_model(config, model, train_loader, val_loader, device, checkpoint_path)
