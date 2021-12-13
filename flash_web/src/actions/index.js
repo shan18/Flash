@@ -35,6 +35,7 @@ import {
   INFERENCE_DOWNLOAD_CLEAR_ONNX,
   INFERENCE_PREDICTION_CLEAR,
   INFERENCE_CLEAR,
+  PLAYGROUND_SUBMIT,
 } from './types';
 import {
   networkTransaction,
@@ -42,6 +43,8 @@ import {
   toastError,
   checkResponse,
   correctTaskTypeCase,
+  baseNetworkTransaction,
+  dataURLtoFile,
 } from './utils';
 
 export const setNavLinks = navLinks => {
@@ -332,5 +335,35 @@ export const setInferenceDownloadUrl =
             : INFERENCE_DOWNLOAD_SET_ONNX,
         payload: { downloadUrl: response.data.url },
       });
+    }
+  };
+
+export const submitPlaygroundForm =
+  ({ url, formName, formData }) =>
+  async dispatch => {
+    if (formName) {
+      dispatch(loadingForm(formName));
+    }
+
+    // Processing the last url in list to display in webpage
+    let response = await baseNetworkTransaction({
+      url: url,
+      formData,
+      requestType: 'post',
+    });
+
+    // If response is null then this will avoid throwing error
+    let responseData = response;
+    if (response) {
+      responseData = response.data;
+    }
+
+    dispatch({
+      type: PLAYGROUND_SUBMIT,
+      payload: { name: formName, data: responseData },
+    });
+
+    if (formName) {
+      dispatch(clearLoadingForm(formName));
     }
   };

@@ -10,6 +10,7 @@ import imageClassificationReducer from './imageClassificationReducer';
 import textClassificationReducer from './textClassificationReducer';
 import serverConfigReducer from './serverConfigReducer';
 import inferenceReducer from './inferenceReducer';
+import playgroundReducer from './playgroundReducer';
 
 export default combineReducers({
   form: formReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
   textClassification: textClassificationReducer,
   serverConfig: serverConfigReducer,
   inference: inferenceReducer,
+  play: playgroundReducer,
 });

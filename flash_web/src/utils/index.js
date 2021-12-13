@@ -201,6 +201,31 @@ export const renderSwitchInputGroup = ({
   );
 };
 
+export const renderFileField = ({
+  input,
+  label,
+  required,
+  formGroupClassName,
+  meta,
+}) => {
+  const errorClassName = `${
+    required && meta.touched && meta.error ? 'is-invalid' : ''
+  }`;
+  return (
+    <Form.Group className={formGroupClassName}>
+      <Form.Label>{label}</Form.Label>
+      <InputGroup className={errorClassName}>
+        <input
+          {..._.omit(input, 'value')}
+          type="file"
+          className="form-control-file"
+        />
+      </InputGroup>
+      {renderError(meta)}
+    </Form.Group>
+  );
+};
+
 export const renderFormField = ({
   input,
   contentType,
@@ -214,6 +239,7 @@ export const renderFormField = ({
   enableAppendSumbit,
   isFixed: readOnly,
   formGroupClassName,
+  required,
   meta,
 }) => {
   if (contentType === 'text') {
@@ -249,6 +275,14 @@ export const renderFormField = ({
     return renderSwitchInputGroup({
       input,
       label,
+      formGroupClassName,
+      meta,
+    });
+  } else if (contentType === 'fileField') {
+    return renderFileField({
+      input,
+      label,
+      required,
       formGroupClassName,
       meta,
     });

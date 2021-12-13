@@ -14,6 +14,7 @@ class NavigationBar extends React.Component {
     this.navItems = [
       { name: 'Training', id: 'training' },
       { name: 'Inference', id: 'inference' },
+      { name: 'Playground', id: 'playground' },
       { name: 'About', id: 'about' },
     ];
 

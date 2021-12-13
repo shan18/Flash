@@ -9,6 +9,8 @@ import NavigationBar from './NavigationBar';
 import Footer from './Footer';
 import Training from './train/Training';
 import Inference from './infer/Inference';
+import Playground from './play/Playground';
+import HumanPoseEstimation from './play/HumanPoseEstimation';
 import About from './About';
 import { setMobile } from '../actions';
 
@@ -46,6 +48,12 @@ class App extends React.Component {
               <Route path="/" exact component={Home} />
               <Route path="/training" exact component={Training} />
               <Route path="/inference" exact component={Inference} />
+              <Route path="/playground" exact component={Playground} />
+              <Route
+                path="/playground/humanposeestimation"
+                exact
+                component={HumanPoseEstimation}
+              />
               <Route path="/about" exact component={About} />
             </Switch>
           </div>
