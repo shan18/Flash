@@ -4,17 +4,42 @@ import torch.nn as nn
 from .tensornet.models import resnet18, resnet34, mobilenet_v2
 
 
-def configure_model(model_type, num_classes, device):
+def configure_model(pretrain_dataset, model_type, num_classes, device):
     # Create model
-    if model_type == 'resnet34':
-        model = resnet34(pretrained=True)
-        model.fc = nn.Linear(model.fc.in_features, num_classes)
-    elif model_type == 'resnet18':
-        model = resnet18(pretrained=True)
-        model.fc = nn.Linear(model.fc.in_features, num_classes)
-    else:
-        model = mobilenet_v2(pretrained=True)
-        model.classifier[1] = nn.Linear(1280, num_classes)
+    if pretrain_dataset == 'scratch':
+        if model_type == 'resnet34':
+            model = resnet34()
+            model.fc = nn.Linear(model.fc.in_features, num_classes)
+        elif model_type == 'resnet18':
+            model = resnet18()
+            model.fc = nn.Linear(model.fc.in_features, num_classes)
+        else:
+            model = mobilenet_v2()
+            model.classifier[1] = nn.Linear(1280, num_classes)
+    elif pretrain_dataset == 'cifar100':
+        if model_type == 'resnet34':
+            model = resnet34()
+            model.load_state_dict(torch.load('weights/resnet34_128.pt'))
+            model.fc = nn.Linear(model.fc.in_features, num_classes)
+        elif model_type == 'resnet18':
+            model = resnet18()
+            model.load_state_dict(torch.load('weights/resnet18_128.pt'))
+            model.fc = nn.Linear(model.fc.in_features, num_classes)
+        else:
+            model = mobilenet_v2()
+            model.load_state_dict(torch.load('weights/mobilenetv2_128_n.pt'))
+            model.fc = nn.Linear(1280, num_classes)
+    elif pretrain_dataset == 'imagenet':
+        if model_type == 'resnet34':
+            model = resnet34(pretrained=True)
+            model.fc = nn.Linear(model.fc.in_features, num_classes)
+        elif model_type == 'resnet18':
+            model = resnet18(pretrained=True)
+            model.fc = nn.Linear(model.fc.in_features, num_classes)
+        else:
+            model = mobilenet_v2(pretrained=True)
+            model.classifier[1] = nn.Linear(1280, num_classes)
+
 
     # Move model to device
     model = model.to(device)
