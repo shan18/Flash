@@ -262,9 +262,13 @@ export const renderSubmitButton = ({
   loadingText,
   onClick,
   btnColor,
+  size,
   type,
   ref,
 }) => {
+  if (!size) {
+    size = '';
+  }
   if (!type) {
     type = 'submit';
   }
@@ -273,7 +277,7 @@ export const renderSubmitButton = ({
   }
   if (loading) {
     return (
-      <Button variant={btnColor} type={type} ref={ref} disabled>
+      <Button variant={btnColor} type={type} ref={ref} size={size} disabled>
         <Spinner
           as="span"
           animation="border"
@@ -286,7 +290,13 @@ export const renderSubmitButton = ({
     );
   } else {
     return (
-      <Button variant={btnColor} type={type} ref={ref} onClick={onClick}>
+      <Button
+        variant={btnColor}
+        type={type}
+        ref={ref}
+        size={size}
+        onClick={onClick}
+      >
         {originalText}
       </Button>
     );

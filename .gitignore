@@ -12,3 +12,4 @@ sample_config/
 .env
 .prettierignore
 media/flash_demo.mp4
+.DS_Store

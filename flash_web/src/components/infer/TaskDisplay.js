@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 
+import DownloadForm from './DownloadForm';
 import InferenceForm from './InferenceForm';
 
 class TaskDisplay extends React.Component {
@@ -109,7 +110,7 @@ class TaskDisplay extends React.Component {
   render() {
     return (
       <>
-        <Row className="mb-5">
+        <Row className={`mb-${this.props.isDownloadable ? '3' : '5'}`}>
           <Col xs={12}>
             <h4 className="text-center">
               {this.props.taskType === 'imageClassification'
@@ -118,6 +119,7 @@ class TaskDisplay extends React.Component {
             </h4>
           </Col>
         </Row>
+        {this.props.isDownloadable ? <DownloadForm /> : ''}
         <Row className="mb-5">
           <Col
             xs={12}
@@ -146,9 +148,16 @@ class TaskDisplay extends React.Component {
 
 const mapStateToProps = ({
   isMobile,
-  inference: { taskType, prediction, accuracy, accuracyPlot },
+  inference: { taskType, prediction, isDownloadable, accuracy, accuracyPlot },
 }) => {
-  return { isMobile, taskType, prediction, accuracy, accuracyPlot };
+  return {
+    isMobile,
+    taskType,
+    prediction,
+    isDownloadable,
+    accuracy,
+    accuracyPlot,
+  };
 };
 
 export default connect(mapStateToProps)(TaskDisplay);
