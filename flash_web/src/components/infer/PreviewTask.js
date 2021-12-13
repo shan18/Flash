@@ -36,7 +36,7 @@ const PreviewTask = () => {
         <Col xs={11} className="mx-auto">
           <h5>
             <b>Token:</b>&nbsp;&nbsp;&nbsp;
-            imageClassification-tinyimgnet-demo-dbasb
+            imageClassification-tinyimgnet-demo-a0uac
           </h5>
         </Col>
       </Row>
