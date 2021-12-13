@@ -19,15 +19,15 @@ def configure_model(pretrain_dataset, model_type, num_classes, device):
     elif pretrain_dataset == 'cifar100':
         if model_type == 'resnet34':
             model = resnet34()
-            model.load_state_dict(torch.load('weights/resnet34_128.pt'))
+            model.load_state_dict(torch.load('weights/resnet34_flash.pt'))
             model.fc = nn.Linear(model.fc.in_features, num_classes)
         elif model_type == 'resnet18':
             model = resnet18()
-            model.load_state_dict(torch.load('weights/resnet18_128.pt'))
+            model.load_state_dict(torch.load('weights/resnet18_flash.pt'))
             model.fc = nn.Linear(model.fc.in_features, num_classes)
         else:
             model = mobilenet_v2()
-            model.load_state_dict(torch.load('weights/mobilenetv2_128_n.pt'))
+            model.load_state_dict(torch.load('weights/mobilenetv2_flash.pt'))
             model.fc = nn.Linear(1280, num_classes)
     elif pretrain_dataset == 'imagenet':
         if model_type == 'resnet34':
