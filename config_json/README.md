@@ -111,6 +111,9 @@ The config file contains the following keys
   - **`factor`**: Factor at which the learning rate will be reduced.
   - **`patience`**: How many epochs to wait for before reducing the learning rate.
   - **`min_lr`**: Minimum value to which the learning rate can be reduced.
+- **`step_lr`**: Whether to add step LR scheduler to the training process
+  - **`step_size`**: Frequency in epochs for changing the learning rate.
+  - **`gamma`**: Factor at which the learning rate will be reduced.
 
 [Click here](training.json) to check a sample preview of training.json
 

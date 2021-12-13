@@ -23,7 +23,7 @@ class ImageClassification extends React.Component {
     this.formName = `${this.taskName}ConfigForm`;
 
     this.configOptions = {
-      modelTypes: ['MobileNet v2', 'ResNet34'],
+      modelTypes: ['ResNet18', 'ResNet34', 'MobileNet v2'],
       modelFieldTitle: 'Model',
       numClassesLimit: { min: 2, max: 10 },
       numImagesLimit: { min: 10, max: 100 },
@@ -33,7 +33,7 @@ class ImageClassification extends React.Component {
     };
 
     this.currentConfig = {
-      modelType: 'MobileNet v2',
+      modelType: 'ResNet18',
       dataSplit: '70 : 30',
       optimizer: 'sgd',
       learningRate: 0.01,

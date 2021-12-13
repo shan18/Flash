@@ -57,6 +57,10 @@ def create_training_json(token, data):
             'patience': int(data['reduceLrOnPlateauPatience']),
             'min_lr': float(data['reduceLrOnPlateauMinLr']),
         } if data['reduceLrOnPlateau'] else False,
+        'step_lr': {
+            'step_size': int(data['stepLrStepSize']),
+            'gamma': float(data['stepLrGamma']),
+        } if data['stepLr'] else False,
     }
 
     # Upload data to S3
