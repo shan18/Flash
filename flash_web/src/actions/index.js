@@ -44,7 +44,6 @@ import {
   checkResponse,
   correctTaskTypeCase,
   baseNetworkTransaction,
-  dataURLtoFile,
 } from './utils';
 
 export const setNavLinks = navLinks => {

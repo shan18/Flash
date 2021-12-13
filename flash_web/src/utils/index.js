@@ -135,7 +135,7 @@ export const renderDropdownInputGroup = ({
             if (key !== 'default') {
               return (
                 <option key={key} value={key}>
-                  {value}
+                  {typeof value === 'string' ? value : value[0]}
                 </option>
               );
             }

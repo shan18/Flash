@@ -11,6 +11,7 @@ import Training from './train/Training';
 import Inference from './infer/Inference';
 import Playground from './play/Playground';
 import HumanPoseEstimation from './play/HumanPoseEstimation';
+import StyleTransfer from './play/StyleTransfer';
 import About from './About';
 import { setMobile } from '../actions';
 
@@ -53,6 +54,11 @@ class App extends React.Component {
                 path="/playground/humanposeestimation"
                 exact
                 component={HumanPoseEstimation}
+              />
+              <Route
+                path="/playground/styletransfer"
+                exact
+                component={StyleTransfer}
               />
               <Route path="/about" exact component={About} />
             </Switch>

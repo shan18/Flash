@@ -42,6 +42,7 @@ class Training extends React.Component {
       reduceLrOnPlateauPatience: 5,
       reduceLrOnPlateauFactor: 0.1,
       reduceLrOnPlateauMinLr: 1e-5,
+      stepLr: false,
       stepLrStepSize: 4,
       stepLrGamma: 0.1,
     };

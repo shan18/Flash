@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   data: null,
 };
 
-export default (state = INITIAL_STATE, action) => {
+const playgroundReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case PLAYGROUND_SUBMIT:
       return { ...state, ...action.payload };
@@ -13,3 +13,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default playgroundReducer;
