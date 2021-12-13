@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 
@@ -17,17 +18,18 @@ def configure_model(pretrain_dataset, model_type, num_classes, device):
             model = mobilenet_v2()
             model.classifier[1] = nn.Linear(1280, num_classes)
     elif pretrain_dataset == 'cifar100':
+        weights_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'weights')
         if model_type == 'resnet34':
             model = resnet34()
-            model.load_state_dict(torch.load('weights/resnet34_flash.pt'))
+            model.load_state_dict(torch.load(os.path.join(weights_dir, 'resnet34_flash.pt')))
             model.fc = nn.Linear(model.fc.in_features, num_classes)
         elif model_type == 'resnet18':
             model = resnet18()
-            model.load_state_dict(torch.load('weights/resnet18_flash.pt'))
+            model.load_state_dict(torch.load(os.path.join(weights_dir, 'resnet18_flash.pt')))
             model.fc = nn.Linear(model.fc.in_features, num_classes)
         else:
             model = mobilenet_v2()
-            model.load_state_dict(torch.load('weights/mobilenetv2_flash.pt'))
+            model.load_state_dict(torch.load(os.path.join(weights_dir, 'mobilenetv2_flash.pt')))
             model.fc = nn.Linear(1280, num_classes)
     elif pretrain_dataset == 'imagenet':
         if model_type == 'resnet34':

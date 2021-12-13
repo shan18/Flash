@@ -37,6 +37,9 @@ def split_data(raw_data_dir, target_dir, split_value):
     """Split data into train and test set."""
 
     # Create dirs
+    if os.path.exists(target_dir):
+        shutil.rmtree(target_dir)
+
     os.makedirs(target_dir)
     os.makedirs(os.path.join(target_dir, 'train'))
     os.makedirs(os.path.join(target_dir, 'test'))
@@ -67,6 +70,8 @@ def split_data(raw_data_dir, target_dir, split_value):
 def create_dataset(dataset_files, data_split, target_dir):
     # Create directory for raw dataset
     raw_data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.raw_data')
+    if os.path.exists(raw_data_dir):
+        shutil.rmtree(raw_data_dir)
     os.makedirs(raw_data_dir)
 
     # Parse split value
