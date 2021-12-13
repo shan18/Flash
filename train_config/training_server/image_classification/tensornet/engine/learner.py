@@ -75,7 +75,9 @@ class Learner:
             callbacks (list): List of callbacks.
         """
         for callback in callbacks:
-            if isinstance(callback, torch.optim.lr_scheduler.ReduceLROnPlateau):
+            if isinstance(callback, torch.optim.lr_scheduler.StepLR):
+                self.lr_schedulers['step_lr'] = callback
+            elif isinstance(callback, torch.optim.lr_scheduler.ReduceLROnPlateau):
                 self.lr_schedulers['lr_plateau'] = callback
             elif isinstance(callback, ModelCheckpoint):
                 if callback.monitor.startswith('train_'):
@@ -394,6 +396,10 @@ class Learner:
 
             # Save model checkpoint
             self.save_checkpoint(epoch)
+
+            # Call Step LR
+            if not self.lr_schedulers['step_lr'] is None:
+                self.lr_schedulers['step_lr'].step()
 
             # Call Reduce LR on Plateau
             if not self.lr_schedulers['lr_plateau'] is None:

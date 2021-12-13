@@ -1,4 +1,17 @@
-from torch.optim.lr_scheduler import ReduceLROnPlateau
+from torch.optim.lr_scheduler import StepLR, ReduceLROnPlateau
+
+def step_lr(optimizer, step_size, gamma=0.1, last_epoch=-1):
+    """Create LR step scheduler.
+    Args:
+        optimizer (torch.optim): Model optimizer.
+        step_size (int): Frequency for changing learning rate.
+        gamma (:obj:`float`, optional): Factor for changing learning rate. (default: 0.1)
+        last_epoch (:obj:`int`, optional): The index of last epoch. (default: -1)
+    Returns:
+        StepLR: Learning rate scheduler.
+    """
+
+    return StepLR(optimizer, step_size=step_size, gamma=gamma, last_epoch=last_epoch)
 
 
 def reduce_lr_on_plateau(optimizer, factor=0.1, patience=10, verbose=False, min_lr=0):

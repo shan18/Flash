@@ -1,7 +1,7 @@
 from .tensornet.models.loss import cross_entropy_loss
 from .tensornet.models.optimizer import sgd, adam
 from .tensornet.engine.ops import ModelCheckpoint
-from .tensornet.engine.ops.lr_scheduler import reduce_lr_on_plateau
+from .tensornet.engine.ops.lr_scheduler import reduce_lr_on_plateau, step_lr, one_cycle_lr, cyclic_lr
 
 
 def configure_training_params(config, model, checkpoint_path):
@@ -26,6 +26,16 @@ def configure_training_params(config, model, checkpoint_path):
                 factor=reduce_lr_config['factor'],
                 patience=reduce_lr_config['patience'],
                 min_lr=reduce_lr_config['min_lr'],
+            )
+        ]
+    if config['step_lr']:
+        step_lr_config = config['step_lr']
+        callbacks += [
+            step_lr(
+                optimizer,
+                step_size=step_lr_config['step_size'],
+                gamma=step_lr_config['gamma'],
+                last_epoch=step_lr_config['last_epoch'],
             )
         ]
 
