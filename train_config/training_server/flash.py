@@ -52,7 +52,8 @@ def setup_inference(token, task_type, accuracy, model_path, acc_plot_path, metad
 def main():
     print('Fetching training configuration')
     train_config = fetch_json(TRAIN_CONFIG)
-
+    model_path_onnx = None
+    
     # Train model
     if train_config['task_type'] == 'imageclassification':
         print('Starting image classification')
@@ -72,7 +73,7 @@ def main():
         model_path_pt,
         acc_plot_path,
         metadata,
-        model_path_onnx=model_path_onnx if model_path_onnx else None
+        model_path_onnx=model_path_onnx
     )
 
     # Clear files
