@@ -70,6 +70,21 @@ class TrainingConfigForm extends React.Component {
             />
           </Col>
         </Row>
+        {this.props.configOptions.pretrainDatasets ? (
+          <Row className="mt-5">
+            <Col xs={12} md={6} className="mx-auto text-center">
+              <Field
+                name="pretrainDataset"
+                component={renderFormField}
+                contentType="dropdown"
+                label="Transfer Learning"
+                options={this.props.configOptions.pretrainDatasets}
+              />
+            </Col>
+          </Row>
+        ) : (
+          ''
+        )}
         <Row className="mt-5">
           <Col xs={12} md={6} className="mx-auto text-center">
             <h4 className="mb-2">Callbacks</h4>

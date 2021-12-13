@@ -25,6 +25,11 @@ class ImageClassification extends React.Component {
     this.configOptions = {
       modelTypes: ['ResNet18', 'ResNet34', 'MobileNet v2'],
       modelFieldTitle: 'Model',
+      pretrainDatasets: {
+        default: 'Select a dataset (Optional)...',
+        imagenet: 'ImageNet',
+        cifar100: 'CIFAR-100',
+      },
       numClassesLimit: { min: 2, max: 10 },
       numImagesLimit: { min: 10, max: 100 },
       batchSizeLimit: { min: 1, max: 32 },

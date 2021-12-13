@@ -52,6 +52,7 @@ def create_training_json(token, data):
         'data_split': data['dataSplit'],
         'dataset': data['dataset'],
         'model': data['modelType'].lower(),
+        'pretrain_dataset': data.get('pretrainDataset', 'scratch').lower(),
         'reduce_lr_on_plateau': {
             'factor': float(data['reduceLrOnPlateauFactor']),
             'patience': int(data['reduceLrOnPlateauPatience']),

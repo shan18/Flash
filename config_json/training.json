@@ -22,6 +22,7 @@
     ]
   },
   "model": "mobilenet v2",
+  "pretrain_dataset": "imagenet",
   "reduce_lr_on_plateau": {
     "factor": 0.1,
     "patience": 5,
