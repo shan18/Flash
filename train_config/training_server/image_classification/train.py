@@ -1,7 +1,7 @@
 from .tensornet.models.loss import cross_entropy_loss
 from .tensornet.models.optimizer import sgd, adam
 from .tensornet.engine.ops import ModelCheckpoint
-from .tensornet.engine.ops.lr_scheduler import reduce_lr_on_plateau, step_lr, one_cycle_lr, cyclic_lr
+from .tensornet.engine.ops.lr_scheduler import reduce_lr_on_plateau, step_lr
 
 
 def configure_training_params(config, model, checkpoint_path):
