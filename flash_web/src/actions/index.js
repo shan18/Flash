@@ -29,6 +29,10 @@ import {
   INFERENCE_CONFIG_SET,
   INFERENCE_CONFIG_CLEAR,
   INFERENCE_SUBMIT,
+  INFERENCE_DOWNLOAD_SET_PYTORCH,
+  INFERENCE_DOWNLOAD_CLEAR_PYTORCH,
+  INFERENCE_DOWNLOAD_SET_ONNX,
+  INFERENCE_DOWNLOAD_CLEAR_ONNX,
   INFERENCE_PREDICTION_CLEAR,
   INFERENCE_CLEAR,
 } from './types';
@@ -254,6 +258,7 @@ export const submitInferenceToken =
         payload: {
           token,
           taskType: correctTaskTypeCase(response.data.taskType),
+          isDownloadable: response.data.downloadable,
           accuracy: response.data.accuracy,
           accuracyPlot: response.data.accuracyPlot,
         },
@@ -293,5 +298,39 @@ export const submitInferenceData =
 
     if (formName) {
       dispatch(clearLoadingForm(formName));
+    }
+  };
+
+export const clearInferenceDownloadUrl = format => {
+  return {
+    type:
+      format === 'pytorch'
+        ? INFERENCE_DOWNLOAD_CLEAR_PYTORCH
+        : INFERENCE_DOWNLOAD_CLEAR_ONNX,
+  };
+};
+
+export const setInferenceDownloadUrl =
+  ({ token, format }) =>
+  async dispatch => {
+    // Encode data
+    const formData = new FormData();
+    formData.append('downloadConfig', JSON.stringify({ token, format }));
+
+    const response = await networkTransaction({
+      url: '/download',
+      formData,
+      requestType: 'post',
+      apiType: 'inference',
+    });
+
+    if (checkResponse(response)) {
+      dispatch({
+        type:
+          format === 'pytorch'
+            ? INFERENCE_DOWNLOAD_SET_PYTORCH
+            : INFERENCE_DOWNLOAD_SET_ONNX,
+        payload: { downloadUrl: response.data.url },
+      });
     }
   };

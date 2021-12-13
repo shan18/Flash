@@ -11,6 +11,8 @@ glove.6B.100d.txt
 sample_config/
 .env
 .prettierignore
+media/flash_demo.mp4
+.DS_Store
 *.mp4
 *.pt
 *.pth
