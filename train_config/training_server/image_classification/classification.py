@@ -3,7 +3,7 @@ import shutil
 
 from .tensornet.utils import initialize_cuda, plot_metric
 from .dataset import configure_dataset
-from .model import configure_model, save_model
+from .model import configure_model, save_model_pt, save_model_onnx
 from .train import fit_model
 
 
@@ -24,8 +24,11 @@ def train_img_classification(config):
         os.path.dirname(os.path.abspath(__file__)),
         'checkpoints'
     )
-    target_model_path = os.path.join(
+    target_model_path_pt = os.path.join(
         checkpoint_path, f'{config["token"]}.pt'
+    )
+    target_model_path_onnx = os.path.join(
+        checkpoint_path, f'{config["token"]}.onnx'
     )
     accuracy_plot_path = os.path.join(
         checkpoint_path, 'accuracy_plot.jpg'
@@ -45,8 +48,11 @@ def train_img_classification(config):
     # Train model
     model = fit_model(config, model, train_loader, val_loader, device, checkpoint_path)
 
-    # Save model
-    save_model(os.path.join(checkpoint_path, 'model.pt'), target_model_path)
+    # Save pt model
+    save_model_pt(os.path.join(checkpoint_path, 'model.pt'), target_model_path_pt)
+
+    # Save onnx model
+    save_model_onnx(os.path.join(checkpoint_path, 'model.pt'), target_model_path_onnx)
 
     # Plot accuracy graph
     plot_accuracy_chart(model, accuracy_plot_path)
@@ -57,7 +63,8 @@ def train_img_classification(config):
     return (
         model.learner.checkpoint.best,
         classes,
-        target_model_path,
+        target_model_path_pt,
+        target_model_path_onnx,
         accuracy_plot_path,
         [checkpoint_path]
     )
