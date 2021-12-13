@@ -19,7 +19,7 @@ def configure_model(model_type, num_classes, device):
     return model
 
 
-def save_model(src_path, target_path):
+def save_model_pt(src_path, target_path):
     # Load the model with the best validation accuracy
     model = torch.load(src_path)
 
@@ -27,3 +27,28 @@ def save_model(src_path, target_path):
     model_cpu = model.to('cpu')
     model_cpu = torch.jit.trace(model, torch.randn(1, 3, 224, 224))
     model_cpu.save(target_path)
+
+
+def save_model_onnx(src_path, target_path):
+    # Load the model with the best validation accuracy
+    model = torch.load(src_path)
+
+    # Save the model to CPU for deployment
+    model_cpu = model.to('cpu')
+    model_input = torch.randn(1, 3, 224, 224, requires_grad=True)
+
+    # Export the model
+    torch.onnx.export(
+        model_cpu,
+        model_input,
+        target_path,
+        export_params=True,
+        opset_version=10,
+        do_constant_folding=True,
+        input_names=['input'],
+        output_names=['output'],
+        dynamic_axes={
+            'input': {0: 'batch_size'},
+            'output': {0: 'batch_size'},
+        }
+    )
