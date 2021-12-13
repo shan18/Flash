@@ -15,7 +15,7 @@ This submodule contains the code used to train models on AWS EC2.
 1. Rename the `credentials-sample.yml` file to `credentials.yml` and fill out your bucket name in that file.
 2. Download the `glove.6B.zip` file from [this link](https://nlp.stanford.edu/projects/glove/) and extract the `glove.6B.100d.txt` file from the archive.
 3. Place the `glove.6B.100d.txt` file inside the [text_classification](text_classification/) directory.
-4. Download the weights pretrained on CIFAR100 from [here](https://drive.google.com/drive/folders/1YcDNNTohHinVxB40Hugwxe1_OyUougs8?usp=sharing) and put them in [this](image_classification/weights) directory.
+4. Download the weights pretrained on CIFAR100 from [here](https://drive.google.com/drive/folders/1YcDNNTohHinVxB40Hugwxe1_OyUougs8?usp=sharing) and put them in [image_classification/weights](image_classification/weights) directory.
 5. Upload the code in this directory to your EC2 instance (If you are using two EC2 instances like this project does, then copy this directory to both the instances).
 6. Update the server and install pip
 
