@@ -20,12 +20,17 @@ def image_to_base64(img_path):
     return b64_img
 
 
-def setup_inference(token, task_type, accuracy, model_path, acc_plot_path, metadata):
+def setup_inference(token, task_type, accuracy, model_path, acc_plot_path, metadata, model_path_onnx=None):
     inference_config = fetch_json(INFERENCE_CONFIG)
 
     # Upload model
     s3_model_path = os.path.join(task_type, os.path.basename(model_path))
     upload_file(model_path, s3_model_path)
+
+    if model_path_onnx is not None:
+        s3_model_path_onnx = os.path.join(task_type, os.path.basename(model_path_onnx))
+        upload_file(model_path_onnx, s3_model_path_onnx)
+        metadata['model_path_onnx'] = s3_model_path_onnx
 
     if task_type == 'textclassification':
         s3_meta_path = os.path.join(task_type, os.path.basename(metadata['metadata_filename']))
@@ -51,11 +56,11 @@ def main():
     # Train model
     if train_config['task_type'] == 'imageclassification':
         print('Starting image classification')
-        accuracy, classes, model_path, acc_plot_path, remove_paths = train_img_classification(train_config)
+        accuracy, classes, model_path_pt, model_path_onnx, acc_plot_path, remove_paths = train_img_classification(train_config)
         metadata = {'classes': classes}
     else:
         print('Starting text classification')
-        accuracy, model_path, metadata_path, acc_plot_path, remove_paths = train_text_classification(train_config)
+        accuracy, model_path_pt, metadata_path, acc_plot_path, remove_paths = train_text_classification(train_config)
         metadata = {'metadata_filename': metadata_path}
 
     # Deploy model
@@ -64,9 +69,10 @@ def main():
         train_config['token'],
         train_config['task_type'],
         accuracy,
-        model_path,
+        model_path_pt,
         acc_plot_path,
         metadata,
+        model_path_onnx=model_path_onnx if model_path_onnx else None
     )
 
     # Clear files
