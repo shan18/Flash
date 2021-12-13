@@ -1,13 +1,16 @@
 import torch
 import torch.nn as nn
 
-from .tensornet.models import resnet34, mobilenet_v2
+from .tensornet.models import resnet18, resnet34, mobilenet_v2
 
 
 def configure_model(model_type, num_classes, device):
     # Create model
     if model_type == 'resnet34':
         model = resnet34(pretrained=True)
+        model.fc = nn.Linear(model.fc.in_features, num_classes)
+    elif model_type == 'resnet18':
+        model = resnet18(pretrained=True)
         model.fc = nn.Linear(model.fc.in_features, num_classes)
     else:
         model = mobilenet_v2(pretrained=True)
