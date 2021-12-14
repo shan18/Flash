@@ -17,3 +17,10 @@ media/flash_demo.mp4
 *.pt
 *.pth
 *.onnx
+*.zip
+*.dat
+*.tgz
+*.tar
+*.pkl
+.prettierignore
+.env
