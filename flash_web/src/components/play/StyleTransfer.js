@@ -21,6 +21,7 @@ class StyleTransfer extends React.Component {
     this.formName = 'styletransfer';
     this.submitButtonRef = React.createRef();
     this.styleMap = {
+      default: 'Choose...',
       1: ['Candy', `${process.env.PUBLIC_URL}/assets/styles/candy.jpg`],
       2: [
         'Composition VII',
@@ -99,7 +100,7 @@ class StyleTransfer extends React.Component {
             <Card>
               <Card.Img
                 variant="top"
-                src={`data:image/jpeg;base64,${this.props.modelForm.data.data}`}
+                src={`data:image/jpeg;base64,${this.props.play.data.data}`}
                 alt="styled"
               />
               <Card.Body>
@@ -157,7 +158,7 @@ class StyleTransfer extends React.Component {
             <Card>
               <Card.Img
                 variant="top"
-                src={`data:image/jpeg;base64,${this.props.modelForm.data.data}`}
+                src={`data:image/jpeg;base64,${this.props.play.data.data}`}
                 alt="styled"
               />
               <Card.Body>
@@ -208,7 +209,7 @@ class StyleTransfer extends React.Component {
           </Col>
           <Col>
             <Row xs={1} md={3} lg={5}>
-              {_.map(this.styleMap, (value, key) => {
+              {_.map(_.omit(this.styleMap, 'default'), (value, key) => {
                 return (
                   <Col className="mb-4" key={key}>
                     <Card>
