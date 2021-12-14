@@ -36,6 +36,7 @@ import {
   INFERENCE_PREDICTION_CLEAR,
   INFERENCE_CLEAR,
   PLAYGROUND_SUBMIT,
+  PLAYGROUND_PREDICTION_CLEAR,
 } from './types';
 import {
   networkTransaction,
@@ -336,6 +337,10 @@ export const setInferenceDownloadUrl =
       });
     }
   };
+
+export const clearPlaygroundPrediction = () => {
+  return { type: PLAYGROUND_PREDICTION_CLEAR };
+};
 
 export const submitPlaygroundForm =
   ({ url, formName, formData }) =>

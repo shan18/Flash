@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
+import { clearPlaygroundPrediction } from '../../actions';
 import { renderFormField, renderSubmitButton } from '../../utils';
 
 class PlaygroundForm extends React.Component {
@@ -14,6 +15,7 @@ class PlaygroundForm extends React.Component {
   }
 
   onSubmit = formValues => {
+    this.props.clearPlaygroundPrediction();
     const formData = new FormData();
     let objectURL = {};
     let otherData = {};
@@ -90,6 +92,6 @@ const mapStateToProps = ({ loadingForm }) => {
   return { loadingForm };
 };
 
-export default connect(mapStateToProps)(
+export default connect(mapStateToProps, { clearPlaygroundPrediction })(
   reduxForm({ validate })(PlaygroundForm)
 );
