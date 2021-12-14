@@ -66,7 +66,7 @@ class Playground extends React.Component {
             );
           })}
         </Row>
-        <FloatinHelp target="training" />
+        <FloatinHelp target="playground" />
       </Container>
     );
   }
