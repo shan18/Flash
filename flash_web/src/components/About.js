@@ -14,6 +14,7 @@ class About extends React.Component {
 
     this.trainingSectionRef = React.createRef();
     this.inferenceSectionRef = React.createRef();
+    this.playgroundSectionRef = React.createRef();
 
     this.trainingSnapshots = [
       {
@@ -42,6 +43,21 @@ class About extends React.Component {
       {
         image: `${process.env.PUBLIC_URL}/assets/media/inference_page.png`,
         text: 'Inference page',
+      },
+    ];
+
+    this.playgroundSnapshots = [
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/playground_page.png`,
+        text: 'Playground page',
+      },
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/neural_style_transfer_page.png`,
+        text: 'Neural style transfer results',
+      },
+      {
+        image: `${process.env.PUBLIC_URL}/assets/media/human_pose_estimation_page.png`,
+        text: 'Human pose estimation results',
       },
     ];
   }
@@ -238,6 +254,30 @@ class About extends React.Component {
     );
   }
 
+  renderPlaygroundInfo() {
+    return (
+      <div ref={this.playgroundSectionRef}>
+        <h3 className="mb-3 mt-5">Playground</h3>
+        <p>
+          Don't have any models to train yet? Don't worry, we have trained some
+          fun models such as{' '}
+          <b>
+            <mark>Human Pose Estimation</mark>
+          </b>{' '}
+          and{' '}
+          <b>
+            <mark>Neural Style Transfer</mark>
+          </b>{' '}
+          for you to try out in the{' '}
+          <Link to="/playground">playground page</Link>. The models are already
+          trained and deployed so that you can directly perform inference on
+          them.
+        </p>
+        {this.renderSnapshots(this.playgroundSnapshots)}
+      </div>
+    );
+  }
+
   render() {
     return (
       <Container style={{ fontSize: '1.6vh' }}>
@@ -272,6 +312,7 @@ class About extends React.Component {
             </p>
             {this.renderTrainingInfo()}
             {this.renderInferenceInfo()}
+            {this.renderPlaygroundInfo()}
             <hr className="my-5" />
             <p>
               The source code of the project is hosted on GitHub. Please{' '}

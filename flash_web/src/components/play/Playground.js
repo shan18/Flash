@@ -38,7 +38,8 @@ class Playground extends React.Component {
           <Col xs={11} className="mx-auto text-center">
             <p style={{ fontSize: '1.7vh' }}>
               Don't have any models to train yet? Don't worry, we have trained
-              some fun models for you to try out.
+              some fun models for you to try out. The models are already trained
+              and deployed so that you can directly perform inference on them.
             </p>
           </Col>
         </Row>

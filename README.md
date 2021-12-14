@@ -52,6 +52,12 @@ After submitting the token, you'll get a form where you can upload inputs to che
 
 ![inference snapshots](media/inference_snapshots.png)
 
+### Playground
+
+Don't have any models to train yet? Don't worry, we have trained some fun models such as **Human Pose Estimation** and **Neural Style Transfer** for you to try out in the Playground page. The models are already trained and deployed so that you can directly perform inference on them.
+
+![playground snapshots](media/playground_snapshots.png)
+
 ## Behind the Scenes
 
 Flash uses React Js, AWS Lambda, AWS S3 and AWS EC2 to function properly. To know about how flash functions, read the following links in order
