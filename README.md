@@ -48,7 +48,7 @@ After you upload your configuration, the platform will assign you a unique **tok
 
 You can perform inference on a trained model by using the **token** provided to you after submitting the training configuration on the training page.
 
-After submitting the token, you'll get a form where you can upload inputs to check the performance of your trained model. The inference page also provides you with the **results of the training process** by showing you the **accuracy** of the model **on validation set** as well as the **change in accuracy** during training.
+After submitting the token, you'll get a form where you can upload inputs to check the performance of your trained model. The inference page also provides you with the **results of the training process** by showing you the **accuracy** of the model **on validation set** as well as the **change in accuracy** during training. You are also given the option to **download the trained model weights** either in PyTorch or ONNX format.
 
 ![inference snapshots](media/inference_snapshots.png)
 
@@ -65,6 +65,7 @@ Flash uses React Js, AWS Lambda, AWS S3 and AWS EC2 to function properly. To kno
 1. [Config JSON Files](config_json/README.md)
 2. [Training Models](train_config/README.md#How-it-works)
 3. [Performing Inference](inference/README.md#How-it-works)
+4. [Playground](playground/README.md#How-it-works)
 
 ## Setup Instructions
 
@@ -74,7 +75,8 @@ To setup Flash from scratch, read the following links in order
 2. [Setup config files](config_json/README.md#Setup-Instructions)
 3. [Training server setup](train_config/README.md#Setup-Instructions)
 4. [Setting up Infernce](inference/README.md#Setup-Instructions)
-5. [Frontend using React](flash_web/README.md#Setup-Instructions)
+5. [Playground Setup](playground/README.md)
+6. [Frontend using React](flash_web/README.md#Setup-Instructions)
 
 ## Contact/Getting Help
 

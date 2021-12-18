@@ -244,7 +244,16 @@ class About extends React.Component {
           <b>
             <mark>change in accuracy</mark>
           </b>{' '}
-          during training.
+          during training. You are also given the option to{' '}
+          <b>download the trained model weights</b> either in{' '}
+          <b>
+            <mark>PyTorch</mark>
+          </b>{' '}
+          or{' '}
+          <b>
+            <mark>ONNX</mark>
+          </b>{' '}
+          format.
         </p>
         <p>
           To test your model, <Link to="/inference">go here</Link>.
