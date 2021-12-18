@@ -1,7 +1,10 @@
+EasyDict
+opencv-python
+scipy
+pyyaml
+json_tricks
+scikit-image
+torch==1.5.1
+torchvision==0.6.1
 onnx==1.7.0
 onnxruntime==1.4.0
-numpy==1.18.5
-Pillow==7.2.0
-albumentations==0.4.5
-opencv-python-headless
-requests_toolbelt
