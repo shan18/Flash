@@ -2,7 +2,7 @@
 
 ![progress badge](https://img.shields.io/badge/task-success-green)
 
-Link to project: https://shan18.github.io/Flash
+Link to the platform: https://shan18.github.io/Flash
 
 Flash is an **end-to-end Deep Learning** platform that allows users to create, train, and deploy their own neural network models in a matter of minutes without writing a single line of code.
 
