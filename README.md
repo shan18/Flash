@@ -32,6 +32,10 @@ Classify sentences by training a **LSTM** or **GRU** based sequential model on y
   />
 </div>
 
+## Motivation
+
+As the applications of AI span across various domains, the demand for deep learning models have exponentially increased. The usage of the popular cloud services becomes quite tedious if a user quickly wants to just test out a simple model or do some quick feasibility analysis on a dataset. Thus, we created Flash, a web-based platform which allows users to quickly train and deploy their models on the cloud. The user just needs to have an idea about the hyperparameters they want, rest everything is handled by Flash.
+
 ## How It Works
 
 Using Flash is easy. With just a few clicks you can train and deploy your models automatically. You just have to select your model and upload the dataset, and you're good to go. **No code or experience required**.
