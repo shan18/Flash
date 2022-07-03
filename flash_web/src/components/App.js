@@ -13,6 +13,7 @@ import Playground from './play/Playground';
 import HumanPoseEstimation from './play/HumanPoseEstimation';
 import StyleTransfer from './play/StyleTransfer';
 import About from './About';
+import ServiceAlert from './ServiceAlert';
 import { setMobile } from '../actions';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -45,6 +46,7 @@ class App extends React.Component {
               style={{ width: '40%' }}
             />
             <NavigationBar />
+            <ServiceAlert />
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/training" exact component={Training} />
