@@ -24,3 +24,4 @@ media/flash_demo.mp4
 *.pkl
 .prettierignore
 .env
+backups/
