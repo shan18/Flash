@@ -24,7 +24,7 @@ In short, when you submit code changes, your submissions are understood to be un
 
 ## Report bugs using Github's [issues](https://github.com/shan18/Flash/issues)
 
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](); it's that easy!
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue); it's that easy!
 
 ## Write bug reports with detail, background, and sample code
 
