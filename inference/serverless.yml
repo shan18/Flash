@@ -88,6 +88,12 @@ functions:
           path: download
           method: post
           cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "s3:GetObject"
+        Resource:
+          - arn:aws:s3:::${self:custom.secrets.bucket}/*
   clean:
     handler: handler.clean
     module: clean
