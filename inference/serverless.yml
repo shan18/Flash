@@ -56,6 +56,12 @@ functions:
           path: check
           method: post
           cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "s3:GetObject"
+        Resource:
+          - arn:aws:s3:::${self:custom.secrets.bucket}/*
   inference:
     handler: handler.inference
     module: infer
@@ -66,6 +72,12 @@ functions:
           path: inference
           method: post
           cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "s3:GetObject"
+        Resource:
+          - arn:aws:s3:::${self:custom.secrets.bucket}/*
   download:
     handler: handler.download
     module: download
@@ -87,6 +99,14 @@ functions:
           method: get
           cors: true
       - schedule: rate(2 hours)
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "s3:GetObject"
+          - "s3:PutObject"
+          - "s3:DeleteObject"
+        Resource:
+          - arn:aws:s3:::${self:custom.secrets.bucket}/*
 
 plugins:
   - serverless-python-requirements
